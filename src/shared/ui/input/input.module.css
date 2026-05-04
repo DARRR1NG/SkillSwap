@@ -1,0 +1,164 @@
+.root {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--text-base);
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.label {
+  font-size: 18px;
+  line-height: 1.3;
+  text-align: left;
+}
+
+.control {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  color: var(--text-base);
+  background: var(--background-card-input);
+  border: 1px solid var(--toggle);
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.default {
+  border-color: var(--caption);
+}
+
+.search {
+  background: var(--background);
+  border-color: transparent;
+  color: var(--caption);
+}
+
+.md {
+  min-height: 48px;
+  border-radius: 8px;
+}
+
+.lg {
+  min-height: 56px;
+  border-radius: 12px;
+}
+
+.control:focus-within {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgb(171 210 122 / 28%);
+}
+
+.error {
+  border-color: var(--error);
+}
+
+.error:focus-within {
+  border-color: var(--error);
+  box-shadow: 0 0 0 3px rgb(191 57 32 / 16%);
+}
+
+.disabled {
+  color: var(--disabled-text);
+  background: var(--disabled);
+  cursor: not-allowed;
+}
+
+.input {
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  min-height: inherit;
+  box-sizing: border-box;
+  padding: 0 22px;
+  font: inherit;
+  font-size: 18px;
+  line-height: 1.3;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  outline: 0;
+}
+
+.input::placeholder {
+  color: var(--disabled-text);
+  opacity: 1;
+}
+
+.input:disabled {
+  cursor: not-allowed;
+}
+
+.withLeftIcon .input {
+  padding-left: 52px;
+}
+
+.withRightIcon .input {
+  padding-right: 52px;
+}
+
+.icon,
+.iconButton {
+  position: absolute;
+  top: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: currentcolor;
+  transform: translateY(-50%);
+}
+
+.icon {
+  pointer-events: none;
+}
+
+.withLeftIcon > .icon:first-child {
+  left: 16px;
+}
+
+.withRightIcon > .icon:last-child,
+.iconButton {
+  right: 16px;
+}
+
+.iconButton {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.iconButton:disabled {
+  cursor: not-allowed;
+}
+
+.iconButton:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 3px;
+  border-radius: 999px;
+}
+
+.iconSvg {
+  width: 100%;
+  height: 100%;
+}
+
+.message {
+  margin: -2px 0 0;
+  font-size: 14px;
+  line-height: 1.3;
+  color: var(--caption);
+  text-align: left;
+}
+
+.messageError {
+  color: var(--error);
+}
