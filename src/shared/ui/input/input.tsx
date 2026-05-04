@@ -32,6 +32,8 @@ const SearchIcon = () => (
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    focusable="false"
   >
     <path
       d="M11.5349 21.0698C6.27908 21.0698 2 16.7907 2 11.5349C2 6.27908 6.27908 2 11.5349 2C16.7907 2 21.0698 6.27908 21.0698 11.5349C21.0698 16.7907 16.7907 21.0698 11.5349 21.0698ZM11.5349 3.39535C7.04187 3.39535 3.39535 7.05118 3.39535 11.5349C3.39535 16.0186 7.04187 19.6745 11.5349 19.6745C16.0279 19.6745 19.6745 16.0186 19.6745 11.5349C19.6745 7.05118 16.0279 3.39535 11.5349 3.39535Z"
@@ -151,7 +153,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               <EyeIcon crossed={!isPasswordVisible} />
             </button>
           ) : (
-            rightIcon && <span className={s.icon}>{rightIcon}</span>
+            rightIcon && (
+              <span className={s.icon} aria-hidden="true">
+                {rightIcon}
+              </span>
+            )
           )}
         </div>
 
