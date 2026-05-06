@@ -84,11 +84,13 @@
   background: transparent;
   border: 0;
   outline: 0;
+  font-family: Roboto-Regular, sans-serif;
 }
 
 .input::placeholder {
   color: var(--disabled-text);
   opacity: 1;
+  font-family: Roboto-Regular, sans-serif;
 }
 
 .input:disabled {

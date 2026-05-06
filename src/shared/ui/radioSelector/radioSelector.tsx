@@ -1,5 +1,6 @@
 import type { FC } from 'react';
 import s from './radioSelector.module.css';
+import '../../lib/fonts/fonts.css';
 
 type radioButtonProps = {
   text: string;
