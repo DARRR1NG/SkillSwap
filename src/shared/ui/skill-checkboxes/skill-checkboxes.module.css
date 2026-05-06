@@ -11,7 +11,7 @@
 
 .title {
   margin: 0 0 20px;
-  font-family: Jost, system-ui, sans-serif;
+  font-family: Jost-Medium, system-ui, sans-serif;
   font-size: 20px;
   font-weight: 500;
   line-height: 24px;
@@ -48,7 +48,7 @@
   align-items: center;
   min-width: 0;
   min-height: 24px;
-  font-family: Roboto, system-ui, sans-serif;
+  font-family: Roboto-Regular, system-ui, sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
@@ -169,7 +169,7 @@
   gap: 4px;
   margin: 12px 0 0;
   padding: 0;
-  font-family: Roboto, system-ui, sans-serif;
+  font-family: Roboto-Regular, system-ui, sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;

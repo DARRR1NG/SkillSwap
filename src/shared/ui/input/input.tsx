@@ -8,6 +8,7 @@ import {
   useState,
 } from 'react';
 import s from './input.module.css';
+import '../../lib/fonts/fonts.css';
 
 type InputVariant = 'default' | 'search';
 type InputSize = 'md' | 'lg';

@@ -7,6 +7,7 @@
   color: #000;
   cursor: pointer;
   border: none;
+  font-family: Roboto-Regular, sans-serif;
 }
 
 .button_base:disabled {

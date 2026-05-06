@@ -1,6 +1,7 @@
 import type { FC, ReactNode, ButtonHTMLAttributes } from 'react';
 import s from './button.module.css';
 import clsx from 'clsx';
+import '../../lib/fonts/fonts.css';
 
 type ButtonProps = {
   children: ReactNode;
