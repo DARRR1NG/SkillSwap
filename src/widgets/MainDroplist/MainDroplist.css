@@ -1,0 +1,58 @@
+.main-droplist-container {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-trigger {
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  z-index: 100;
+  background-color: var(--background-card-input);
+  color: var(--text-base);
+  border: 1px solid var(--caption);
+  border-radius: 12px;
+  padding: 60px;
+  column-count: 2;
+  column-gap: 40px;
+}
+
+.category-block {
+  display: flex;
+  gap: 20px;
+  break-inside: avoid;
+  margin-bottom: 40px;
+  width: 488px;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.category-title {
+  margin-bottom: 12px;
+}
+
+.subcategories-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.category-icon-wrapper {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.category-icon {
+  width: 24px;
+  height: 24px;
+}
