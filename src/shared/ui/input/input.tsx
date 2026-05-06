@@ -95,11 +95,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const descriptionId = `${inputId}-description`;
     const isPassword = type === 'password';
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-    const displayedType = isPassword && isPasswordVisible ? 'text' : type;
-    const message = error ?? hint;
-    const hasLeftIcon = Boolean(leftIcon) || variant === 'search';
-    const hasRightControl = Boolean(rightIcon) || isPassword;
+    const displayedType = isPassword && isPasswordVisible ? 'text' : type; // Для password-поля можно временно показать введённый текст
+    const message = error ?? hint; // Ошибка имеет приоритет над подсказкой, чтобы одновременно не отображались два сообщения
+    const hasLeftIcon = leftIcon !== undefined ? Boolean(leftIcon) : variant === 'search';
+    const hasRightControl = Boolean(rightIcon) || isPassword; // У password справа всегда своя кнопка показа пароля
 
+    // Вызываем обычный onChange и дополнительно отдаём наружу текущее value
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
       onChange?.(event);
       onValueChange?.(event.target.value, event);
