@@ -3,6 +3,8 @@
     {
       "id": 1,
       "title": "Бизнес и карьера",
+      "icon": "/icons/briefcase.svg",
+      "bgColor": "var(--tag_business)",
       "subcategories": [
         { "id": 1, "title": "Управление командой" },
         { "id": 2, "title": "Маркетинг и реклама" },
@@ -17,6 +19,8 @@
     {
       "id": 2,
       "title": "Иностранные языки",
+      "icon": "/icons/global.svg",
+      "bgColor": "var(--tag_languages)",
       "subcategories": [
         { "id": 1, "title": "Английский" },
         { "id": 2, "title": "Французский" },
@@ -30,6 +34,8 @@
     {
       "id": 3,
       "title": "Дом и уют",
+      "icon": "/icons/home.svg",
+      "bgColor": "var(--tag_home)",
       "subcategories": [
         { "id": 1, "title": "Уборка и организация" },
         { "id": 2, "title": "Домашние финансы" },
@@ -42,6 +48,8 @@
     {
       "id": 4,
       "title": "Творчество и искусство",
+      "icon": "/icons/palette.svg",
+      "bgColor": "var(--tag_art)",
       "subcategories": [
         { "id": 1, "title": "Рисование и иллюстрация" },
         { "id": 2, "title": "Фотография" },
@@ -56,6 +64,8 @@
     {
       "id": 5,
       "title": "Образование и развитие",
+      "icon": "/icons/book.svg",
+      "bgColor": "var(--tag_education)",
       "subcategories": [
         { "id": 1, "title": "Личностное развитие" },
         { "id": 2, "title": "Навыки обучения" },
@@ -68,6 +78,8 @@
     {
       "id": 6,
       "title": "Здоровье и лайфстайл",
+      "icon": "/icons/lifestyle.svg",
+      "bgColor": "var(--tag_health)",
       "subcategories": [
         { "id": 1, "title": "Йога и медитация" },
         { "id": 2, "title": "Питание и ЗОЖ" },
