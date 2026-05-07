@@ -1,0 +1,93 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background-color: var(--background);
+  box-shadow: 0 2px 4px;
+  margin-bottom: 20px;
+  font-family: sans-serif;
+}
+
+.leftSection {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo {
+  cursor: pointer;
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.nav {
+  display: flex;
+  gap: 24px;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text-base);
+}
+
+.navLink {
+  text-decoration: none;
+  color: var(--text-link);
+  transition: color 0.3s ease;
+}
+
+.centerSection {
+  flex: 1;
+  margin: 0 20px;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 12px 20px;
+  border-radius: 8px;
+  background-color: var(--background-card-input);
+  font-size: 16px;
+  color: var(--text-base);
+  transition: border-color 0.3s ease;
+}
+
+.rightSection {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.themeToggle {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var(--toggle);
+  cursor: pointer;
+}
+
+.loginBtn {
+  padding: 12px 24px;
+  border: 1px solid var(--accent-color);
+  border-radius: 8px;
+  background-color: var(--background-card-input);
+  color: var(--text-base);
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.registerBtn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  background-color: var(--accent-color);
+  color: var(--background-card-input);
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
