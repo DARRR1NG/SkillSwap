@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './MainDroplist.css';
+import '../../shared/lib/fonts/fonts.css';
 
 interface Subcategory {
   id?: number;
