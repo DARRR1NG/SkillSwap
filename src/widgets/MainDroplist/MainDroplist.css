@@ -4,6 +4,10 @@
 }
 
 .dropdown-trigger {
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
   cursor: pointer;
   font-family: Roboto-Regular, system-ui, sans-serif;
 }

@@ -1,0 +1,64 @@
+.root {
+  width: 100%;
+  background: var(--background-card-input);
+  border-top: 1px solid var(--disabled);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  display: grid;
+  grid-template-columns: auto 1fr 1fr;
+  gap: 24px 48px;
+  align-items: start;
+}
+
+.logoButton {
+  display: inline-flex;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: var(--text-base);
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-base);
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.linkStub {
+  cursor: default;
+  opacity: 0.8;
+}
+
+.link:hover {
+  color: var(--text-link);
+}
+
+.bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px 20px;
+  font-size: 12px;
+  color: var(--caption);
+}
+
+@media (width <= 900px) {
+  .container {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}

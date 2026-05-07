@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './MainDroplist.css';
 import '../../shared/lib/fonts/fonts.css';
 
@@ -18,7 +18,8 @@ interface Category {
 export const MainDroplist = () => {
   const [categories, setCategories] = useState<Category[]>([]);
 
-  const [isOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     fetch('/db/skills.json')
@@ -36,12 +37,46 @@ export const MainDroplist = () => {
       .catch(() => setCategories([]));
   }, []);
 
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const onPointerDown = (e: PointerEvent) => {
+      const root = rootRef.current;
+      const target = e.target as Node | null;
+      if (!root || !target) return;
+      if (!root.contains(target)) {
+        setIsOpen(false);
+      }
+    };
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener('pointerdown', onPointerDown);
+    window.addEventListener('keydown', onKeyDown);
+    return () => {
+      window.removeEventListener('pointerdown', onPointerDown);
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [isOpen]);
+
   return (
-    <div className="main-droplist-container">
-      <div className="dropdown-trigger">Все навыки</div>
+    <div ref={rootRef} className="main-droplist-container">
+      <button
+        type="button"
+        className="dropdown-trigger"
+        aria-haspopup="menu"
+        aria-expanded={isOpen}
+        onClick={() => setIsOpen((v) => !v)}
+      >
+        Все навыки
+      </button>
 
       {isOpen && (
-        <div className="dropdown-menu">
+        <div className="dropdown-menu" role="menu">
           {categories.map((category) => (
             <div key={category.id} className="category-block">
               <div className="category-icon-wrapper" style={{ backgroundColor: category.bgColor }}>
