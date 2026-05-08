@@ -85,3 +85,9 @@
 .orange {
   background-color: var(--tag_health);
 }
+
+.like {
+  position: absolute;
+  top: 0;
+  right: 0;
+}

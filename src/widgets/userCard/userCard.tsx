@@ -5,6 +5,7 @@ import type { TUser, City, TSkillCanTeach, TSkillWant } from '../../utils/types'
 import citiesData from '../../../public/db/cities.json';
 import skillsData from '../../../public/db/skills.json';
 import clsx from 'clsx';
+import { Like } from '../../shared/ui/like';
 
 const getAgeFromBirthday = (date: string): number => {
   const birthDate = new Date(date);
@@ -73,6 +74,7 @@ export const UserCard: FC<{ user: TUser }> = ({ user }) => {
             {getCityNameById(user.cityId)}, {getAgeFromBirthday(user.birthday)}
           </p>
         </div>
+        <Like active={true} variant="card" isAuthorized={true} className={s.like} />
       </div>
       <Skills skills={user.skillsCanTeach} title={'Может научить'} />
       <Skills skills={skillsWant} title={'Хочет научиться'} />
