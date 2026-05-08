@@ -1,0 +1,110 @@
+.page {
+  min-height: 100vh;
+  background: var(--background);
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 20px;
+  width: min(1360px, 100%);
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.filtersSlot {
+  position: sticky;
+  top: 20px;
+  align-self: start;
+}
+
+.filtersPlaceholder {
+  min-height: 860px;
+  background: var(--background-card-input);
+  border-radius: 14px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.sectionHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sectionTitle {
+  margin: 0;
+  color: var(--text-base);
+  font-size: 48px;
+  line-height: 1.2;
+  font-family: Jost-Medium, system-ui, sans-serif;
+  font-weight: 500;
+}
+
+.showAllButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 0 24px;
+  color: var(--text-base);
+  background: var(--background-card-input);
+  border: 0;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.showAllArrow {
+  font-size: 22px;
+  line-height: 1;
+  color: var(--caption);
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(324px, 1fr));
+  gap: 16px;
+  justify-items: center;
+}
+
+.sentinel {
+  height: 1px;
+}
+
+@media (width <= 1200px) {
+  .main {
+    grid-template-columns: 1fr;
+  }
+
+  .filtersSlot {
+    display: none;
+  }
+
+  .cardsGrid {
+    grid-template-columns: repeat(2, minmax(324px, 1fr));
+  }
+}
+
+@media (width <= 820px) {
+  .cardsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .sectionTitle {
+    font-size: 36px;
+  }
+}
