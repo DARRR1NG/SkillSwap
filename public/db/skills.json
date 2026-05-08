@@ -1,94 +1,44 @@
-{
-  "data": [
-    {
-      "id": 1,
-      "title": "Бизнес и карьера",
-      "icon": "/icons/briefcase.svg",
-      "bgColor": "var(--tag_business)",
-      "subcategories": [
-        { "id": 1, "title": "Управление командой" },
-        { "id": 2, "title": "Маркетинг и реклама" },
-        { "id": 3, "title": "Продажи и переговоры" },
-        { "id": 4, "title": "Личный бренд" },
-        { "id": 5, "title": "Резюме и собеседование" },
-        { "id": 6, "title": "Тайм-менеджмент" },
-        { "id": 7, "title": "Проектное управление" },
-        { "id": 8, "title": "Предпринимательство" }
-      ]
-    },
-    {
-      "id": 2,
-      "title": "Иностранные языки",
-      "icon": "/icons/global.svg",
-      "bgColor": "var(--tag_languages)",
-      "subcategories": [
-        { "id": 1, "title": "Английский" },
-        { "id": 2, "title": "Французский" },
-        { "id": 3, "title": "Испанский" },
-        { "id": 4, "title": "Немецкий" },
-        { "id": 5, "title": "Китайский" },
-        { "id": 6, "title": "Японский" },
-        { "id": 7, "title": "Подготовка к экзаменам (IELTS, TOEFL)" }
-      ]
-    },
-    {
-      "id": 3,
-      "title": "Дом и уют",
-      "icon": "/icons/home.svg",
-      "bgColor": "var(--tag_home)",
-      "subcategories": [
-        { "id": 1, "title": "Уборка и организация" },
-        { "id": 2, "title": "Домашние финансы" },
-        { "id": 3, "title": "Приготовление еды" },
-        { "id": 4, "title": "Домашние растения" },
-        { "id": 5, "title": "Ремонт" },
-        { "id": 6, "title": "Хранение вещей" }
-      ]
-    },
-    {
-      "id": 4,
-      "title": "Творчество и искусство",
-      "icon": "/icons/palette.svg",
-      "bgColor": "var(--tag_art)",
-      "subcategories": [
-        { "id": 1, "title": "Рисование и иллюстрация" },
-        { "id": 2, "title": "Фотография" },
-        { "id": 3, "title": "Видеомонтаж" },
-        { "id": 4, "title": "Музыка и звук" },
-        { "id": 5, "title": "Актёрское мастерство" },
-        { "id": 6, "title": "Креативное письмо" },
-        { "id": 7, "title": "Арт-терапия" },
-        { "id": 8, "title": "Декор и DIY" }
-      ]
-    },
-    {
-      "id": 5,
-      "title": "Образование и развитие",
-      "icon": "/icons/book.svg",
-      "bgColor": "var(--tag_education)",
-      "subcategories": [
-        { "id": 1, "title": "Личностное развитие" },
-        { "id": 2, "title": "Навыки обучения" },
-        { "id": 3, "title": "Когнитивные техники" },
-        { "id": 4, "title": "Скорочтение" },
-        { "id": 5, "title": "Навыки преподавания" },
-        { "id": 6, "title": "Коучинг" }
-      ]
-    },
-    {
-      "id": 6,
-      "title": "Здоровье и лайфстайл",
-      "icon": "/icons/lifestyle.svg",
-      "bgColor": "var(--tag_health)",
-      "subcategories": [
-        { "id": 1, "title": "Йога и медитация" },
-        { "id": 2, "title": "Питание и ЗОЖ" },
-        { "id": 3, "title": "Ментальное здоровье" },
-        { "id": 4, "title": "Осознанность" },
-        { "id": 5, "title": "Физические тренировки" },
-        { "id": 6, "title": "Сон и восстановление" },
-        { "id": 7, "title": "Баланс жизни и работы" }
-      ]
-    }
-  ]
-}
+[
+  { "id": 1, "title": "Управление командой", "categoryId": 1 },
+  { "id": 2, "title": "Маркетинг и реклама", "categoryId": 1 },
+  { "id": 3, "title": "Продажи и переговоры", "categoryId": 1 },
+  { "id": 4, "title": "Личный бренд", "categoryId": 1 },
+  { "id": 5, "title": "Резюме и собеседование", "categoryId": 1 },
+  { "id": 6, "title": "Тайм-менеджмент", "categoryId": 1 },
+  { "id": 7, "title": "Проектное управление", "categoryId": 1 },
+  { "id": 8, "title": "Предпринимательство", "categoryId": 1 },
+  { "id": 9, "title": "Английский", "categoryId": 2 },
+  { "id": 10, "title": "Французский", "categoryId": 2 },
+  { "id": 11, "title": "Испанский", "categoryId": 2 },
+  { "id": 12, "title": "Немецкий", "categoryId": 2 },
+  { "id": 13, "title": "Китайский", "categoryId": 2 },
+  { "id": 14, "title": "Японский", "categoryId": 2 },
+  { "id": 15, "title": "Подготовка к экзаменам (IELTS, TOEFL)", "categoryId": 2 },
+  { "id": 16, "title": "Уборка и организация", "categoryId": 3 },
+  { "id": 17, "title": "Домашние финансы", "categoryId": 3 },
+  { "id": 18, "title": "Приготовление еды", "categoryId": 3 },
+  { "id": 19, "title": "Домашние растения", "categoryId": 3 },
+  { "id": 20, "title": "Ремонт", "categoryId": 3 },
+  { "id": 21, "title": "Хранение вещей", "categoryId": 3 },
+  { "id": 22, "title": "Рисование и иллюстрация", "categoryId": 4 },
+  { "id": 23, "title": "Фотография", "categoryId": 4 },
+  { "id": 24, "title": "Видеомонтаж", "categoryId": 4 },
+  { "id": 25, "title": "Музыка и звук", "categoryId": 4 },
+  { "id": 26, "title": "Актёрское мастерство", "categoryId": 4 },
+  { "id": 27, "title": "Креативное письмо", "categoryId": 4 },
+  { "id": 28, "title": "Арт-терапия", "categoryId": 4 },
+  { "id": 29, "title": "Декор и DIY", "categoryId": 4 },
+  { "id": 30, "title": "Личностное развитие", "categoryId": 5 },
+  { "id": 31, "title": "Навыки обучения", "categoryId": 5 },
+  { "id": 32, "title": "Когнитивные техники", "categoryId": 5 },
+  { "id": 33, "title": "Скорочтение", "categoryId": 5 },
+  { "id": 34, "title": "Навыки преподавания", "categoryId": 5 },
+  { "id": 35, "title": "Коучинг", "categoryId": 5 },
+  { "id": 36, "title": "Йога и медитация", "categoryId": 6 },
+  { "id": 37, "title": "Питание и ЗОЖ", "categoryId": 6 },
+  { "id": 38, "title": "Ментальное здоровье", "categoryId": 6 },
+  { "id": 39, "title": "Осознанность", "categoryId": 6 },
+  { "id": 40, "title": "Физические тренировки", "categoryId": 6 },
+  { "id": 41, "title": "Сон и восстановление", "categoryId": 6 },
+  { "id": 42, "title": "Баланс жизни и работы", "categoryId": 6 }
+]

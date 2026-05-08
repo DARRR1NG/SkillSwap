@@ -1,0 +1,87 @@
+.card_container {
+  width: 324px;
+  height: 368px;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #fff;
+}
+
+.person_info {
+  display: flex;
+  gap: 12px;
+  position: relative;
+}
+
+.card_image {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}
+
+.person_name {
+  color: var(--text-base);
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.person_city {
+  color: var(--text-base);
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.skills_title {
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--text-base);
+  text-align: start;
+}
+
+.skills_container {
+  display: flex;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.skill {
+  height: 32px;
+  color: var(--text-base);
+  display: flex;
+  align-items: center;
+  padding-inline: 12px;
+  border-radius: 20px;
+  background-color: var(--tag_plus);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.button {
+  margin-top: auto;
+}
+
+.violet {
+  background-color: var(--tag_business);
+}
+
+.pink {
+  background-color: var(--tag_art);
+}
+
+.yellow {
+  background-color: var(--tag_languages);
+}
+
+.blue {
+  background-color: var(--tag_education);
+}
+
+.green {
+  background-color: var(--tag_home);
+}
+
+.orange {
+  background-color: var(--tag_health);
+}
