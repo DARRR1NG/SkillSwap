@@ -1,12 +1,19 @@
 .header {
-  display: flex;
-  justify-content: space-between;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  box-sizing: border-box;
   align-items: center;
   padding: 16px 20px;
   background-color: var(--background);
-  box-shadow: 0 2px 4px;
-  margin-bottom: 20px;
-  font-family: sans-serif;
+}
+
+.container {
+  max-width: 1440px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .leftSection {
@@ -16,78 +23,65 @@
 }
 
 .logo {
-  cursor: pointer;
-  display: inline-flex;
-  flex-shrink: 0;
+  flex: 0 0 auto;
 }
 
 .nav {
   display: flex;
-  gap: 24px;
-  font-size: 16px;
-  font-weight: 400;
-  color: var(--text-base);
+  flex: 1 1 auto;
 }
 
 .navLink {
+  color: var(--text-base);
   text-decoration: none;
-  color: var(--text-link);
-  transition: color 0.3s ease;
+  font-weight: 400;
+  font-family: Roboto-Regular, system-ui, sans-serif;
+  font-size: 16px;
+  padding-right: 24px;
+}
+
+.chevron {
+  padding: 8px 4px;
 }
 
 .centerSection {
-  flex: 1;
-  margin: 0 20px;
-}
-
-.searchInput {
-  width: 100%;
-  padding: 12px 20px;
-  border-radius: 8px;
-  background-color: var(--background-card-input);
-  font-size: 16px;
-  color: var(--text-base);
-  transition: border-color 0.3s ease;
+  flex: 1 1 30%;
+  max-width: 300px;
+  position: relative;
+  background-color: transparent;
 }
 
 .rightSection {
   display: flex;
-  gap: 32px;
   align-items: center;
+  gap: 16px;
+  flex: 0 0 auto;
 }
 
-.themeToggle {
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background-color: var(--toggle);
+.iconButton {
+  padding: 8px;
+  border: none;
+  background-color: transparent;
   cursor: pointer;
 }
 
 .loginBtn {
-  padding: 12px 24px;
+  padding: 12px 23px;
   border: 1px solid var(--accent-color);
-  border-radius: 8px;
+  border-radius: 12px;
   background-color: var(--background-card-input);
   color: var(--text-base);
-  font-size: 16px;
   font-weight: 500;
   cursor: pointer;
-  transition:
-    background-color 0.3s ease,
-    border-color 0.3s ease;
+  transition: background-color 0.3s;
 }
 
 .registerBtn {
   padding: 12px 24px;
-  border-radius: 8px;
+  border-radius: 12px;
   background-color: var(--accent-color);
-  color: var(--background-card-input);
-  font-size: 16px;
+  color: var(--text-base);
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s;
 }
