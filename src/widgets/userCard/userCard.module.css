@@ -7,18 +7,29 @@
   flex-direction: column;
   gap: 20px;
   background-color: #fff;
+  font-family: Roboto-Regular, sans-serif;
 }
 
 .person_info {
   display: flex;
-  gap: 12px;
+  justify-content: space-between;
   position: relative;
+}
+
+.userInfo {
+  display: flex;
+  gap: 12px;
+  font-family: Roboto-Regular, sans-serif;
 }
 
 .card_image {
   border-radius: 50%;
   width: 100px;
   height: 100px;
+}
+
+.iconLike {
+  align-self: start;
 }
 
 .person_name {
@@ -60,6 +71,7 @@
 
 .button {
   margin-top: auto;
+  font-family: Roboto-Regular, sans-serif;
 }
 
 .violet {
