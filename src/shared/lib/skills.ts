@@ -3,13 +3,21 @@ export type SkillJsonItem = {
   title: string;
 };
 
+export type SkillJsonFlatItem = SkillJsonItem & {
+  categoryId: number;
+};
+
 export type SkillJsonCategory = SkillJsonItem & {
   subcategories: SkillJsonItem[];
 };
 
-export type SkillsJson = {
+export type NestedSkillsJson = {
   data: SkillJsonCategory[];
 };
+
+export type SkillsJson = SkillJsonFlatItem[] | NestedSkillsJson;
+
+export type SkillCategoriesJson = SkillJsonItem[];
 
 export type SkillCategoryOption = {
   id: string;
@@ -24,15 +32,47 @@ export type SkillOption = {
 
 export const getSkillCategoryId = (categoryId: number) => String(categoryId);
 
-export const getSkillId = (categoryId: number, subcategoryId: number) =>
-  `${categoryId}:${subcategoryId}`;
+export const getSkillId = (skillId: number) => String(skillId);
 
-export const mapSkillsJsonToCategories = (skills: SkillsJson): SkillCategoryOption[] =>
+const mapNestedSkillsJsonToCategories = (skills: NestedSkillsJson): SkillCategoryOption[] =>
   skills.data.map((category) => ({
     id: getSkillCategoryId(category.id),
     label: category.title,
     skills: category.subcategories.map((subcategory) => ({
-      id: getSkillId(category.id, subcategory.id),
+      id: getSkillId(subcategory.id),
       label: subcategory.title,
     })),
   }));
+
+const mapFlatSkillsJsonToCategories = (
+  skills: SkillJsonFlatItem[],
+  categories: SkillCategoriesJson = []
+): SkillCategoryOption[] => {
+  const categoryById = new Map(categories.map((category) => [category.id, category]));
+  const groupedSkills = new Map<number, SkillJsonFlatItem[]>();
+
+  skills.forEach((skill) => {
+    const categorySkills = groupedSkills.get(skill.categoryId) ?? [];
+    groupedSkills.set(skill.categoryId, [...categorySkills, skill]);
+  });
+
+  return Array.from(groupedSkills, ([categoryId, categorySkills]) => ({
+    id: getSkillCategoryId(categoryId),
+    label: categoryById.get(categoryId)?.title ?? `Категория ${categoryId}`,
+    skills: categorySkills.map((skill) => ({
+      id: getSkillId(skill.id),
+      label: skill.title,
+    })),
+  }));
+};
+
+export const mapSkillsJsonToCategories = (
+  skills: SkillsJson,
+  categories?: SkillCategoriesJson
+): SkillCategoryOption[] => {
+  if (Array.isArray(skills)) {
+    return mapFlatSkillsJsonToCategories(skills, categories);
+  }
+
+  return mapNestedSkillsJsonToCategories(skills);
+};
