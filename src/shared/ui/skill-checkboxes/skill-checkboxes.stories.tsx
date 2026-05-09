@@ -1,15 +1,24 @@
 import { useEffect, useState } from 'react';
 import type { Decorator, Meta, StoryObj } from '@storybook/react-vite';
-import { mapSkillsJsonToCategories, type SkillsJson } from '../../lib/skills';
+import {
+  mapSkillsJsonToCategories,
+  type SkillCategoriesJson,
+  type SkillsJson,
+} from '../../lib/skills';
 import { SkillCheckboxes, type SkillCheckboxesProps } from './skill-checkboxes';
 
 const useSkillCategories = () => {
   const [categories, setCategories] = useState<SkillCheckboxesProps['categories']>([]);
 
   useEffect(() => {
-    fetch('/db/skills.json')
-      .then((response) => response.json() as Promise<SkillsJson>)
-      .then((skills) => setCategories(mapSkillsJsonToCategories(skills)));
+    Promise.all([
+      fetch('/db/skills.json').then((response) => response.json() as Promise<SkillsJson>),
+      fetch('/db/skillsCategories.json').then(
+        (response) => response.json() as Promise<SkillCategoriesJson>
+      ),
+    ]).then(([skills, skillCategories]) =>
+      setCategories(mapSkillsJsonToCategories(skills, skillCategories))
+    );
   }, []);
 
   return categories;
@@ -45,7 +54,7 @@ export const Default: Story = {
 export const Expanded: Story = {
   args: {
     defaultExpandedIds: ['4'],
-    defaultSelectedIds: ['4:4'],
+    defaultSelectedIds: ['22'],
   },
   render: (args) => {
     const categories = useSkillCategories();
