@@ -2,22 +2,80 @@ import { useEffect, useRef, useState } from 'react';
 import './MainDroplist.css';
 import '../../shared/lib/fonts/fonts.css';
 
-interface Subcategory {
-  id?: number;
-  title?: string;
-}
-
-interface Category {
+interface Skill {
   id: number;
   title: string;
-  icon?: string;
-  bgColor?: string;
-  subcategories: (string | Subcategory)[];
+  categoryId: number;
 }
+
+interface Subcategory {
+  id: number;
+  title: string;
+}
+
+interface CategoryMeta {
+  id: number;
+  title: string;
+  icon: string;
+  bgColor: string;
+}
+
+interface Category extends CategoryMeta {
+  subcategories: Subcategory[];
+}
+
+type SkillsResponse = Skill[] | { data: Category[] };
+
+const CATEGORY_METAS: CategoryMeta[] = [
+  {
+    id: 1,
+    title: 'Бизнес и карьера',
+    icon: '/icons/briefcase.svg',
+    bgColor: 'var(--tag_business)',
+  },
+  {
+    id: 2,
+    title: 'Иностранные языки',
+    icon: '/icons/global.svg',
+    bgColor: 'var(--tag_languages)',
+  },
+  {
+    id: 3,
+    title: 'Дом и уют',
+    icon: '/icons/home.svg',
+    bgColor: 'var(--tag_home)',
+  },
+  {
+    id: 4,
+    title: 'Творчество и искусство',
+    icon: '/icons/palette.svg',
+    bgColor: 'var(--tag_art)',
+  },
+  {
+    id: 5,
+    title: 'Образование и развитие',
+    icon: '/icons/book.svg',
+    bgColor: 'var(--tag_education)',
+  },
+  {
+    id: 6,
+    title: 'Здоровье и лайфстайл',
+    icon: '/icons/lifestyle.svg',
+    bgColor: 'var(--tag_health)',
+  },
+];
+
+const mapFlatSkillsToCategories = (skills: Skill[]): Category[] => {
+  return CATEGORY_METAS.map((category) => ({
+    ...category,
+    subcategories: skills
+      .filter((skill) => skill.categoryId === category.id)
+      .map((skill) => ({ id: skill.id, title: skill.title })),
+  }));
+};
 
 export const MainDroplist = () => {
   const [categories, setCategories] = useState<Category[]>([]);
-
   const [isOpen, setIsOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement | null>(null);
 
@@ -25,14 +83,20 @@ export const MainDroplist = () => {
     fetch('/db/skills.json')
       .then((response) => {
         if (!response.ok) throw new Error(`Ошибка: ${response.status}`);
-        return response.json();
+        return response.json() as Promise<SkillsResponse>;
       })
-      .then((data) => {
-        if (data && Array.isArray(data.data)) {
-          setCategories(data.data);
-        } else {
-          setCategories([]);
+      .then((skillsData) => {
+        if (Array.isArray(skillsData)) {
+          setCategories(mapFlatSkillsToCategories(skillsData));
+          return;
         }
+
+        if (skillsData && Array.isArray(skillsData.data)) {
+          setCategories(skillsData.data);
+          return;
+        }
+
+        setCategories([]);
       })
       .catch(() => setCategories([]));
   }, []);
@@ -80,20 +144,17 @@ export const MainDroplist = () => {
           {categories.map((category) => (
             <div key={category.id} className="category-block">
               <div className="category-icon-wrapper" style={{ backgroundColor: category.bgColor }}>
-                {category.icon && <img src={category.icon} alt="" className="category-icon" />}
+                <img src={category.icon} alt="" className="category-icon" />
               </div>
 
               <div className="category-content">
                 <h2 className="category-title">{category.title}</h2>
                 <ul className="subcategories-list">
-                  {category.subcategories.map((sub, index) => {
-                    const title = typeof sub === 'object' && sub !== null ? sub.title : sub;
-                    return (
-                      <li key={index} className="subcategory-item">
-                        <p className="subcategory-text">{title}</p>
-                      </li>
-                    );
-                  })}
+                  {category.subcategories.map((subcategory) => (
+                    <li key={subcategory.id} className="subcategory-item">
+                      <p className="subcategory-text">{subcategory.title}</p>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
