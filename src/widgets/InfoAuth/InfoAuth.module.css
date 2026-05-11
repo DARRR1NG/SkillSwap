@@ -1,0 +1,20 @@
+.infoAuthContainer {
+  width: 556px;
+  height: 692px;
+  background-color: var(--background-card-input);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 132px 60px;
+}
+
+.infoAuthTextContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.infoAuthPar {
+  text-align: center;
+}
