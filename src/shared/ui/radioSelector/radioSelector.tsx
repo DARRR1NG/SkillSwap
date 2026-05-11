@@ -15,6 +15,7 @@ type option = {
 };
 type RadioSelectorProps = {
   options: option[];
+  className?: string;
 };
 
 const RadioButton: FC<radioButtonProps> = ({ text, selected, onClick }) => {
@@ -29,7 +30,7 @@ const RadioButton: FC<radioButtonProps> = ({ text, selected, onClick }) => {
 
 export const RadioSelector: FC<RadioSelectorProps> = ({ options }) => {
   return (
-    <div>
+    <div className={s.radioButtons}>
       {options.map((e) => (
         <RadioButton text={e.text} selected={e.selected} onClick={e.onClick} />
       ))}

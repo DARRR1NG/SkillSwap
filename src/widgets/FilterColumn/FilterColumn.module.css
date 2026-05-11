@@ -1,0 +1,35 @@
+.filterColumnContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  max-width: 284px;
+  margin: 20px;
+}
+
+.categoriesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+h3 {
+  font-family: var(--JostMedium);
+}
+
+.skills {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.genders {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cities {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
