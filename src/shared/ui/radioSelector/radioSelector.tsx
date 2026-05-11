@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+﻿import type { FC } from 'react';
 import s from './radioSelector.module.css';
 import '../../lib/fonts/fonts.css';
 
