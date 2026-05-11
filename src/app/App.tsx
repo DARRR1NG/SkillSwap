@@ -21,10 +21,10 @@ function App() {
       <Header onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />
       <IconButton
         onClick={handleLike}
-        src={isActive ? '../public/icons/like-icon.svg' : '../public/icons/like-fill.svg'}
+        src={isActive ? '../public/icons/like-fill.svg' : '../public/icons/like-icon.svg'}
       />
-      <Footer />
       <FilterColumn />
+      <Footer />
     </>
   );
 }
