@@ -22,6 +22,8 @@
   padding: 60px;
   column-count: 2;
   column-gap: 40px;
+  top: 50px;
+  left: calc(-270px);
 }
 
 .category-block {

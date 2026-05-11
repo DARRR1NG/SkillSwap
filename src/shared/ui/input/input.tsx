@@ -25,7 +25,7 @@ export type InputProps = {
   onValueChange?: (value: string, event: ChangeEvent<HTMLInputElement>) => void;
 } & Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'prefix'>;
 
-const SearchIcon = () => (
+export const SearchIcon = () => (
   <svg
     className={s.iconSvg}
     width="24"
