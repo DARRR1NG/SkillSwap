@@ -5,36 +5,38 @@
 
 .main {
   display: grid;
-  grid-template-columns: 280px minmax(0, 1fr);
-  gap: 20px;
-  width: min(1360px, 100%);
+  grid-template-columns: 324px minmax(0, 1fr);
+  column-gap: 20px;
+  width: min(1760px, calc(100% - 64px));
   margin: 0 auto;
-  padding: 20px;
+  padding: 20px 0 48px;
   box-sizing: border-box;
 }
 
 .filtersSlot {
-  position: sticky;
-  top: 20px;
   align-self: start;
 }
 
-.filtersPlaceholder {
-  min-height: 860px;
+.filtersCard {
+  width: 324px;
   background: var(--background-card-input);
-  border-radius: 14px;
+  border-radius: 12px;
+  margin-top: -16px;
 }
 
 .content {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 44px;
+  align-items: flex-start;
 }
 
 .section {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 20px;
+  width: calc((324px * 3) + (16px * 2));
+  max-width: 100%;
 }
 
 .sectionHead {
@@ -42,13 +44,15 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
+  min-height: 56px;
 }
 
 .sectionTitle {
   margin: 0;
-  color: var(--text-base);
-  font-size: 48px;
-  line-height: 1.2;
+  color: #253017;
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: -0.011em;
   font-family: Jost-Medium, system-ui, sans-serif;
   font-weight: 500;
 }
@@ -56,38 +60,44 @@
 .showAllButton {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  min-height: 52px;
-  padding: 0 24px;
+  min-height: 56px;
+  padding: 16px 24px;
   color: var(--text-base);
   background: var(--background-card-input);
   border: 0;
   border-radius: 12px;
   font-size: 16px;
-  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.02em;
+  font-family: Roboto-Regular, system-ui, sans-serif;
+  font-weight: 400;
   cursor: pointer;
 }
 
 .showAllArrow {
-  font-size: 22px;
+  font-size: 24px;
   line-height: 1;
   color: var(--caption);
 }
 
 .cardsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(324px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 324px));
   gap: 16px;
-  justify-items: center;
+  justify-content: start;
+  width: 100%;
 }
 
 .sentinel {
   height: 1px;
 }
 
-@media (width <= 1200px) {
+@media (width <= 1220px) {
   .main {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    width: min(760px, calc(100% - 32px));
   }
 
   .filtersSlot {
@@ -95,16 +105,34 @@
   }
 
   .cardsGrid {
-    grid-template-columns: repeat(2, minmax(324px, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 324px));
+    justify-content: center;
+  }
+
+  .section {
+    width: calc((324px * 2) + 16px);
   }
 }
 
 @media (width <= 820px) {
   .cardsGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 324px);
+    justify-content: center;
+  }
+
+  .section {
+    width: 324px;
   }
 
   .sectionTitle {
-    font-size: 36px;
+    font-size: 28px;
+    line-height: 34px;
+  }
+
+  .showAllButton {
+    min-height: 48px;
+    padding: 12px 18px;
+    font-size: 14px;
+    line-height: 20px;
   }
 }

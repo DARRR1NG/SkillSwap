@@ -2,7 +2,6 @@ import clsx from 'clsx';
 import { type ChangeEvent, type HTMLAttributes, useEffect, useId, useRef, useState } from 'react';
 import type { SkillCategoryOption } from '../../lib/skills';
 import s from './skill-checkboxes.module.css';
-import '../../lib/fonts/fonts.css';
 
 export type SkillCheckboxesProps = {
   title?: string;
@@ -93,6 +92,10 @@ export const SkillCheckboxes = ({
 
   const currentSelectedIds = selectedIds ?? internalSelectedIds;
   const currentExpandedIds = expandedIds ?? internalExpandedIds;
+
+  if (!Array.isArray(categories) || categories.length === 0) {
+    return null;
+  }
 
   const updateSelectedIds = (nextSelectedIds: string[]) => {
     if (selectedIds === undefined) {

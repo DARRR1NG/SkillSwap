@@ -17,6 +17,8 @@ export function HomePage() {
   const [popularOpen, setPopularOpen] = useState(false);
   const [newOpen, setNewOpen] = useState(false);
   const [recommendedVisible, setRecommendedVisible] = useState(RECOMMENDED_BATCH_SIZE);
+  const handleLoginClick = () => {};
+  const handleRegisterClick = () => {};
 
   const sentinelRef = useRef<HTMLDivElement | null>(null);
 
@@ -95,16 +97,13 @@ export function HomePage() {
 
   return (
     <div className={styles.page}>
-      <Header
-        onLoginClick={function (): void {
-          throw new Error('Function not implemented.');
-        }}
-        onRegisterClick={function (): void {
-          throw new Error('Function not implemented.');
-        }}
-      />
+      <Header onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />
       <main className={styles.main}>
-        <FilterColumn />
+        <aside className={styles.filtersSlot}>
+          <div className={styles.filtersCard}>
+            <FilterColumn />
+          </div>
+        </aside>
 
         <div className={styles.content}>
           <section className={styles.section}>

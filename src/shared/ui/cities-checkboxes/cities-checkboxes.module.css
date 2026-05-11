@@ -10,6 +10,10 @@
   background-color: transparent;
   border: none;
   font-family: var(--RobotoRegular);
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.02em;
+  font-weight: 400;
   color: var(--text-link);
   padding: 0;
   display: flex;

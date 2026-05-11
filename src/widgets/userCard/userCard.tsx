@@ -82,7 +82,7 @@ export const UserCard: FC<{ user: TUser }> = ({ user }) => {
         </div>
         <IconButton
           onClick={handleLike}
-          src={isActive ? '../public/icons/like-icon.svg' : '../public/icons/like-fill.svg'}
+          src={isActive ? '../public/icons/like-fill.svg' : '../public/icons/like-icon.svg'}
           className={s.iconLike}
         />
       </div>
