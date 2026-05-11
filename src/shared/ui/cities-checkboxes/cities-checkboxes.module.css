@@ -1,0 +1,27 @@
+.citiesCheckboxContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.toggleButton {
+  position: relative;
+  margin-top: 12px;
+  background-color: transparent;
+  border: none;
+  font-family: var(--RobotoRegular);
+  color: var(--text-link);
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.iconChevron {
+  width: 20px;
+  fill: var(--text-link);
+  margin-left: 2px;
+}
+
+.otherCities {
+  margin-top: 12px;
+}

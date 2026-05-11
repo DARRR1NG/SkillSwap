@@ -38,7 +38,7 @@ type CheckboxOptionProps = {
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
-const CheckboxOption = ({
+export const CheckboxOption = ({
   label,
   value,
   checked,

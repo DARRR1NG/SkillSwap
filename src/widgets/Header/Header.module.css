@@ -18,7 +18,7 @@
 
 .leftSection {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 20px;
   position: relative;
 }
@@ -49,7 +49,7 @@
 
 .centerSection {
   flex: 1 1 30%;
-  max-width: 600px;
+  max-width: 527px;
   position: relative;
   background-color: transparent;
 }

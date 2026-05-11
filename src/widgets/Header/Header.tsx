@@ -4,18 +4,29 @@ import { Logo } from '../../shared/ui/logo';
 import { Button } from '../../shared/ui/button';
 import { Input } from '../../shared/ui/input';
 import { MainDroplist } from '../MainDroplist/MainDroplist';
-import MoonIcon from '../../images/icon/moon.svg';
-import ChevronDown from '../../images/icon/chevron-down.svg';
 import { SearchIcon } from '../../shared/ui/input/input';
+import { IconButton } from '../../shared/ui/IconButton';
+import { useState } from 'react';
 import styles from './Header.module.css';
 
-interface HeaderProps {
-    onSearchChange?: (value: string) => void;
-    onLoginClick?: () => void;
-    onRegisterClick?: () => void;
-}
+
+export type HeaderProps = {
+    onLoginClick: () => void;
+    onRegisterClick: () => void;
+};
 
 export const Header: React.FC<HeaderProps> = ({ onLoginClick, onRegisterClick }) => {
+    const [isChevronActive, setChevronActive] = useState(false);
+    const [isMoonActive, setMoonActive] = useState(false);
+
+    const handleChevronClick = () => {
+        setChevronActive(!isChevronActive);
+    };
+
+    const handleMoonClick = () => {
+        setMoonActive(!isMoonActive);
+    };
+
     return (
         <header className={clsx(styles.header)}>
             <div className={clsx(styles.container)}>
@@ -27,7 +38,11 @@ export const Header: React.FC<HeaderProps> = ({ onLoginClick, onRegisterClick })
                             О проекте
                         </a>
                         <MainDroplist />
-                        <img src={ChevronDown} alt="" className={clsx(styles.chevron)} />
+                        <IconButton
+                            onClick={handleChevronClick}
+                            src="../public/icons/chevron-down.svg"
+                            className={isChevronActive ? styles.rotated : ''}
+                        />
                     </nav>
                 </div>
 
@@ -38,10 +53,12 @@ export const Header: React.FC<HeaderProps> = ({ onLoginClick, onRegisterClick })
 
                 {/* Правая часть - переключатель темы и кнопки авторизации */}
                 <div className={clsx(styles.rightSection)}>
-                    {/* Иконка переключения темы (луна)- пока не функциональна */}
-                    <button className={styles.iconButton} type="button" aria-label="Переключить тему">
-                        <img src={MoonIcon} alt="" className={clsx(styles.icon)} />
-                    </button>
+                    {/* Иконка переключения темы (луна)*/}
+                    <IconButton
+                        onClick={handleMoonClick}
+                        src="../public/icons/moon.svg"
+                        className={isMoonActive ? styles.active : ''}
+                    />
 
                     {/* Кнопки авторизации */}
                     <Button color="white" className={clsx(styles.loginBtn)} onClick={onLoginClick}>
