@@ -34,7 +34,7 @@
 
 .person_name {
   color: var(--text-base);
-  font-weight: 600;
+  font-family: var(--RobotoMedium);
   font-size: 20px;
 }
 
