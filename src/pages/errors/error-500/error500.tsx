@@ -1,10 +1,19 @@
 import { Button } from '../../../shared/ui/button';
 import { Footer } from '../../../widgets/Footer';
+import { Header } from '../../../widgets/Header';
 import s from '../error.module.css';
 
-export function Error500() {
+export const Error500 = () => {
+  const handleLoginClick = () => {
+    console.log('Login clicked');
+  };
+
+  const handleRegisterClick = () => {
+    console.log('Register clicked');
+  };
   return (
     <>
+      <Header onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />
       <div className={s.error}>
         <img src="public\images\decor\error-500.svg" alt="ошибка 500" className={s.img} />
         <div className={s.errorInfoContiner}>
@@ -21,4 +30,4 @@ export function Error500() {
       <Footer />
     </>
   );
-}
+};

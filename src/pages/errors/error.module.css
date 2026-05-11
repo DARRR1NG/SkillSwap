@@ -9,7 +9,7 @@
 }
 
 .mainErrorText {
-  font-family: Jost-Medium, sans-serif;
+  font-family: var(--JostMedium);
   font-size: 24px;
   line-height: 28px;
   letter-spacing: -1.1%;
@@ -18,7 +18,7 @@
 }
 
 .descErrorText {
-  font-family: Roboto-Regular, sans-serif;
+  font-family: var(--RobotoRegular);
   font-size: 16px;
   line-height: 24px;
   letter-spacing: 2%;
@@ -32,6 +32,7 @@
   align-items: center;
   justify-self: center;
   width: 460px;
+  gap: 4px;
 }
 
 .errorInfoContiner {

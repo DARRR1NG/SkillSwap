@@ -18,10 +18,7 @@ function App() {
   };
   return (
     <>
-      <Header
-        onLoginClick={handleLoginClick}
-        onRegisterClick={handleRegisterClick}
-      />
+      <Header onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />
       <IconButton
         onClick={handleLike}
         src={isActive ? '../public/icons/like-icon.svg' : '../public/icons/like-fill.svg'}
