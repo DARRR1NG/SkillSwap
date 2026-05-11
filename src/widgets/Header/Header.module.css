@@ -20,6 +20,7 @@
   display: flex;
   align-items: center;
   gap: 20px;
+  position: relative;
 }
 
 .logo {
@@ -29,14 +30,16 @@
 .nav {
   display: flex;
   flex: 1 1 auto;
-}
-
-.navLink {
   color: var(--text-base);
   text-decoration: none;
   font-weight: 400;
   font-family: Roboto-Regular, system-ui, sans-serif;
   font-size: 16px;
+}
+
+.navLink {
+  color: var(--text-base);
+  text-decoration: none;
   padding-right: 24px;
 }
 
@@ -46,7 +49,7 @@
 
 .centerSection {
   flex: 1 1 30%;
-  max-width: 300px;
+  max-width: 600px;
   position: relative;
   background-color: transparent;
 }
