@@ -9,7 +9,7 @@
   background: transparent;
   color: inherit;
   cursor: pointer;
-  font-family: Roboto-Regular, system-ui, sans-serif;
+  font: inherit;
 }
 
 .dropdown-menu {
@@ -22,7 +22,6 @@
   padding: 60px;
   column-count: 2;
   column-gap: 40px;
-  font-family: Roboto-Regular, system-ui, sans-serif;
 }
 
 .category-block {
