@@ -8,7 +8,6 @@ import {
   useState,
 } from 'react';
 import s from './input.module.css';
-import '../../lib/fonts/fonts.css';
 
 type InputVariant = 'default' | 'search';
 type InputSize = 'md' | 'lg';
@@ -18,6 +17,10 @@ export type InputProps = {
   error?: string;
   hint?: string;
   variant?: InputVariant;
+  /**
+   * Размер инпута.
+   * По умолчанию: search - md, default - lg.
+   */
   inputSize?: InputSize;
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
@@ -96,9 +99,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const descriptionId = `${inputId}-description`;
     const isPassword = type === 'password';
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-    const displayedType = isPassword && isPasswordVisible ? 'text' : type; // Для password-поля можно временно показать введённый текст
+    const resolvedInputType = isPassword && isPasswordVisible ? 'text' : type; // Для password-поля можно временно показать введённый текст
     const message = error ?? hint; // Ошибка имеет приоритет над подсказкой, чтобы одновременно не отображались два сообщения
-    const hasLeftIcon = leftIcon !== undefined ? Boolean(leftIcon) : variant === 'search';
+    const hasLeftIcon = variant === 'search' || Boolean(leftIcon);
     const hasRightControl = Boolean(rightIcon) || isPassword; // У password справа всегда своя кнопка показа пароля
 
     // Вызываем обычный onChange и дополнительно отдаём наружу текущее value
@@ -136,7 +139,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             id={inputId}
             className={s.input}
-            type={displayedType}
+            type={resolvedInputType}
             disabled={disabled}
             aria-invalid={Boolean(error)}
             aria-describedby={message ? descriptionId : undefined}

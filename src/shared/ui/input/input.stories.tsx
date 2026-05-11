@@ -21,6 +21,15 @@ export const Search: Story = {
   },
 };
 
+export const SearchLarge: Story = {
+  args: {
+    variant: 'search',
+    inputSize: 'lg',
+    placeholder: 'Искать навык',
+    'aria-label': 'Искать навык',
+  },
+};
+
 export const EmailError: Story = {
   args: {
     label: 'Email',
