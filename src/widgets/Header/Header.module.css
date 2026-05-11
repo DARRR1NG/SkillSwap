@@ -10,7 +10,6 @@
 }
 
 .container {
-  max-width: 1440px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -21,6 +20,7 @@
   align-items: flex-end;
   gap: 20px;
   position: relative;
+  padding-right: 32px;
 }
 
 .logo {
@@ -48,10 +48,8 @@
 }
 
 .centerSection {
-  flex: 1 1 30%;
+  flex: 1;
   max-width: 527px;
-  position: relative;
-  background-color: transparent;
 }
 
 .rightSection {
@@ -61,11 +59,8 @@
   flex: 0 0 auto;
 }
 
-.iconButton {
-  padding: 8px;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
+.iconMoon {
+  padding: 0 32px;
 }
 
 .loginBtn {

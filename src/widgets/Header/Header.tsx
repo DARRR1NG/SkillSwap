@@ -54,12 +54,13 @@ export const Header: React.FC<HeaderProps> = ({ onLoginClick, onRegisterClick })
                 {/* Правая часть - переключатель темы и кнопки авторизации */}
                 <div className={clsx(styles.rightSection)}>
                     {/* Иконка переключения темы (луна)*/}
+                    <div className={clsx(styles.iconMoon)}>
                     <IconButton
                         onClick={handleMoonClick}
                         src="../public/icons/moon.svg"
                         className={isMoonActive ? styles.active : ''}
                     />
-
+                    </div>
                     {/* Кнопки авторизации */}
                     <Button color="white" className={clsx(styles.loginBtn)} onClick={onLoginClick}>
                         Войти
