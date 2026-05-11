@@ -1,0 +1,85 @@
+.header {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  box-sizing: border-box;
+  align-items: center;
+  padding: 16px 20px;
+  background-color: var(--background);
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.leftSection {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  position: relative;
+  padding-right: 32px;
+}
+
+.logo {
+  flex: 0 0 auto;
+}
+
+.nav {
+  display: flex;
+  flex: 1 1 auto;
+  color: var(--text-base);
+  text-decoration: none;
+  font-weight: 400;
+  font-family: Roboto-Regular, system-ui, sans-serif;
+  font-size: 16px;
+}
+
+.navLink {
+  color: var(--text-base);
+  text-decoration: none;
+  padding-right: 24px;
+}
+
+.chevron {
+  padding: 8px 4px;
+}
+
+.centerSection {
+  flex: 1;
+  max-width: 527px;
+}
+
+.rightSection {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 0 0 auto;
+}
+
+.iconMoon {
+  padding: 0 32px;
+}
+
+.loginBtn {
+  padding: 12px 23px;
+  border: 1px solid var(--accent-color);
+  border-radius: 12px;
+  background-color: var(--background-card-input);
+  color: var(--text-base);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.registerBtn {
+  padding: 12px 24px;
+  border-radius: 12px;
+  background-color: var(--accent-color);
+  color: var(--text-base);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}

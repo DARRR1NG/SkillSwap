@@ -1,5 +1,7 @@
 ﻿import { useEffect, useMemo, useRef, useState } from 'react';
 import { Footer } from '../../widgets/Footer';
+import { Header } from '../../widgets/Header';
+import { FilterColumn } from '../../widgets/FilterColumn/index';  
 import { UserCard } from '../../widgets/userCard/userCard';
 import type { TUser } from '../../utils/types';
 import styles from './HomePage.module.css';
@@ -93,10 +95,13 @@ export function HomePage() {
 
   return (
     <div className={styles.page}>
+      <Header onLoginClick={function (): void {
+        throw new Error('Function not implemented.');
+      } } onRegisterClick={function (): void {
+        throw new Error('Function not implemented.');
+      } } />
       <main className={styles.main}>
-        <aside className={styles.filtersSlot} aria-label="Место под фильтры">
-          <div className={styles.filtersPlaceholder} />
-        </aside>
+        <FilterColumn />
 
         <div className={styles.content}>
           <section className={styles.section}>

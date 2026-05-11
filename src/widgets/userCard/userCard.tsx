@@ -1,11 +1,11 @@
 import s from './userCard.module.css';
-import type { FC } from 'react';
+import { useState, type FC } from 'react';
 import { Button } from '../../shared/ui/button';
 import type { TUser, City, TSkillCanTeach, TSkillWant } from '../../utils/types';
 import citiesData from '../../../public/db/cities.json';
 import skillsData from '../../../public/db/skills.json';
 import clsx from 'clsx';
-import { Like } from '../../shared/ui/like';
+import { IconButton } from '../../shared/ui/IconButton';
 
 const getAgeFromBirthday = (date: string): number => {
   const birthDate = new Date(date);
@@ -63,18 +63,28 @@ const Skills: FC<{ skills: Array<TSkillWant | TSkillCanTeach>; title: string }> 
 
 export const UserCard: FC<{ user: TUser }> = ({ user }) => {
   const skillsWant = user.skillsWantId.map((e) => getSkillById(+e)).filter((e) => e !== undefined);
-
+  const [isActive, setActive] = useState(false);
+  const handleLike = () => {
+    setActive(!isActive);
+    // to do: добавить dispatch для добавления в избранное
+  };
   return (
     <div className={s.card_container}>
       <div className={s.person_info}>
-        <img className={s.card_image} src={user.userAvatar} alt="avatar" />
-        <div>
-          <h2 className={s.person_name}>{user.name}</h2>
-          <p className={s.person_city}>
-            {getCityNameById(user.cityId)}, {getAgeFromBirthday(user.birthday)}
-          </p>
+        <div className={s.userInfo}>
+          <img className={s.card_image} src={user.userAvatar} alt="avatar" />
+          <div>
+            <h2 className={s.person_name}>{user.name}</h2>
+            <p className={s.person_city}>
+              {getCityNameById(user.cityId)}, {getAgeFromBirthday(user.birthday)}
+            </p>
+          </div>
         </div>
-        <Like active={true} variant="card" isAuthorized={true} className={s.like} />
+        <IconButton
+          onClick={handleLike}
+          src={isActive ? '../public/icons/like-icon.svg' : '../public/icons/like-fill.svg'}
+          className={s.iconLike}
+        />
       </div>
       <Skills skills={user.skillsCanTeach} title={'Может научить'} />
       <Skills skills={skillsWant} title={'Хочет научиться'} />

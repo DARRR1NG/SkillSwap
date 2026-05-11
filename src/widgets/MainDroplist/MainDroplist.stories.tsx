@@ -2,12 +2,15 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { MainDroplist } from './MainDroplist';
 
 const meta = {
-  title: 'MainDroplist',
+  title: 'widgets/MainDroplist',
   component: MainDroplist,
-  tags: ['autodocs'],
+  parameters: {
+    layout: 'centered',
+  },
 } satisfies Meta<typeof MainDroplist>;
 
 export default meta;
+
 type Story = StoryObj<typeof meta>;
 
-export const Search: Story = {};
+export const Default: Story = {};

@@ -1,49 +1,26 @@
 import { Logo } from '../../shared/ui/logo';
-import { MainDroplist } from '../MainDroplist/MainDroplist';
 
 import s from './Footer.module.css';
 
-type FooterProps = {
-  className?: string;
-};
-
-export function Footer({ className }: FooterProps) {
-  const handleLogoClick = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const stub = (text: string) => (
-    <a className={`${s.link} ${s.linkStub}`.trim()} href="#" onClick={(e) => e.preventDefault()}>
-      {text}
-    </a>
-  );
-
+export function Footer() {
   return (
-    <footer className={`${s.root} ${className ?? ''}`.trim()}>
-      <div className={s.container}>
-        <button
-          type="button"
-          className={s.logoButton}
-          onClick={handleLogoClick}
-          aria-label="SkillSwap"
-        >
-          <Logo />
-        </button>
-
-        <nav className={s.col} aria-label="Навигация">
-          {stub('О проекте')}
-          <MainDroplist />
-        </nav>
-
-        <div className={s.col}>
-          {stub('Контакты')}
-          {stub('Блог')}
-          {stub('Политика конфиденциальности')}
-          {stub('Пользовательское соглашение')}
-        </div>
-      </div>
-
-      <div className={s.bottom}>SkillSwap — 2025</div>
+    <footer>
+      <Logo />
+      <nav className={s.nav} aria-label="Навигация">
+        <ul className={s.footer_links}>
+          <li>О проекте</li>
+          <li>Все навыки</li>
+        </ul>
+        <ul className={s.footer_links}>
+          <li>Контакты</li>
+          <li>Блог</li>
+        </ul>
+        <ul className={s.footer_links}>
+          <li>Политика конфиденциальности</li>
+          <li>Пользовательское соглашение</li>
+        </ul>
+      </nav>
+      <div className={s.bottom}>SkillSwap — 2026</div>
     </footer>
   );
 }

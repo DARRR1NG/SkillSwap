@@ -1,11 +1,17 @@
 .radio_button_container {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   cursor: pointer;
   font-size: 16px;
   color: var(--text-base);
   font-family: Roboto-Regular, sans-serif;
+}
+
+.radioButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .radio_button {
@@ -15,7 +21,7 @@
 .custom_radio {
   width: 20px;
   height: 20px;
-  border: 2px solid #000;
+  border: 1px solid #000;
   border-radius: 50%;
   position: relative;
   display: inline-block;
