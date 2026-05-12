@@ -1,0 +1,63 @@
+.options {
+  border: solid 1px var(--caption);
+  border-top: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin: 0;
+  font-family: var(--RobotoRegular);
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 2%;
+  color: var(--text-base);
+  margin-top: -48px;
+  border-radius: 12px;
+  padding: 60px 20px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: start;
+}
+
+li {
+  justify-self: start;
+  list-style: none;
+  cursor: pointer;
+}
+
+.autocomplete_container {
+  position: relative;
+}
+
+.input {
+  outline: solid 1px var(--caption);
+  border: none;
+  width: 100%;
+  height: 48px;
+  border-radius: 12px;
+  font-family: var(--RobotoRegular);
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 2%;
+  padding: 12px 20px;
+  padding-right: 64px;
+}
+
+.input::placeholder {
+  color: var(--caption);
+}
+
+.autocomplete_container::after {
+  content: '';
+  background-image: url('public/icons/chevron-down.svg');
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 12px;
+  right: 20px;
+}
+
+.input:focus-visible {
+  outline: solid 1px var(--caption);
+}
