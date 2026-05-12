@@ -20,17 +20,24 @@
   flex-direction: column;
   gap: 12px;
   align-items: start;
-  background-color: transparent;
+  z-index: 1;
+  background-color: var(--background-card-input);
+}
+
+.autocomplete_container {
+  position: relative;
+  z-index: 1;
+}
+
+.autocomplete_container:focus-within,
+.autocomplete_container:has(.options) {
+  z-index: 10;
 }
 
 li {
   justify-self: start;
   list-style: none;
   cursor: pointer;
-}
-
-.autocomplete_container {
-  position: relative;
 }
 
 .input {
@@ -47,6 +54,8 @@ li {
   padding-right: 64px;
   background-color: var(--background-card-input);
   color: var(--text-base);
+  position: relative;
+  z-index: 2;
 }
 
 .input::placeholder {
@@ -61,6 +70,8 @@ li {
   position: absolute;
   top: 12px;
   right: 20px;
+  z-index: 3;
+  pointer-events: none;
 }
 
 .input:focus-visible {
