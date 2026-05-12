@@ -1,0 +1,38 @@
+.profile {
+  width: 1020px;
+  display: flex;
+  padding: 60px;
+  gap: 196px;
+  background-color: #fff;
+}
+
+.ladels_container {
+  display: flex;
+  flex-direction: column;
+}
+
+.button {
+  border: none;
+  color: var(--text-link);
+}
+
+.inputs {
+  display: flex;
+}
+
+.image_container {
+  position: relative;
+}
+
+.image {
+  width: 244px;
+  height: 244px;
+  border-radius: 50%;
+}
+
+.edit_photo {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  position: absolute;
+}
