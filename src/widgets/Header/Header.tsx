@@ -47,7 +47,7 @@ export const Header: React.FC<HeaderProps> = ({ onLoginClick, onRegisterClick })
 
         {/* Центральная часть - поиск */}
         <div className={clsx(styles.centerSection)}>
-          <Input leftIcon={<SearchIcon />} placeholder="Искать навык" />
+          <Input variant="search" leftIcon={<SearchIcon />} placeholder="Искать навык" />
         </div>
 
         {/* Правая часть - переключатель темы и кнопки авторизации */}
