@@ -73,7 +73,7 @@ export const UserCard: FC<{ user: TUser }> = ({ user }) => {
       <div className={s.person_info}>
         <div className={s.userInfo}>
           <img className={s.card_image} src={user.userAvatar} alt="avatar" />
-          <div>
+          <div className={s.personal_info}>
             <h2 className={s.person_name}>{user.name}</h2>
             <p className={s.person_city}>
               {getCityNameById(user.cityId)}, {getAgeFromBirthday(user.birthday)}
@@ -86,8 +86,8 @@ export const UserCard: FC<{ user: TUser }> = ({ user }) => {
           className={s.iconLike}
         />
       </div>
-      <Skills skills={user.skillsCanTeach} title={'Может научить'} />
-      <Skills skills={skillsWant} title={'Хочет научиться'} />
+      <Skills skills={user.skillsCanTeach} title={'Может научить:'} />
+      <Skills skills={skillsWant} title={'Хочет научиться:'} />
       <Button className={s.button} color="green">
         Подробнее
       </Button>

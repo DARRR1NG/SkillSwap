@@ -10,6 +10,13 @@
   font-family: Roboto-Regular, sans-serif;
 }
 
+.personal_info {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+}
+
 .person_info {
   display: flex;
   justify-content: space-between;
