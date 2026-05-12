@@ -1,0 +1,102 @@
+.root {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--text-base);
+  font-family: var(--RobotoRegular);
+}
+
+.container {
+  width: 100%;
+}
+
+.dropZone {
+  border: 1px dashed var(--disabled-text);
+  border-radius: 15px;
+  background-color: transparent;
+  padding: 16px 20px;
+  text-align: center;
+  cursor: pointer;
+  /* transition: all 0.2s ease; */
+}
+
+.dropZone:hover {
+  border: 1px solid var(--caption);
+}
+
+.fileInput {
+  display: none;
+}
+
+.dropZoneContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.dropText {
+  font-size: 16px;
+  color: var(--disabled-text);
+  margin: 0;
+}
+
+.browseLink {
+  color: var(--text-link);
+  font-family: var(--RobotoRegular);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.uploadButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.previewGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.imageItem {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: var(--button-hover);
+  transition: transform 0.2s;
+}
+
+.imageItem:hover {
+  transform: translateY(-2px);
+}
+
+.previewImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.removeButton {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.6);
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.removeButton:hover {
+  background-color: var(--error);
+}
