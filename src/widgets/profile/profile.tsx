@@ -4,6 +4,7 @@ import s from './profile.module.css';
 import citiesData from '../../../public/db/cities.json';
 import type { TUser } from '../../utils/types';
 import type { FC } from 'react';
+import { Button } from '../../shared/ui/button';
 
 export const Profile: FC<{ user: TUser }> = ({ user }) => {
   const citiesOptions = citiesData.cities.map((e) => e.name);
@@ -14,11 +15,20 @@ export const Profile: FC<{ user: TUser }> = ({ user }) => {
         <button className={s.button}>Изменить пароль</button>
         <Input label="Имя" variant="default" fullWidth={true} />
         <div className={s.inputs}>
-          <Autocomplete options={[]} />
-          <Autocomplete options={['Женский', 'Мужской']} />
+          <div>
+            <p className={s.label_name}>Дата рождения</p>
+            <Autocomplete options={[]} />
+          </div>
+          <div>
+            <p className={s.label_name}>Пол</p>
+            <Autocomplete options={['Женский', 'Мужской']} />
+          </div>
         </div>
         <Autocomplete options={citiesOptions} />
         <Input label="О себе" />
+        <Button color="white" disabled>
+          Сохранить
+        </Button>
       </div>
       <div className={s.image_container}>
         <img className={s.image} src={user.userAvatar} alt="фото профиля" />

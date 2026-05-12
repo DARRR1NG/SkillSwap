@@ -9,15 +9,25 @@
 .ladels_container {
   display: flex;
   flex-direction: column;
+  gap: 16px;
 }
 
 .button {
   border: none;
   color: var(--text-link);
+  width: 138px;
+  font-size: 16px;
+  font-weight: 500;
+  background-color: transparent;
 }
 
 .inputs {
   display: flex;
+  gap: 24px;
+}
+
+.label_name {
+  text-align: start;
 }
 
 .image_container {
