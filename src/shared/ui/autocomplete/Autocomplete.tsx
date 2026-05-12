@@ -13,7 +13,6 @@ export const Autocomplete = ({ options, placeholder = 'Введите текст
   const [activeIndex, setActiveIndex] = useState<number>(-1);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  // Фильтрация вариантов при вводе
   useEffect(() => {
     if (inputValue.trim() === '') {
       setFilteredOptions([]);
@@ -21,33 +20,32 @@ export const Autocomplete = ({ options, placeholder = 'Введите текст
       return;
     }
 
-    const filtered = options.filter((option: string) =>
-      option.toLowerCase().startsWith(inputValue.toLowerCase())
-    );
+    // Фильтруем, исключая точное совпадение
+    const filtered = options.filter((option: string) => {
+      const matchesPrefix = option.toLowerCase().startsWith(inputValue.toLowerCase());
+      const isExactMatch = option.toLowerCase() === inputValue.toLowerCase();
+      return matchesPrefix && !isExactMatch;
+    });
+
     setFilteredOptions(filtered);
     setIsOpen(filtered.length > 0);
     setActiveIndex(-1);
   }, [inputValue, options]);
 
-  // Закрытие при клике вне компонента
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  const hasExactMatch = (value: string): boolean => {
+    return options.some((option) => option.toLowerCase() === value.toLowerCase());
+  };
 
   const handleFocus = () => {
     if (inputValue.trim() === '') {
       setFilteredOptions(options);
-      setIsOpen(true);
+      setIsOpen(options.length > 0);
     } else {
-      const filtered = options.filter((option: string) =>
-        option.toLowerCase().startsWith(inputValue.toLowerCase())
-      );
+      const filtered = options.filter((option: string) => {
+        const matchesPrefix = option.toLowerCase().startsWith(inputValue.toLowerCase());
+        const isExactMatch = option.toLowerCase() === inputValue.toLowerCase();
+        return matchesPrefix && !isExactMatch;
+      });
       setFilteredOptions(filtered);
       setIsOpen(filtered.length > 0);
     }
@@ -57,9 +55,18 @@ export const Autocomplete = ({ options, placeholder = 'Введите текст
     setInputValue(value);
     setIsOpen(false);
     setFilteredOptions([]);
+    setActiveIndex(-1);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (!isOpen && e.key === 'Enter' && inputValue.trim() !== '') {
+      if (hasExactMatch(inputValue)) {
+        e.preventDefault();
+        setIsOpen(false);
+      }
+      return;
+    }
+
     if (!isOpen) return;
 
     if (e.key === 'ArrowDown') {
@@ -68,12 +75,25 @@ export const Autocomplete = ({ options, placeholder = 'Введите текст
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
       setActiveIndex((prev: number) => (prev > 0 ? prev - 1 : -1));
-    } else if (e.key === 'Enter' && activeIndex >= 0) {
+    } else if (e.key === 'Enter') {
       e.preventDefault();
-      handleSelect(filteredOptions[activeIndex]);
+
+      if (activeIndex >= 0 && filteredOptions[activeIndex]) {
+        handleSelect(filteredOptions[activeIndex]);
+      } else if (hasExactMatch(inputValue)) {
+        setIsOpen(false);
+        setFilteredOptions([]);
+        setActiveIndex(-1);
+      }
     } else if (e.key === 'Escape') {
       setIsOpen(false);
+      setActiveIndex(-1);
     }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value;
+    setInputValue(newValue);
   };
 
   return (
@@ -81,19 +101,20 @@ export const Autocomplete = ({ options, placeholder = 'Введите текст
       <input
         type="text"
         value={inputValue}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
+        onChange={handleChange}
         onKeyDown={handleKeyDown}
         placeholder={placeholder}
         className={s.input}
         onFocus={handleFocus}
       />
-      {isOpen && (
+      {isOpen && filteredOptions.length > 0 && (
         <ul className={s.options}>
           {filteredOptions.map((option: string, index: number) => (
             <li
               key={option}
               onClick={() => handleSelect(option)}
               onMouseEnter={() => setActiveIndex(index)}
+              className={index === activeIndex ? s.active : ''}
             >
               {option}
             </li>

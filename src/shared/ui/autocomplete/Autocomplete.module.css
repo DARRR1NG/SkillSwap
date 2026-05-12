@@ -11,13 +11,16 @@
   line-height: 24px;
   letter-spacing: 2%;
   color: var(--text-base);
-  margin-top: -48px;
   border-radius: 12px;
+  margin-top: -48px;
   padding: 60px 20px 12px;
+  margin-left: -1px;
+  margin-right: -1px;
   display: flex;
   flex-direction: column;
   gap: 12px;
   align-items: start;
+  background-color: transparent;
 }
 
 li {
@@ -42,6 +45,8 @@ li {
   letter-spacing: 2%;
   padding: 12px 20px;
   padding-right: 64px;
+  background-color: var(--background-card-input);
+  color: var(--text-base);
 }
 
 .input::placeholder {
