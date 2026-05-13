@@ -19,6 +19,7 @@
   font-size: 16px;
   font-weight: 500;
   background-color: transparent;
+  white-space: nowrap;
 }
 
 .inputs {
@@ -31,6 +32,8 @@
 }
 
 .image_container {
+  width: 244px;
+  height: 244px;
   position: relative;
 }
 
@@ -43,6 +46,10 @@
 .edit_photo {
   width: 56px;
   height: 56px;
+  border: none;
   border-radius: 50%;
   position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: var(--button-hover);
 }

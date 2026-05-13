@@ -32,7 +32,9 @@ export const Profile: FC<{ user: TUser }> = ({ user }) => {
       </div>
       <div className={s.image_container}>
         <img className={s.image} src={user.userAvatar} alt="фото профиля" />
-        <button className={s.edit_photo}></button>
+        <button className={s.edit_photo}>
+          <img src="../../../public/icons/gallery-edit.svg" />
+        </button>
       </div>
     </div>
   );
