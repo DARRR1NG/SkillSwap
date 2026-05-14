@@ -10,13 +10,24 @@ import {
 import { CitiesCheckboxes } from '../../shared/ui/cities-checkboxes/cities-checkboxes';
 
 export const FilterColumn = () => {
-  // Состояние для "Хочу/Могу"
   const [wantCanValue, setWantCanValue] = useState<'all' | 'want' | 'can'>('all');
-
-  // Состояние для пола
   const [genderValue, setGenderValue] = useState<'all' | 'male' | 'female'>('all');
 
-  // Опции для "Хочу/Могу"
+  // Добавляем эффект для синхронизации с глобальным объектом
+  useEffect(() => {
+    // Сохраняем состояние фильтров в глобальный объект
+    (window as any).__filters__ = {
+      wantCanValue,
+      genderValue,
+    };
+    // Диспатчим событие об изменении фильтров
+    window.dispatchEvent(
+      new CustomEvent('filtersChanged', {
+        detail: { wantCanValue, genderValue },
+      })
+    );
+  }, [wantCanValue, genderValue]);
+
   const optionsWantCan = [
     {
       text: 'Все',
@@ -35,7 +46,6 @@ export const FilterColumn = () => {
     },
   ];
 
-  // Опции для пола
   const optionsGenders = [
     {
       text: 'Не имеет значения',
