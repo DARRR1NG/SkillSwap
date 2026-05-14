@@ -8,11 +8,7 @@ interface DraggableImageProps {
   onRemove: () => void;
 }
 
-export const DraggableImage: React.FC<DraggableImageProps> = ({
-  image,
-  index,
-  onRemove,
-}) => {
+export const DraggableImage: React.FC<DraggableImageProps> = ({ image, index, onRemove }) => {
   const dragIndex = useRef<number>(index);
   const dragOverIndex = useRef<number>(index);
 

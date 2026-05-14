@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useRef, useState } from 'react';
+﻿import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Footer } from '../../widgets/Footer';
 import { Header } from '../../widgets/Header';
 import { FilterColumn } from '../../widgets/FilterColumn/index';
@@ -97,32 +97,29 @@ export function HomePage() {
     return { wantCanValue, genderValue, selectedSkills, selectedCities };
   };
 
-  const searchInUser = (user: TUser, query: string) => {
-    if (!query.trim()) return true;
+  const applyFilters = useCallback(() => {
+    const searchInUser = (user: TUser, query: string) => {
+      if (!query.trim()) return true;
 
-    const searchLower = query.toLowerCase().trim();
+      const searchLower = query.toLowerCase().trim();
 
-    // Поиск по имени
-    if (user.name.toLowerCase().includes(searchLower)) return true;
+      if (user.name.toLowerCase().includes(searchLower)) return true;
 
-    // Поиск по навыкам "Может научить"
-    if (
-      user.skillsCanTeach?.some((skill) => skill.customTitle?.toLowerCase().includes(searchLower))
-    )
-      return true;
+      if (
+        user.skillsCanTeach?.some((skill) => skill.customTitle?.toLowerCase().includes(searchLower))
+      )
+        return true;
 
-    // Поиск по навыкам "Хочет научиться"
-    if (user.skillsWantId && user.skillsWantId.length > 0) {
-      for (const id of user.skillsWantId) {
-        const skill = skillsList.find((s) => s.id === Number(id));
-        if (skill?.title.toLowerCase().includes(searchLower)) return true;
+      if (user.skillsWantId && user.skillsWantId.length > 0) {
+        for (const id of user.skillsWantId) {
+          const skill = skillsList.find((s) => s.id === Number(id));
+          if (skill?.title.toLowerCase().includes(searchLower)) return true;
+        }
       }
-    }
 
-    return false;
-  };
+      return false;
+    };
 
-  const applyFilters = () => {
     if (cards.length === 0) return;
     if (skillsList.length === 0) return;
 
@@ -184,11 +181,11 @@ export function HomePage() {
     });
 
     setFilteredCards(filtered);
-  };
+  }, [cards, skillsList]);
 
   useEffect(() => {
     applyFilters();
-  }, [cards, skillsList]);
+  }, [applyFilters]);
 
   useEffect(() => {
     if (cards.length === 0) return;
@@ -212,7 +209,7 @@ export function HomePage() {
         searchInput.removeEventListener('input', handleChange);
       }
     };
-  }, [cards, skillsList]);
+  }, [applyFilters, cards.length]);
 
   const displayCards = filteredCards.length > 0 ? filteredCards : cards;
   const hasNoResults = filteredCards.length === 0 && cards.length > 0;

@@ -7,7 +7,7 @@ const meta = {
   tags: ['autodocs'],
   args: {
     maxImages: 5,
-    onImagesChange: (images) => console.log('Загружено изображений:', images.length)
+    onImagesChange: (images) => console.log('Загружено изображений:', images.length),
   },
 } satisfies Meta<typeof ImageUploader>;
 
@@ -20,9 +20,6 @@ export const Default: Story = {};
 // С предзагруженными изображениями
 export const WithInitialImages: Story = {
   args: {
-    initialImages: [
-      './../images/skills/acting.jpg',
-      './../images/skills/baking.jpg'
-    ],
+    initialImages: ['./../images/skills/acting.jpg', './../images/skills/baking.jpg'],
   },
 };

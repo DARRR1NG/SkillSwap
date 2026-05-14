@@ -42,6 +42,7 @@ export const FilterProvider = ({ children }: FilterProviderProps) => {
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components -- context hook co-located with provider
 export const useFilterContext = () => {
   const context = useContext(FilterContext);
   if (!context) {
