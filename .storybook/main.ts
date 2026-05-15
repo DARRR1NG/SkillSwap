@@ -10,6 +10,13 @@ const config: StorybookConfig = {
     '@storybook/addon-docs',
   ],
   framework: '@storybook/react-vite',
+  viteFinal: async (config) => ({
+    ...config,
+    optimizeDeps: {
+      ...config.optimizeDeps,
+      include: [...(config.optimizeDeps?.include ?? []), 'swiper', 'swiper/react'],
+    },
+  }),
 };
 
 export default config;
