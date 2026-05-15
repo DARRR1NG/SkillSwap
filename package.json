@@ -19,7 +19,8 @@
     "clsx": "^2.1.1",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
-    "react-redux": "^9.2.0"
+    "react-redux": "^9.2.0",
+    "swiper": "^12.1.4"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^5.1.2",
