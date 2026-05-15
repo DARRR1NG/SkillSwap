@@ -8,7 +8,7 @@ const meta = {
   tags: ['autodocs'],
   decorators: [
     (Story) => (
-      <div style={{ padding: 24, background: 'var(--background)' }}>
+      <div style={{ padding: 24 }}>
         <Story />
       </div>
     ),
@@ -18,29 +18,25 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Empty: Story = {
-  args: {},
+/** Регистрация: силуэт + «+» (54px). */
+export const Register: Story = {
+  args: {
+    variant: 'register',
+  },
 };
 
-export const WithPhoto: Story = {
+/** Профиль: фото + иконка редактирования (244px). */
+export const Profile: Story = {
   args: {
+    variant: 'profile',
     defaultSrc: '/images/avatars/alexander.jpg',
   },
 };
 
-/** Макет профиля: 244 и бейдж 56 (можно не передавать — посчитается само). */
-export const ProfileSize: Story = {
+/** Профиль без фото. */
+export const ProfileEmpty: Story = {
   args: {
-    defaultSrc: '/images/avatars/alexander.jpg',
-    avatarSize: 244,
-  },
-};
-
-/** Меньший аватар — диаметр бейджа по пропорции 56/244. */
-export const Compact: Story = {
-  args: {
-    defaultSrc: '/images/avatars/alexander.jpg',
-    avatarSize: 160,
+    variant: 'profile',
   },
 };
 
@@ -49,8 +45,8 @@ export const Controlled: Story = {
     const [src, setSrc] = useState<string | null>(null);
     return (
       <AvatarUpload
+        variant="profile"
         src={src}
-        avatarSize={180}
         onFileChange={(file) => {
           setSrc(URL.createObjectURL(file));
         }}

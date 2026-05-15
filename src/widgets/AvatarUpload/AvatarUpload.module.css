@@ -7,6 +7,7 @@
 .hitArea {
   position: relative;
   display: block;
+  overflow: visible;
   padding: 0;
   border: none;
   background: transparent;
@@ -76,4 +77,22 @@
   display: block;
   flex-shrink: 0;
   object-fit: contain;
+}
+
+.placeholderIcon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.badgeGlyph {
+  display: block;
+  flex-shrink: 0;
+  color: #fff;
+}
+
+.editButtonRegister {
+  background-color: #abd27a;
+  box-shadow: none;
 }
