@@ -32,6 +32,10 @@
   background: var(--disabled);
 }
 
+.avatarWrapEmpty {
+  background: transparent;
+}
+
 .avatar {
   display: block;
   width: 100%;
@@ -39,14 +43,10 @@
   object-fit: cover;
 }
 
-.placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.emptyPlaceholder {
+  display: block;
   width: 100%;
   height: 100%;
-  background: var(--disabled);
-  color: var(--caption);
 }
 
 .hiddenInput {
@@ -79,20 +79,19 @@
   object-fit: contain;
 }
 
-.placeholderIcon {
+.registerPlus {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
   display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
+  width: var(--register-plus-size, 16px);
+  height: var(--register-plus-size, 16px);
+  pointer-events: none;
 
-.badgeGlyph {
-  display: block;
-  flex-shrink: 0;
-  color: #fff;
-}
-
-.editButtonRegister {
-  background-color: #abd27a;
-  box-shadow: none;
+  /* Сдвиг вверх-влево: центр бейджа на дуге круга, не в углу bounding box */
+  transform: translate(
+    calc(-1 * var(--register-plus-nudge, 0px)),
+    calc(-1 * var(--register-plus-nudge, 0px))
+  );
 }

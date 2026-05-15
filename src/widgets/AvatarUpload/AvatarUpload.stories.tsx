@@ -33,10 +33,18 @@ export const Profile: Story = {
   },
 };
 
-/** Профиль без фото. */
+/** Профиль без фото (244px): avatar.svg + «+», как маленькая вариация. */
 export const ProfileEmpty: Story = {
   args: {
     variant: 'profile',
+  },
+};
+
+/** Профиль без фото (56px) — то же, что ProfileEmpty. */
+export const ProfileEmptySmall: Story = {
+  args: {
+    variant: 'profile',
+    avatarSize: 56,
   },
 };
 
