@@ -1,0 +1,383 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  overflow: hidden;
+  overscroll-behavior: none;
+  background: color-mix(in srgb, var(--text-base) 55%, transparent);
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 48px);
+  overflow: auto;
+  background: var(--background-card-input);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px color-mix(in srgb, var(--text-base) 16%, transparent);
+}
+
+.panelSm {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 556px);
+  max-width: 556px;
+  height: 420px;
+  max-height: min(420px, calc(100vh - 48px));
+  padding: 80px 60px;
+  gap: 52px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.panelLg {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: min(100%, 1024px);
+  max-width: 1024px;
+  height: 532px;
+  max-height: min(532px, calc(100vh - 48px));
+  padding: 40px 60px 48px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.headerCenter {
+  align-items: center;
+  text-align: center;
+}
+
+.textBlockCenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  text-align: center;
+}
+
+.iconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-base);
+}
+
+.presetIcon {
+  display: block;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.presetIconCheck {
+  width: 77px;
+  height: 77px;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--JostMedium), Jost, sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: var(--text-base);
+}
+
+.description {
+  margin: 0;
+  font-family: var(--RobotoRegular), Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: var(--caption);
+}
+
+.body {
+  margin-top: 0;
+  min-height: 0;
+}
+
+.footer {
+  margin-top: 0;
+  flex-shrink: 0;
+}
+
+.panelSm .header,
+.panelSm .footer {
+  width: 100%;
+}
+
+.panelSm .headerCenter {
+  align-items: center;
+}
+
+.panelLg .headerCenter {
+  align-items: center;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.panelLg .body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+  margin-top: 24px;
+  width: 100%;
+}
+
+.panelLg .footer {
+  margin-top: 32px;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+}
+
+.actionsColumn {
+  flex-direction: column;
+  width: 100%;
+}
+
+.actionsRow {
+  flex-flow: row wrap;
+}
+
+.actionButton {
+  min-width: 0;
+}
+
+.actionButtonFull {
+  width: 100%;
+  border-radius: 24px;
+}
+
+.actionLabel {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.actionIcon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.actionIcon img {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+/* --- Контент превью предложения (макет 904×324) --- */
+
+.offerLayout {
+  --offer-block-height: 324px;
+  --offer-thumb-width: 72px;
+  --offer-main-size: 324px;
+
+  display: grid;
+  flex: none;
+  grid-template-columns: minmax(0, 1fr) calc(
+      var(--offer-main-size) + 12px + var(--offer-thumb-width)
+    );
+  gap: 32px;
+  align-items: stretch;
+  height: var(--offer-block-height);
+  min-height: var(--offer-block-height);
+  max-height: var(--offer-block-height);
+}
+
+.offerColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: var(--offer-block-height);
+  min-width: 0;
+}
+
+.offerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.offerActions {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.offerActionButton {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 48px;
+  padding: 0 16px;
+  border-radius: 12px;
+}
+
+.offerTitle {
+  margin: 0;
+  font-family: var(--JostMedium), Jost, sans-serif;
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--text-base);
+}
+
+.offerMeta {
+  margin: 0;
+  font-family: var(--RobotoRegular), Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--caption);
+}
+
+.offerText {
+  margin: 0;
+  font-family: var(--RobotoRegular), Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: var(--text-base);
+}
+
+.offerGallery {
+  display: grid;
+  grid-template-columns: var(--offer-main-size) var(--offer-thumb-width);
+  gap: 12px;
+  align-items: stretch;
+  width: calc(var(--offer-main-size) + 12px + var(--offer-thumb-width));
+  height: var(--offer-block-height);
+  flex-shrink: 0;
+}
+
+.offerMainImage {
+  display: block;
+  width: var(--offer-main-size);
+  height: var(--offer-block-height);
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.offerThumbs {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: var(--offer-block-height);
+}
+
+.offerThumb {
+  position: relative;
+  display: block;
+  flex: 1 1 0;
+  width: var(--offer-thumb-width);
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.offerThumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.offerThumbActive {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+.offerThumbMore {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--RobotoMedium), Roboto, sans-serif;
+  font-size: 16px;
+  color: var(--text-base);
+  background: color-mix(in srgb, var(--background-card-input) 72%, transparent);
+}
+
+@media (width <= 768px) {
+  .panelSm {
+    width: min(100%, 556px);
+    height: min(420px, calc(100vh - 48px));
+    max-height: calc(100vh - 48px);
+    padding: 40px 24px;
+    gap: 32px;
+    overflow: hidden;
+  }
+
+  .panelLg {
+    height: auto;
+    max-height: calc(100vh - 48px);
+    padding: 24px 20px 20px;
+    overflow: auto;
+  }
+
+  .offerLayout {
+    --offer-block-height: auto;
+    --offer-main-size: min(100%, 280px);
+
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    grid-template-columns: 1fr;
+  }
+
+  .offerColumn {
+    height: auto;
+  }
+
+  .offerGallery {
+    width: 100%;
+    height: auto;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  .offerMainImage {
+    width: 100%;
+    height: 200px;
+  }
+
+  .offerThumbs {
+    height: 200px;
+    flex-flow: row wrap;
+  }
+
+  .offerThumb {
+    flex: 1 1 0;
+  }
+}
