@@ -10,6 +10,7 @@
 }
 
 .label {
+  color: var(--text-base);
   font-family: var(--RobotoRegular);
   font-size: 16px;
   font-weight: 400;
@@ -26,11 +27,14 @@
   box-sizing: border-box;
   color: var(--text-base);
   background: var(--background-card-input);
-  border: 1px solid transparent;
-  transition:
-    border-color 0.2s ease,
-    background-color 0.2s ease,
-    box-shadow 0.2s ease;
+  border: 1px solid var(--caption);
+  transition: background-color 0.2s ease;
+}
+
+.control:hover,
+.control:focus,
+.control:focus-within {
+  border-color: var(--caption);
 }
 
 .default {
@@ -38,9 +42,15 @@
 }
 
 .search {
+  color: var(--text-base);
   background: var(--background-card-input);
-  border-color: transparent;
-  color: var(--caption);
+  border-color: var(--caption);
+}
+
+.search:hover,
+.search:focus,
+.search:focus-within {
+  border-color: var(--caption);
 }
 
 .md {
@@ -53,22 +63,21 @@
   border-radius: 12px;
 }
 
-.control:focus-within {
-  border-color: var(--accent-color);
-}
-
-.error {
-  border-color: var(--error);
-}
-
+.error,
+.error:hover,
+.error:focus,
 .error:focus-within {
   border-color: var(--error);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--error) 16%, transparent);
+  box-shadow: none;
 }
 
-.disabled {
+.disabled,
+.disabled:hover,
+.disabled:focus,
+.disabled:focus-within {
   color: var(--disabled-text);
   background: var(--disabled);
+  border-color: var(--caption);
   cursor: not-allowed;
 }
 
@@ -79,24 +88,38 @@
   min-height: inherit;
   box-sizing: border-box;
   padding: 0 20px;
-  font: inherit;
-  font-size: 16px;
-  line-height: 1.5;
-  color: inherit;
+  color: var(--text-base);
+  caret-color: var(--text-link) !important;
   background: transparent;
   border: 0;
   outline: 0;
   font-family: var(--RobotoRegular);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-text-fill-color: var(--text-base);
+}
+
+.input:hover,
+.input:focus {
+  color: var(--text-base);
+  -webkit-text-fill-color: var(--text-base);
+}
+
+.input:focus {
+  caret-color: var(--text-link) !important;
 }
 
 .input::placeholder {
   color: var(--disabled-text);
   opacity: 1;
   font-family: var(--RobotoRegular);
+  -webkit-text-fill-color: var(--disabled-text);
 }
 
 .input:disabled {
+  color: var(--disabled-text);
   cursor: not-allowed;
+  -webkit-text-fill-color: var(--disabled-text);
 }
 
 .withLeftIcon .input {
@@ -145,21 +168,23 @@
 }
 
 .iconButton:focus-visible {
-  outline: 2px solid var(--accent-color);
+  outline: 2px solid var(--text-link);
   outline-offset: 3px;
   border-radius: 999px;
 }
 
 .iconSvg {
+  display: block;
   width: 100%;
   height: 100%;
 }
 
 .message {
   margin: 0;
+  color: var(--text-base);
+  font-family: var(--RobotoRegular);
   font-size: 14px;
   line-height: 1.3;
-  color: var(--caption);
   text-align: left;
 }
 
