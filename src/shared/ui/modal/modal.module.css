@@ -8,7 +8,9 @@
   padding: 24px;
   overflow: hidden;
   overscroll-behavior: none;
-  background: color-mix(in srgb, var(--background) 55%, transparent);
+  background: rgb(142 142 142 / 60%);
+  backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
 }
 
 .panel {
