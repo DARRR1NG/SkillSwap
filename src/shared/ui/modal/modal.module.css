@@ -8,7 +8,7 @@
   padding: 24px;
   overflow: hidden;
   overscroll-behavior: none;
-  background: color-mix(in srgb, var(--text-base) 55%, transparent);
+  background: color-mix(in srgb, var(--background) 55%, transparent);
 }
 
 .panel {
@@ -170,7 +170,8 @@
 
 .actionButtonFull {
   width: 100%;
-  border-radius: 24px;
+  padding: 0 24px;
+  border-radius: 12px;
 }
 
 .actionLabel {
@@ -237,7 +238,7 @@
   flex: 1 1 0;
   min-width: 0;
   height: 48px;
-  padding: 0 16px;
+  padding: 0 24px;
   border-radius: 12px;
 }
 
