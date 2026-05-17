@@ -1,0 +1,203 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 330px;
+  gap: 12px;
+  color: var(--text-base);
+  font-family: var(--RobotoRegular);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0.02em;
+}
+
+.field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  text-align: left;
+}
+
+.openField {
+  z-index: 20;
+}
+
+.label {
+  color: inherit;
+}
+
+.control,
+.controlButton,
+.textarea {
+  width: 100%;
+  border: 1px solid var(--caption);
+  border-radius: 9px;
+  outline: none;
+  background: var(--background-card-input);
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+}
+
+.control,
+.controlButton {
+  height: 36px;
+  padding: 9px 15px;
+}
+
+.textarea {
+  height: 72px;
+  padding: 9px 15px;
+  resize: none;
+}
+
+.control::placeholder,
+.textarea::placeholder,
+.placeholder {
+  color: var(--caption);
+  opacity: 1;
+}
+
+.controlButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.controlButton:disabled {
+  cursor: default;
+  opacity: 0.72;
+}
+
+.controlButton span {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.downIcon,
+.upIcon {
+  width: 12px;
+  height: 6px;
+  flex: 0 0 auto;
+}
+
+.upIcon {
+  transform: rotate(180deg);
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 1px);
+  left: 0;
+  z-index: 30;
+  width: 100%;
+  max-height: 178px;
+  padding: 6px 0;
+  overflow-y: auto;
+  border: 1px solid var(--toggle);
+  border-radius: 0 0 8px 8px;
+  background: var(--background-card-input);
+  box-shadow: 0 8px 20px rgb(37 48 23 / 8%);
+}
+
+.dropdownItem {
+  display: block;
+  width: 100%;
+  padding: 6px 12px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  font: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+}
+
+.dropdownItem:hover {
+  background: var(--background);
+}
+
+.upload {
+  display: flex;
+  min-height: 72px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 12px 16px;
+  border: 1px dashed var(--disabled-text);
+  border-radius: 9px;
+  background: var(--background-card-input);
+  color: var(--caption);
+  text-align: center;
+  cursor: pointer;
+}
+
+.uploadActive {
+  border-color: var(--accent-color);
+  background: var(--button-hover);
+}
+
+.fileInput {
+  display: none;
+}
+
+.uploadText {
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.uploadAction {
+  color: var(--text-link);
+}
+
+.uploadAction::before {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-right: 6px;
+  border: 1px solid currentcolor;
+  border-radius: 4px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 11px;
+  text-align: center;
+  vertical-align: -2px;
+  content: '+';
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-top: 12px;
+}
+
+.backButton,
+.continueButton {
+  height: 36px;
+  padding: 9px 18px;
+  border-radius: 9px;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+}
+
+.backButton {
+  border: 1px solid var(--accent-color);
+  background: var(--background-card-input);
+}
+
+.continueButton {
+  border: 1px solid var(--accent-color);
+  background: var(--accent-color);
+}
