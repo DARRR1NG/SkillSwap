@@ -1,26 +1,28 @@
 .header {
-  width: 100%;
   position: sticky;
   top: 0;
   z-index: 30;
+  width: 100%;
   box-sizing: border-box;
-  align-items: center;
   padding: 16px 20px;
   background-color: var(--background);
 }
 
 .container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .leftSection {
   display: flex;
-  align-items: flex-end;
+  flex: 0 0 auto;
+  align-items: center;
   gap: 20px;
-  position: relative;
-  padding-right: 32px;
+  min-width: max-content;
 }
 
 .logo {
@@ -29,18 +31,19 @@
 
 .nav {
   display: flex;
-  flex: 1 1 auto;
+  align-items: center;
+  gap: 0;
   color: var(--text-base);
-  text-decoration: none;
-  font-weight: 400;
   font-family: var(--RobotoRegular);
   font-size: 16px;
+  font-weight: 400;
+  white-space: nowrap;
 }
 
 .navLink {
+  padding-right: 24px;
   color: var(--text-base);
   text-decoration: none;
-  padding-right: 24px;
 }
 
 .chevron {
@@ -48,15 +51,17 @@
 }
 
 .centerSection {
-  flex: 1;
+  flex: 1 1 527px;
   max-width: 527px;
+  min-width: 280px;
 }
 
 .rightSection {
   display: flex;
+  flex: 0 0 auto;
   align-items: center;
   gap: 16px;
-  flex: 0 0 auto;
+  min-width: max-content;
 }
 
 .iconMoon {
@@ -67,8 +72,8 @@
   padding: 12px 23px;
   border: 1px solid var(--accent-color);
   border-radius: 12px;
-  background-color: var(--background-card-input);
   color: var(--text-base);
+  background-color: var(--background-card-input);
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -77,9 +82,56 @@
 .registerBtn {
   padding: 12px 24px;
   border-radius: 12px;
-  background-color: var(--accent-color);
   color: var(--text-base);
+  background-color: var(--accent-color);
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.3s;
+}
+
+.rotated {
+  transform: rotate(180deg);
+}
+
+.active {
+  opacity: 0.7;
+}
+
+.closeButton {
+  display: flex;
+  min-width: 119px;
+  min-height: 50px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 24px;
+  color: var(--text-base);
+  background-color: var(--background-card-input);
+  border: 0;
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: var(--RobotoRegular);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.02em;
+}
+
+.closeButton:hover {
+  background-color: var(--button-hover);
+}
+
+.closeButton:active {
+  color: var(--background-card-input);
+  background-color: var(--text-link);
+}
+
+.closeButton:focus-visible {
+  outline: 2px solid var(--text-link);
+  outline-offset: 2px;
+}
+
+.closeIcon {
+  font-size: 22px;
+  line-height: 1;
 }
