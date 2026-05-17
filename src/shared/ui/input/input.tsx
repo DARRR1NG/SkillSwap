@@ -50,29 +50,6 @@ export const SearchIcon = () => (
   </svg>
 );
 
-const EyeIcon = ({ crossed }: { crossed: boolean }) => (
-  <svg className={s.iconSvg} viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-    <path
-      d="M2.5 12s3.5-6.5 9.5-6.5 9.5 6.5 9.5 6.5-3.5 6.5-9.5 6.5S2.5 12 2.5 12Z"
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="1.8"
-    />
-    <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" strokeWidth="1.8" />
-    {crossed && (
-      <path
-        d="M4.5 4.5 19.5 19.5"
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeWidth="1.8"
-      />
-    )}
-  </svg>
-);
-
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     {
@@ -97,14 +74,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const generatedId = useId();
     const inputId = id ?? generatedId;
     const descriptionId = `${inputId}-description`;
+
     const isPassword = type === 'password';
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-    const resolvedInputType = isPassword && isPasswordVisible ? 'text' : type; // Для password-поля можно временно показать введённый текст
-    const message = error ?? hint; // Ошибка имеет приоритет над подсказкой, чтобы одновременно не отображались два сообщения
-    const hasLeftIcon = variant === 'search' || Boolean(leftIcon);
-    const hasRightControl = Boolean(rightIcon) || isPassword; // У password справа всегда своя кнопка показа пароля
+    const resolvedInputType = isPassword && isPasswordVisible ? 'text' : type;
 
-    // Вызываем обычный onChange и дополнительно отдаём наружу текущее value
+    const message = error ?? hint;
+    const hasLeftIcon = variant === 'search' || Boolean(leftIcon);
+    const hasRightControl = Boolean(rightIcon) || isPassword;
+
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
       onChange?.(event);
       onValueChange?.(event.target.value, event);
@@ -155,11 +133,16 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               aria-label={isPasswordVisible ? 'Скрыть пароль' : 'Показать пароль'}
               onClick={() => setIsPasswordVisible((value) => !value)}
             >
-              <EyeIcon crossed={!isPasswordVisible} />
+              <img
+                className={s.iconSvg}
+                src={isPasswordVisible ? '/icons/eye.svg' : '/icons/eye-slash.svg'}
+                alt=""
+                aria-hidden="true"
+              />
             </button>
           ) : (
             rightIcon && (
-              <span className={s.icon} aria-hidden="true">
+              <span className={s.iconRight} aria-hidden="true">
                 {rightIcon}
               </span>
             )
