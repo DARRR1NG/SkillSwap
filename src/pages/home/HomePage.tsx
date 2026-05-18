@@ -1,5 +1,5 @@
-﻿import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+﻿import { useNavigate } from 'react-router-dom';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Footer } from '../../widgets/Footer';
 import { Header } from '../../widgets/Header';
 import { FilterColumn } from '../../widgets/FilterColumn/index';
@@ -23,8 +23,6 @@ export function HomePage() {
   const [recommendedVisible, setRecommendedVisible] = useState(RECOMMENDED_BATCH_SIZE);
   const navigate = useNavigate();
 
-  const sentinelRef = useRef<HTMLDivElement | null>(null);
-
   const handleLoginClick = () => {
     navigate('/auth');
   };
@@ -32,6 +30,8 @@ export function HomePage() {
   const handleRegisterClick = () => {
     navigate('/reg');
   };
+
+  const sentinelRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const loadData = async () => {
@@ -54,7 +54,6 @@ export function HomePage() {
     const searchInput = document.querySelector(
       'input[placeholder="Искать навык"]'
     ) as HTMLInputElement;
-
     return searchInput ? searchInput.value : '';
   };
 
@@ -65,57 +64,39 @@ export function HomePage() {
     allRadios.forEach((radio) => {
       if ((radio as HTMLInputElement).checked) {
         const label = radio.closest('label')?.innerText?.trim() || '';
-
-        if (label === 'Хочу научиться') {
-          wantCanValue = 'want';
-        } else if (label === 'Могу научить') {
-          wantCanValue = 'can';
-        } else if (label === 'Все') {
-          wantCanValue = 'all';
-        }
+        if (label === 'Хочу научиться') wantCanValue = 'want';
+        else if (label === 'Могу научить') wantCanValue = 'can';
+        else if (label === 'Все') wantCanValue = 'all';
       }
     });
 
     let genderValue = 'all';
     const genderContainer = document.querySelector('[class*="genders"]');
-
     if (genderContainer) {
       const radios = genderContainer.querySelectorAll('input[type="radio"]');
-
       radios.forEach((radio, index) => {
         if ((radio as HTMLInputElement).checked) {
-          if (index === 1) {
-            genderValue = 'male';
-          } else if (index === 2) {
-            genderValue = 'female';
-          } else {
-            genderValue = 'all';
-          }
+          if (index === 1) genderValue = 'male';
+          else if (index === 2) genderValue = 'female';
+          else genderValue = 'all';
         }
       });
     }
 
     const selectedSkills: number[] = [];
     const skillsContainer = document.querySelector('[class*="skills"]');
-
     if (skillsContainer) {
       const checkboxes = skillsContainer.querySelectorAll('input[type="checkbox"]:checked');
-
       checkboxes.forEach((cb) => {
         const value = Number((cb as HTMLInputElement).value);
-
-        if (value) {
-          selectedSkills.push(value);
-        }
+        if (value) selectedSkills.push(value);
       });
     }
 
     const selectedCities: number[] = [];
     const citiesContainer = document.querySelector('[class*="cities"]');
-
     if (citiesContainer) {
       const checkboxes = citiesContainer.querySelectorAll('input[type="checkbox"]:checked');
-
       checkboxes.forEach((cb) => {
         selectedCities.push(Number((cb as HTMLInputElement).value));
       });
@@ -124,55 +105,40 @@ export function HomePage() {
     return { wantCanValue, genderValue, selectedSkills, selectedCities };
   };
 
-  const searchInUser = useCallback(
-    (user: TUser, query: string) => {
-      if (!query.trim()) {
-        return true;
+  const searchInUser = (user: TUser, query: string) => {
+    if (!query.trim()) return true;
+
+    const searchLower = query.toLowerCase().trim();
+
+    // Поиск по имени
+    if (user.name.toLowerCase().includes(searchLower)) return true;
+
+    // Поиск по навыкам "Может научить"
+    if (
+      user.skillsCanTeach?.some((skill) => skill.customTitle?.toLowerCase().includes(searchLower))
+    )
+      return true;
+
+    // Поиск по навыкам "Хочет научиться"
+    if (user.skillsWantId && user.skillsWantId.length > 0) {
+      for (const id of user.skillsWantId) {
+        const skill = skillsList.find((s) => s.id === Number(id));
+        if (skill?.title.toLowerCase().includes(searchLower)) return true;
       }
-
-      const searchLower = query.toLowerCase().trim();
-
-      if (user.name.toLowerCase().includes(searchLower)) {
-        return true;
-      }
-
-      if (
-        user.skillsCanTeach?.some((skill) => skill.customTitle?.toLowerCase().includes(searchLower))
-      ) {
-        return true;
-      }
-
-      if (user.skillsWantId && user.skillsWantId.length > 0) {
-        for (const id of user.skillsWantId) {
-          const skill = skillsList.find((s) => s.id === Number(id));
-
-          if (skill?.title.toLowerCase().includes(searchLower)) {
-            return true;
-          }
-        }
-      }
-
-      return false;
-    },
-    [skillsList]
-  );
-
-  const applyFilters = useCallback(() => {
-    if (cards.length === 0) {
-      return;
     }
 
-    if (skillsList.length === 0) {
-      return;
-    }
+    return false;
+  };
+
+  const applyFilters = () => {
+    if (cards.length === 0) return;
+    if (skillsList.length === 0) return;
 
     const currentSearchQuery = getSearchQueryFromDOM();
     const { wantCanValue, genderValue, selectedSkills, selectedCities } = getFiltersFromDOM();
 
     const filtered = cards.filter((user) => {
-      if (!searchInUser(user, currentSearchQuery)) {
-        return false;
-      }
+      if (!searchInUser(user, currentSearchQuery)) return false;
 
       if (selectedSkills.length > 0) {
         if (wantCanValue === 'want') {
@@ -184,28 +150,18 @@ export function HomePage() {
 
           const hasSkill = selectedSkills.some((skillId) => {
             const selectedSkill = skillsList.find((s) => s.id === skillId);
-
-            if (!selectedSkill) {
-              return false;
-            }
-
+            if (!selectedSkill) return false;
             return canTeachCategories.some(
               (cat) =>
                 cat.categoryId === selectedSkill.categoryId &&
                 cat.subcategoryId === selectedSkill.id
             );
           });
-
-          if (!hasSkill) {
-            return false;
-          }
+          if (!hasSkill) return false;
         } else if (wantCanValue === 'can') {
           const wantIds = user.skillsWantId?.map((id) => Number(id)) || [];
           const hasSkill = selectedSkills.some((id) => wantIds.includes(id));
-
-          if (!hasSkill) {
-            return false;
-          }
+          if (!hasSkill) return false;
         } else {
           const wantIds = user.skillsWantId?.map((id) => Number(id)) || [];
           const canTeachCategories =
@@ -217,11 +173,7 @@ export function HomePage() {
           const hasInWant = selectedSkills.some((id) => wantIds.includes(id));
           const hasInCanTeach = selectedSkills.some((skillId) => {
             const selectedSkill = skillsList.find((s) => s.id === skillId);
-
-            if (!selectedSkill) {
-              return false;
-            }
-
+            if (!selectedSkill) return false;
             return canTeachCategories.some(
               (cat) =>
                 cat.categoryId === selectedSkill.categoryId &&
@@ -229,34 +181,25 @@ export function HomePage() {
             );
           });
 
-          if (!hasInWant && !hasInCanTeach) {
-            return false;
-          }
+          if (!hasInWant && !hasInCanTeach) return false;
         }
       }
 
-      if (genderValue !== 'all' && user.gender !== genderValue) {
-        return false;
-      }
-
-      if (selectedCities.length > 0 && !selectedCities.includes(user.cityId)) {
-        return false;
-      }
+      if (genderValue !== 'all' && user.gender !== genderValue) return false;
+      if (selectedCities.length > 0 && !selectedCities.includes(user.cityId)) return false;
 
       return true;
     });
 
     setFilteredCards(filtered);
-  }, [cards, searchInUser, skillsList]);
+  };
 
   useEffect(() => {
     applyFilters();
-  }, [applyFilters]);
+  }, [cards, skillsList]);
 
   useEffect(() => {
-    if (cards.length === 0) {
-      return;
-    }
+    if (cards.length === 0) return;
 
     const handleChange = () => {
       setTimeout(() => applyFilters(), 50);
@@ -267,19 +210,17 @@ export function HomePage() {
     const searchInput = document.querySelector(
       'input[placeholder="Искать навык"]'
     ) as HTMLInputElement;
-
     if (searchInput) {
       searchInput.addEventListener('input', handleChange);
     }
 
     return () => {
       document.removeEventListener('click', handleChange);
-
       if (searchInput) {
         searchInput.removeEventListener('input', handleChange);
       }
     };
-  }, [cards.length, applyFilters]);
+  }, [cards, skillsList]);
 
   const displayCards = filteredCards.length > 0 ? filteredCards : cards;
   const hasNoResults = filteredCards.length === 0 && cards.length > 0;
@@ -299,10 +240,8 @@ export function HomePage() {
 
   const excludedIds = useMemo(() => {
     const ids = new Set<number>();
-
     popularCards.forEach((card) => ids.add(card.id));
     newestCards.forEach((card) => ids.add(card.id));
-
     return ids;
   }, [popularCards, newestCards]);
 
@@ -315,9 +254,7 @@ export function HomePage() {
   const hasMoreRecommended = recommendedVisible < recommendedCards.length;
 
   useEffect(() => {
-    if (!hasMoreRecommended) {
-      return;
-    }
+    if (!hasMoreRecommended) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -333,7 +270,6 @@ export function HomePage() {
     );
 
     const sentinel = sentinelRef.current;
-
     if (sentinel) {
       observer.observe(sentinel);
     }
@@ -346,7 +282,6 @@ export function HomePage() {
   return (
     <div className={styles.page}>
       <Header onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />
-
       <main className={styles.main}>
         <aside className={styles.filtersSlot}>
           <div className={styles.filtersCard}>
@@ -361,7 +296,6 @@ export function HomePage() {
                 <div className={styles.sectionHead}>
                   <h2 className={styles.sectionTitle}>Популярное</h2>
                 </div>
-
                 <div className={styles.emptyMessage}>
                   <p>Никто не подошёл...</p>
                   <p className={styles.emptySubtext}>
@@ -374,7 +308,6 @@ export function HomePage() {
                 <div className={styles.sectionHead}>
                   <h2 className={styles.sectionTitle}>Новое</h2>
                 </div>
-
                 <div className={styles.emptyMessage}>
                   <p>Никто не подошёл...</p>
                   <p className={styles.emptySubtext}>
@@ -387,7 +320,6 @@ export function HomePage() {
                 <div className={styles.sectionHead}>
                   <h2 className={styles.sectionTitle}>Рекомендуем</h2>
                 </div>
-
                 <div className={styles.emptyMessage}>
                   <p>Никто не подошёл...</p>
                   <p className={styles.emptySubtext}>
@@ -401,7 +333,6 @@ export function HomePage() {
               <section className={styles.section}>
                 <div className={styles.sectionHead}>
                   <h2 className={styles.sectionTitle}>Популярное</h2>
-
                   {!popularOpen && popularCards.length > INITIAL_SHORT_LIST_SIZE && (
                     <button
                       type="button"
@@ -425,7 +356,6 @@ export function HomePage() {
               <section className={styles.section}>
                 <div className={styles.sectionHead}>
                   <h2 className={styles.sectionTitle}>Новое</h2>
-
                   {!newOpen && newestCards.length > INITIAL_SHORT_LIST_SIZE && (
                     <button
                       type="button"
