@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
-import type { RootState } from './../store';
+import type { RootState } from '../store';
 
 export interface User {
-  id: number;
+  id: string;
   name: string;
   email: string;
-  userAvatar?: string;
+  password: string;
+  avatar?: string;
   cityId?: number;
   gender?: 'male' | 'female';
   birthday?: string;
@@ -31,38 +31,88 @@ interface AuthState {
   error: string | null;
 }
 
+// Ключи для localStorage
+const USERS_STORAGE_KEY = 'users';
+const CURRENT_USER_KEY = 'current_user';
+const TOKEN_KEY = 'token';
+
+// Вспомогательные функции
+const getUsers = (): User[] => {
+  const users = localStorage.getItem(USERS_STORAGE_KEY);
+  return users ? JSON.parse(users) : [];
+};
+
+const saveUsers = (users: User[]) => {
+  localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
+};
+
+const saveCurrentUser = (user: User | null) => {
+  if (user) {
+    localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
+  } else {
+    localStorage.removeItem(CURRENT_USER_KEY);
+  }
+};
+
+const saveToken = (token: string | null) => {
+  if (token) {
+    localStorage.setItem(TOKEN_KEY, token);
+  } else {
+    localStorage.removeItem(TOKEN_KEY);
+  }
+};
+
+const generateToken = () => {
+  return `token_${Date.now()}_${crypto.randomUUID()}`;
+};
+
+const generateId = () => {
+  return `${Date.now()}_${crypto.randomUUID()}`;
+};
+
+// Начальное состояние
 const initialState: AuthState = {
-  user: null,
-  token: localStorage.getItem('token'),
+  user: (() => {
+    const savedUser = localStorage.getItem(CURRENT_USER_KEY);
+    return savedUser ? JSON.parse(savedUser) : null;
+  })(),
+  token: localStorage.getItem(TOKEN_KEY),
   isLoading: false,
   error: null,
-};
-
-const saveToken = (token: string) => {
-  localStorage.setItem('token', token);
-};
-
-const removeToken = () => {
-  localStorage.removeItem('token');
 };
 
 // Регистрация
 export const register = createAsyncThunk(
   'auth/register',
-  async ({ email, password }: { email: string; password: string }) => {
-    const response = await fetch('/api/auth/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    });
-
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'Ошибка регистрации');
+  async ({ name, email, password }: { name: string; email: string; password: string }) => {
+    const users = getUsers();
+    
+    // Проверка, существует ли пользователь
+    const existingUser = users.find(u => u.email === email);
+    if (existingUser) {
+      throw new Error('Пользователь с таким email уже существует');
     }
-
-    const data = await response.json();
-    return { user: data.user, token: data.token };
+    
+    // Создание нового пользователя
+    const newUser: User = {
+      id: generateId(),
+      name,
+      email,
+      password,
+      createdAt: new Date().toISOString(),
+      likes: 0,
+      skillsWantId: [],
+      skillsCanTeach: [],
+    };
+    
+    users.push(newUser);
+    saveUsers(users);
+    
+    const token = generateToken();
+    saveToken(token);
+    saveCurrentUser(newUser);
+    
+    return { user: newUser, token };
   }
 );
 
@@ -70,45 +120,59 @@ export const register = createAsyncThunk(
 export const login = createAsyncThunk(
   'auth/login',
   async ({ email, password }: { email: string; password: string }) => {
-    const response = await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    });
-
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'Ошибка входа');
+    const users = getUsers();
+    
+    // Поиск пользователя
+    const user = users.find(u => u.email === email);
+    if (!user) {
+      throw new Error('Пользователь с таким email не найден');
     }
-
-    const data = await response.json();
-    return { user: data.user, token: data.token };
+    
+    if (user.password !== password) {
+      throw new Error('Неверный пароль');
+    }
+    
+    const token = generateToken();
+    saveToken(token);
+    saveCurrentUser(user);
+    
+    return { user, token };
   }
 );
 
 // Обновление данных пользователя
-export const updateUser = createAsyncThunk('auth/updateUser', async (userData: Partial<User>) => {
-  const token = localStorage.getItem('token');
-  const response = await fetch('/api/auth/user', {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(userData),
-  });
-
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message || 'Ошибка обновления данных');
+export const updateUser = createAsyncThunk(
+  'auth/updateUser',
+  async (userData: Partial<User>) => {
+    const currentUser = (() => {
+      const saved = localStorage.getItem(CURRENT_USER_KEY);
+      return saved ? JSON.parse(saved) : null;
+    })();
+    
+    if (!currentUser) {
+      throw new Error('Пользователь не авторизован');
+    }
+    
+    const users = getUsers();
+    const userIndex = users.findIndex(u => u.id === currentUser.id);
+    
+    if (userIndex === -1) {
+      throw new Error('Пользователь не найден');
+    }
+    
+    const updatedUser = { ...users[userIndex], ...userData };
+    users[userIndex] = updatedUser;
+    saveUsers(users);
+    saveCurrentUser(updatedUser);
+    
+    return updatedUser;
   }
+);
 
-  const data = await response.json();
-  return data.user;
-});
-
-// Выход из аккаунта
+// Выход
 export const logout = createAsyncThunk('auth/logout', async () => {
+  saveToken(null);
+  saveCurrentUser(null);
   return null;
 });
 
@@ -119,10 +183,6 @@ const authSlice = createSlice({
   reducers: {
     clearError: (state) => {
       state.error = null;
-    },
-    // Восстановление пользователя из localStorage
-    restoreUser: (state, action: PayloadAction<User>) => {
-      state.user = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -136,13 +196,12 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.user = action.payload.user;
         state.token = action.payload.token;
-        saveToken(action.payload.token);
       })
       .addCase(register.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message || 'Ошибка регистрации';
       })
-
+      
       // Логин
       .addCase(login.pending, (state) => {
         state.isLoading = true;
@@ -152,14 +211,13 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.user = action.payload.user;
         state.token = action.payload.token;
-        saveToken(action.payload.token);
       })
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message || 'Ошибка входа';
       })
-
-      // Обновление пользователя
+      
+      // Обновление
       .addCase(updateUser.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -172,18 +230,17 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.error = action.error.message || 'Ошибка обновления';
       })
-
+      
       // Выход
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
         state.token = null;
-        removeToken();
       });
   },
 });
 
 // Экшены
-export const { clearError, restoreUser } = authSlice.actions;
+export const { clearError } = authSlice.actions;
 
 // Селекторы
 export const selectUser = (state: RootState) => state.auth.user;
@@ -193,4 +250,5 @@ export const selectAuthError = (state: RootState) => state.auth.error;
 export const selectIsAuthenticated = (state: RootState) => !!state.auth.user;
 
 // Редьюсер
-export default authSlice.reducer;
+export const authReducer = authSlice.reducer;
+export default authReducer;
