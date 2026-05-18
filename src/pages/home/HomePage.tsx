@@ -20,11 +20,20 @@ export function HomePage() {
   const [popularOpen, setPopularOpen] = useState(false);
   const [newOpen, setNewOpen] = useState(false);
   const [recommendedVisible, setRecommendedVisible] = useState(RECOMMENDED_BATCH_SIZE);
+
+  // Состояния для фильтров
+  const [wantCanValue, setWantCanValue] = useState<'all' | 'want' | 'can'>('all');
+  const [genderValue, setGenderValue] = useState<'all' | 'male' | 'female'>('all');
+  const [selectedCities, setSelectedCities] = useState<number[]>([]);
+  const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
+
   const handleLoginClick = () => {};
   const handleRegisterClick = () => {};
 
   const sentinelRef = useRef<HTMLDivElement | null>(null);
 
+  // Загрузка данных
   useEffect(() => {
     const loadData = async () => {
       const usersResponse = await fetch('/db/users.json');
@@ -42,76 +51,19 @@ export function HomePage() {
     });
   }, []);
 
-  const getSearchQueryFromDOM = () => {
-    const searchInput = document.querySelector(
-      'input[placeholder="Искать навык"]'
-    ) as HTMLInputElement;
-    return searchInput ? searchInput.value : '';
-  };
-
-  const getFiltersFromDOM = () => {
-    let wantCanValue = 'all';
-    const allRadios = document.querySelectorAll('input[type="radio"]');
-
-    allRadios.forEach((radio) => {
-      if ((radio as HTMLInputElement).checked) {
-        const label = radio.closest('label')?.innerText?.trim() || '';
-        if (label === 'Хочу научиться') wantCanValue = 'want';
-        else if (label === 'Могу научить') wantCanValue = 'can';
-        else if (label === 'Все') wantCanValue = 'all';
-      }
-    });
-
-    let genderValue = 'all';
-    const genderContainer = document.querySelector('[class*="genders"]');
-    if (genderContainer) {
-      const radios = genderContainer.querySelectorAll('input[type="radio"]');
-      radios.forEach((radio, index) => {
-        if ((radio as HTMLInputElement).checked) {
-          if (index === 1) genderValue = 'male';
-          else if (index === 2) genderValue = 'female';
-          else genderValue = 'all';
-        }
-      });
-    }
-
-    const selectedSkills: number[] = [];
-    const skillsContainer = document.querySelector('[class*="skills"]');
-    if (skillsContainer) {
-      const checkboxes = skillsContainer.querySelectorAll('input[type="checkbox"]:checked');
-      checkboxes.forEach((cb) => {
-        const value = Number((cb as HTMLInputElement).value);
-        if (value) selectedSkills.push(value);
-      });
-    }
-
-    const selectedCities: number[] = [];
-    const citiesContainer = document.querySelector('[class*="cities"]');
-    if (citiesContainer) {
-      const checkboxes = citiesContainer.querySelectorAll('input[type="checkbox"]:checked');
-      checkboxes.forEach((cb) => {
-        selectedCities.push(Number((cb as HTMLInputElement).value));
-      });
-    }
-
-    return { wantCanValue, genderValue, selectedSkills, selectedCities };
-  };
-
+  // Поиск по пользователю
   const searchInUser = (user: TUser, query: string) => {
     if (!query.trim()) return true;
 
     const searchLower = query.toLowerCase().trim();
 
-    // Поиск по имени
     if (user.name.toLowerCase().includes(searchLower)) return true;
 
-    // Поиск по навыкам "Может научить"
     if (
       user.skillsCanTeach?.some((skill) => skill.customTitle?.toLowerCase().includes(searchLower))
     )
       return true;
 
-    // Поиск по навыкам "Хочет научиться"
     if (user.skillsWantId && user.skillsWantId.length > 0) {
       for (const id of user.skillsWantId) {
         const skill = skillsList.find((s) => s.id === Number(id));
@@ -122,16 +74,24 @@ export function HomePage() {
     return false;
   };
 
-  const applyFilters = () => {
+  // Флаг - применены ли фильтры
+  const isFiltered =
+    wantCanValue !== 'all' ||
+    genderValue !== 'all' ||
+    selectedSkills.length > 0 ||
+    selectedCities.length > 0 ||
+    searchQuery.trim() !== '';
+
+  // Применение фильтров
+  useEffect(() => {
     if (cards.length === 0) return;
     if (skillsList.length === 0) return;
 
-    const currentSearchQuery = getSearchQueryFromDOM();
-    const { wantCanValue, genderValue, selectedSkills, selectedCities } = getFiltersFromDOM();
-
     const filtered = cards.filter((user) => {
-      if (!searchInUser(user, currentSearchQuery)) return false;
+      // Поиск
+      if (!searchInUser(user, searchQuery)) return false;
 
+      // Фильтр по навыкам
       if (selectedSkills.length > 0) {
         if (wantCanValue === 'want') {
           const canTeachCategories =
@@ -141,7 +101,7 @@ export function HomePage() {
             })) || [];
 
           const hasSkill = selectedSkills.some((skillId) => {
-            const selectedSkill = skillsList.find((s) => s.id === skillId);
+            const selectedSkill = skillsList.find((s) => s.id === Number(skillId));
             if (!selectedSkill) return false;
             return canTeachCategories.some(
               (cat) =>
@@ -152,7 +112,7 @@ export function HomePage() {
           if (!hasSkill) return false;
         } else if (wantCanValue === 'can') {
           const wantIds = user.skillsWantId?.map((id) => Number(id)) || [];
-          const hasSkill = selectedSkills.some((id) => wantIds.includes(id));
+          const hasSkill = selectedSkills.some((id) => wantIds.includes(Number(id)));
           if (!hasSkill) return false;
         } else {
           const wantIds = user.skillsWantId?.map((id) => Number(id)) || [];
@@ -162,9 +122,9 @@ export function HomePage() {
               subcategoryId: s.subcategoryId,
             })) || [];
 
-          const hasInWant = selectedSkills.some((id) => wantIds.includes(id));
+          const hasInWant = selectedSkills.some((id) => wantIds.includes(Number(id)));
           const hasInCanTeach = selectedSkills.some((skillId) => {
-            const selectedSkill = skillsList.find((s) => s.id === skillId);
+            const selectedSkill = skillsList.find((s) => s.id === Number(skillId));
             if (!selectedSkill) return false;
             return canTeachCategories.some(
               (cat) =>
@@ -177,45 +137,39 @@ export function HomePage() {
         }
       }
 
+      // Фильтр по полу
       if (genderValue !== 'all' && user.gender !== genderValue) return false;
+
+      // Фильтр по городу
       if (selectedCities.length > 0 && !selectedCities.includes(user.cityId)) return false;
 
       return true;
     });
 
     setFilteredCards(filtered);
-  };
+  }, [cards, skillsList, searchQuery, wantCanValue, genderValue, selectedSkills, selectedCities]);
 
+  // Следим за инпутом поиска в хедере
   useEffect(() => {
-    applyFilters();
-  }, [cards, skillsList]);
-
-  useEffect(() => {
-    if (cards.length === 0) return;
-
-    const handleChange = () => {
-      setTimeout(() => applyFilters(), 50);
-    };
-
-    document.addEventListener('click', handleChange);
-
     const searchInput = document.querySelector(
       'input[placeholder="Искать навык"]'
     ) as HTMLInputElement;
-    if (searchInput) {
-      searchInput.addEventListener('input', handleChange);
-    }
+    if (!searchInput) return;
+
+    const handleInput = (e: Event) => {
+      setSearchQuery((e.target as HTMLInputElement).value);
+    };
+
+    searchInput.addEventListener('input', handleInput);
 
     return () => {
-      document.removeEventListener('click', handleChange);
-      if (searchInput) {
-        searchInput.removeEventListener('input', handleChange);
-      }
+      searchInput.removeEventListener('input', handleInput);
     };
-  }, [cards, skillsList]);
+  }, []);
 
-  const displayCards = filteredCards.length > 0 ? filteredCards : cards;
-  const hasNoResults = filteredCards.length === 0 && cards.length > 0;
+  // Результат: если фильтры применены - показываем отфильтрованные, иначе все
+  const displayCards = isFiltered ? filteredCards : cards;
+  const hasNoResults = isFiltered && filteredCards.length === 0;
 
   const popularCards = useMemo(
     () => [...displayCards].sort((a, b) => b.likes - a.likes).slice(0, TOP_LIMIT),
@@ -277,7 +231,16 @@ export function HomePage() {
       <main className={styles.main}>
         <aside className={styles.filtersSlot}>
           <div className={styles.filtersCard}>
-            <FilterColumn />
+            <FilterColumn
+              wantCanValue={wantCanValue}
+              setWantCanValue={setWantCanValue}
+              genderValue={genderValue}
+              setGenderValue={setGenderValue}
+              selectedCities={selectedCities}
+              setSelectedCities={setSelectedCities}
+              selectedSkills={selectedSkills}
+              setSelectedSkills={setSelectedSkills}
+            />
           </div>
         </aside>
 
