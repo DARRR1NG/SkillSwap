@@ -1,0 +1,333 @@
+.wrapper {
+  --user-skill-card-teach-tag-bg: var(--tag-primary-bg, var(--tag_languages));
+  --user-skill-card-learn-tag-bg: var(--tag-secondary-bg, var(--tag_health));
+
+  display: grid;
+  grid-template-columns: 324px 1020px;
+  gap: 24px;
+  width: 1368px;
+  color: var(--text-base);
+  font-family: var(--RobotoRegular);
+}
+
+.userCard,
+.offerCard {
+  background-color: var(--background-card-input);
+  border-radius: 8px;
+}
+
+.userCard {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  min-height: 444px;
+  padding: 32px;
+}
+
+.userHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  flex: 0 0 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.userInfo {
+  min-width: 0;
+}
+
+.userName,
+.userMeta,
+.userDescription,
+.groupTitle,
+.breadcrumb,
+.title,
+.description {
+  margin: 0;
+}
+
+.userName {
+  font-family: var(--JostMedium);
+  font-size: 24px;
+  line-height: 30px;
+}
+
+.userMeta {
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.userDescription {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.skillGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.groupTitle {
+  font-family: var(--RobotoMedium);
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tag {
+  min-height: 32px;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.tags_teach .tag {
+  background-color: var(--user-skill-card-teach-tag-bg);
+}
+
+.tags_learn .tag {
+  background-color: var(--user-skill-card-learn-tag-bg);
+}
+
+.emptyText {
+  color: var(--caption);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.offerCard {
+  position: relative;
+  min-height: 444px;
+  padding: 32px 52px;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 399px 440px;
+  justify-content: space-between;
+  gap: 48px;
+  height: 100%;
+  padding-top: 48px;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.breadcrumb {
+  order: 2;
+  margin-top: 4px;
+  color: var(--caption);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.title {
+  order: 1;
+  font-family: var(--JostMedium);
+  font-size: 32px;
+  line-height: 40px;
+}
+
+.description {
+  order: 3;
+  margin-top: 24px;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.offerButton {
+  order: 4;
+  width: 100%;
+  min-height: 48px;
+  margin-top: 28px;
+  padding: 12px 24px;
+  border: 0;
+  border-radius: 8px;
+  background-color: var(--accent-color);
+  color: var(--text-base);
+  font-family: var(--RobotoRegular);
+  font-size: 16px;
+  line-height: 24px;
+  cursor: pointer;
+}
+
+.offerButton:hover {
+  background-color: var(--button-hover);
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: 324px 92px;
+  gap: 24px;
+  align-self: center;
+}
+
+.mainImageFrame {
+  position: relative;
+  width: 100%;
+  height: 324px;
+}
+
+.mainImageBox {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  background-color: var(--background);
+}
+
+.mainImageSlide {
+  height: 100%;
+}
+
+.mainImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: var(--caption);
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.galleryButton {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 50%;
+  background-color: var(--background-card-input);
+  color: var(--caption);
+  font-size: 28px;
+  line-height: 28px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.galleryButton:hover {
+  background-color: var(--button-hover);
+}
+
+.galleryButtonLeft {
+  left: 16px;
+}
+
+.galleryButtonRight {
+  right: 16px;
+}
+
+.thumbnails {
+  width: 92px;
+  height: 324px;
+}
+
+.thumbnailItem {
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: var(--background);
+}
+
+.thumbnailButton {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 8px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.thumbnailButtonActive {
+  box-shadow: inset 0 0 0 2px var(--background-card-input);
+}
+
+.thumbnail {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.counter {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: color-mix(in srgb, var(--text-base) 45%, transparent);
+  color: var(--text-base);
+  font-family: var(--RobotoMedium);
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.actions {
+  position: absolute;
+  top: 32px;
+  right: 52px;
+  display: flex;
+  gap: 24px;
+}
+
+.actionButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.actionButton img {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.offerButton:focus-visible,
+.galleryButton:focus-visible,
+.thumbnailButton:focus-visible,
+.actionButton:focus-visible {
+  outline: 2px solid var(--text-link);
+  outline-offset: 2px;
+}

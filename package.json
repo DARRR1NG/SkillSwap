@@ -18,8 +18,11 @@
     "@reduxjs/toolkit": "^2.11.2",
     "clsx": "^2.1.1",
     "react": "^19.2.5",
+    "react-datepicker": "^9.1.0",
     "react-dom": "^19.2.5",
-    "react-redux": "^9.2.0"
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^7.15.1",
+    "swiper": "^12.1.4"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^5.1.2",

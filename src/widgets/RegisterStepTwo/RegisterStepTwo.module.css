@@ -1,0 +1,354 @@
+.card {
+  width: 420px;
+  height: 524px;
+  padding: 30px 45px;
+  background: var(--background-card-input);
+  border-radius: 12px;
+  color: var(--text-base);
+  font-family: var(--RobotoRegular);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0.02em;
+}
+
+.avatarButton {
+  position: relative;
+  display: block;
+  width: 54px;
+  height: 54px;
+  padding: 0;
+  margin: 0 auto 12px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.avatar {
+  display: block;
+  width: 54px;
+  height: 54px;
+}
+
+.avatarPlus {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  width: 12px;
+  height: 12px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 330px;
+  gap: 12px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  text-align: left;
+}
+
+.openField {
+  z-index: 20;
+}
+
+.label {
+  color: inherit;
+}
+
+.control,
+.controlButton {
+  width: 100%;
+  height: 36px;
+  padding: 9px 15px;
+  border: 1px solid var(--caption);
+  border-radius: 9px;
+  outline: none;
+  background: var(--background-card-input);
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+}
+
+.control::placeholder,
+.placeholder {
+  color: var(--caption);
+  opacity: 1;
+}
+
+.controlButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.controlButton span {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.dateField,
+.cityField {
+  position: relative;
+}
+
+.dateField .controlButton {
+  padding-right: 40px;
+}
+
+.datePicker,
+.datePicker :global(.react-datepicker__input-container) {
+  width: 100%;
+}
+
+.calendarIcon {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.downIcon,
+.upIcon {
+  width: 12px;
+  height: 6px;
+  flex: 0 0 auto;
+}
+
+.upIcon {
+  transform: rotate(180deg);
+}
+
+.cityField .control {
+  padding-right: 40px;
+}
+
+.cityField .downIcon {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.clearButton {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: 18px;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 1px);
+  left: 0;
+  z-index: 30;
+  width: 100%;
+  max-height: 178px;
+  padding: 6px 0;
+  overflow-y: auto;
+  border: 1px solid var(--toggle);
+  border-radius: 0 0 8px 8px;
+  background: var(--background-card-input);
+  box-shadow: 0 8px 20px rgb(37 48 23 / 8%);
+}
+
+.dropdownItem {
+  display: block;
+  width: 100%;
+  padding: 6px 12px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  font: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+}
+
+.dropdownItem:hover {
+  background: var(--background);
+}
+
+.checkboxItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+}
+
+.checkboxItem input {
+  display: grid;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  flex: 0 0 18px;
+  border: 0;
+  outline: none;
+  appearance: none;
+  cursor: pointer;
+  place-items: center;
+}
+
+.checkboxItem input::before {
+  width: 18px;
+  height: 18px;
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.20898 2.5H14.791C17.259 2.50005 18.9008 3.0297 19.9355 4.06445C20.9703 5.09921 21.5 6.74098 21.5 9.20898V14.791C21.5 17.259 20.9703 18.9008 19.9355 19.9355C18.9008 20.9703 17.259 21.5 14.791 21.5H9.20898C6.74098 21.5 5.09921 20.9703 4.06445 19.9355C3.0297 18.9008 2.50005 17.259 2.5 14.791V9.20898C2.50005 6.74098 3.0297 5.09921 4.06445 4.06445C5.09921 3.0297 6.74098 2.50005 9.20898 2.5ZM9.20898 2.89551C7.02968 2.89555 5.40359 3.27805 4.34082 4.34082C3.27805 5.40359 2.89555 7.02968 2.89551 9.20898V14.791C2.89554 16.9703 3.27805 18.5964 4.34082 19.6592C5.40359 20.7219 7.02968 21.1045 9.20898 21.1045H14.791C16.9703 21.1045 18.5964 20.7219 19.6592 19.6592C20.7219 18.5964 21.1045 16.9703 21.1045 14.791V9.20898C21.1045 7.02968 20.7219 5.40359 19.6592 4.34082C18.5964 3.27805 16.9703 2.89554 14.791 2.89551H9.20898Z' fill='%23253017' stroke='black'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 18px 18px;
+  content: '';
+}
+
+.checkboxItem input:checked::before {
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.20898 2.5H14.791C17.259 2.50005 18.9008 3.0297 19.9355 4.06445C20.9703 5.09921 21.5 6.74098 21.5 9.20898V14.791C21.5 17.259 20.9703 18.9008 19.9355 19.9355C18.9008 20.9703 17.259 21.5 14.791 21.5H9.20898C6.74098 21.5 5.09921 20.9703 4.06445 19.9355C3.0297 18.9008 2.50005 17.259 2.5 14.791V9.20898C2.50005 6.74098 3.0297 5.09921 4.06445 4.06445C5.09921 3.0297 6.74098 2.50005 9.20898 2.5Z' fill='%23ABD27A'/%3E%3Cpath d='M8 12.2L10.7 14.8L16.2 9.2' stroke='%23253017' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M9.20898 2.5H14.791C17.259 2.50005 18.9008 3.0297 19.9355 4.06445C20.9703 5.09921 21.5 6.74098 21.5 9.20898V14.791C21.5 17.259 20.9703 18.9008 19.9355 19.9355C18.9008 20.9703 17.259 21.5 14.791 21.5H9.20898C6.74098 21.5 5.09921 20.9703 4.06445 19.9355C3.0297 18.9008 2.50005 17.259 2.5 14.791V9.20898C2.50005 6.74098 3.0297 5.09921 4.06445 4.06445C5.09921 3.0297 6.74098 2.50005 9.20898 2.5ZM9.20898 2.89551C7.02968 2.89555 5.40359 3.27805 4.34082 4.34082C3.27805 5.40359 2.89555 7.02968 2.89551 9.20898V14.791C2.89554 16.9703 3.27805 18.5964 4.34082 19.6592C5.40359 20.7219 7.02968 21.1045 9.20898 21.1045H14.791C16.9703 21.1045 18.5964 20.7219 19.6592 19.6592C20.7219 18.5964 21.1045 16.9703 21.1045 14.791V9.20898C21.1045 7.02968 20.7219 5.40359 19.6592 4.34082C18.5964 3.27805 16.9703 2.89554 14.791 2.89551H9.20898Z' fill='%23253017' stroke='black'/%3E%3C/svg%3E");
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-top: 12px;
+}
+
+.backButton,
+.continueButton {
+  height: 36px;
+  padding: 9px 18px;
+  border-radius: 9px;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+}
+
+.backButton {
+  border: 1px solid var(--accent-color);
+  background: var(--background-card-input);
+}
+
+.continueButton {
+  border: 1px solid var(--accent-color);
+  background: var(--accent-color);
+}
+
+.calendarPopper {
+  z-index: 40;
+  pointer-events: auto;
+}
+
+.calendar {
+  width: 178px !important;
+  overflow: hidden;
+  border: 1px solid var(--toggle) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 20px rgb(37 48 23 / 8%);
+  font-family: var(--RobotoRegular) !important;
+}
+
+.calendar :global(.react-datepicker__header) {
+  padding: 9px 6px 4px;
+  border-bottom: 0;
+  background: var(--background-card-input);
+}
+
+.calendar :global(.react-datepicker__month-container) {
+  float: none;
+  width: 100%;
+}
+
+.calendar :global(.react-datepicker__current-month),
+.calendar :global(.react-datepicker__navigation) {
+  display: none;
+}
+
+.calendar :global(.react-datepicker__header__dropdown) {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin: 0 0 7px;
+}
+
+.calendar :global(.react-datepicker__month-select),
+.calendar :global(.react-datepicker__year-select) {
+  width: 66px;
+  border: 0;
+  background: var(--background-card-input);
+  color: var(--text-base);
+  font-family: var(--RobotoRegular);
+  font-size: 11px;
+  line-height: 15px;
+}
+
+.calendar :global(.react-datepicker__day-name),
+.calendar :global(.react-datepicker__day) {
+  width: 20px;
+  margin: 0;
+  color: var(--text-base);
+  font-size: 9px;
+  line-height: 20px;
+}
+
+.calendar :global(.react-datepicker__day-name) {
+  color: var(--text-link);
+}
+
+.calendar :global(.react-datepicker__week),
+.calendar :global(.react-datepicker__day-names) {
+  display: grid;
+  grid-template-columns: repeat(7, 20px);
+  justify-content: center;
+  gap: 3px;
+}
+
+.calendar :global(.react-datepicker__month) {
+  margin: 0;
+  padding: 0 8px 10px;
+}
+
+.calendar :global(.react-datepicker__day--outside-month) {
+  color: var(--disabled-text);
+}
+
+.calendar :global(.react-datepicker__day--selected),
+.calendar :global(.react-datepicker__day--keyboard-selected) {
+  border-radius: 50%;
+  background: var(--accent-color);
+  color: var(--text-base);
+}
+
+.calendar :global(.react-datepicker__day:hover) {
+  border-radius: 50%;
+  background: var(--button-hover);
+}

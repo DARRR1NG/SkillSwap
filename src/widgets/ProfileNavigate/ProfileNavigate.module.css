@@ -1,0 +1,76 @@
+.button_profile {
+  background-color: transparent;
+  color: var(--text-base);
+  padding: 12px 56px;
+  border-radius: 12px;
+  border: none;
+  text-align: start;
+  position: relative;
+  width: 100%;
+}
+
+.profile_navigate_container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 324px;
+  padding: 40px;
+}
+
+.button_profile:first-child::before {
+  content: '';
+  background-image: url('public/icons/request.svg');
+  position: absolute;
+  top: 12px;
+  left: 20px;
+  width: 24px;
+  height: 24px;
+}
+
+.button_profile:nth-child(2)::before {
+  content: '';
+  background-image: url('public/icons/message-text.svg');
+  position: absolute;
+  top: 12px;
+  left: 20px;
+  width: 24px;
+  height: 24px;
+}
+
+.button_profile:nth-child(3)::before {
+  content: '';
+  background-image: url('public/icons/like-icon.svg');
+  position: absolute;
+  top: 12px;
+  left: 20px;
+  width: 24px;
+  height: 24px;
+}
+
+.button_profile:nth-child(4)::before {
+  content: '';
+  background-image: url('public/icons/idea.svg');
+  position: absolute;
+  top: 12px;
+  left: 20px;
+  width: 24px;
+  height: 24px;
+}
+
+.button_profile:nth-child(5)::before {
+  content: '';
+  background-image: url('public/icons/user.svg');
+  position: absolute;
+  top: 12px;
+  left: 20px;
+  width: 24px;
+  height: 24px;
+}
+
+.button_profile:hover {
+  background-color: var(--button-hover);
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}

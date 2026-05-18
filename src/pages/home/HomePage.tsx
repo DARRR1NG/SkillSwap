@@ -1,4 +1,5 @@
-﻿import { useEffect, useMemo, useRef, useState } from 'react';
+﻿import { useNavigate } from 'react-router-dom';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Footer } from '../../widgets/Footer';
 import { Header } from '../../widgets/Header';
 import { FilterColumn } from '../../widgets/FilterColumn/index';
@@ -28,7 +29,11 @@ export function HomePage() {
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const handleLoginClick = () => {};
+  const navigate = useNavigate();
+
+  const handleLoginClick = () => {
+    navigate('/auth');
+  };
   const handleRegisterClick = () => {};
 
   const sentinelRef = useRef<HTMLDivElement | null>(null);
