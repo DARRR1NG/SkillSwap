@@ -4,6 +4,7 @@ import { Button } from '../../shared/ui/button';
 import { Input } from '../../shared/ui/input';
 import s from './AuthForm.module.css';
 
+export default {};
 export type AuthFormValues = {
   email: string;
   password: string;
@@ -50,7 +51,14 @@ const validatePassword = (password: string) => {
 };
 
 const GoogleIcon = () => (
-  <svg className={s.socialIcon} viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+  <svg
+    className={s.socialIcon}
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+    focusable="false"
+  >
     <path
       d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09Z"
       fill="#4285F4"
@@ -73,6 +81,8 @@ const GoogleIcon = () => (
 const AppleIcon = () => (
   <svg
     className={clsx(s.socialIcon, s.appleIcon)}
+    width="24"
+    height="24"
     viewBox="0 0 24 24"
     aria-hidden="true"
     focusable="false"

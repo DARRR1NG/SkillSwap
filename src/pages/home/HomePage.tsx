@@ -26,7 +26,10 @@ export function HomePage() {
   const handleLoginClick = () => {
     navigate('/auth');
   };
-  const handleRegisterClick = () => {};
+
+  const handleRegisterClick = () => {
+    navigate('/reg');
+  };
 
   const sentinelRef = useRef<HTMLDivElement | null>(null);
 

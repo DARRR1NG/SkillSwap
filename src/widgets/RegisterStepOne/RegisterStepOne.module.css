@@ -1,8 +1,7 @@
 .form {
   display: flex;
+  width: 446px;
   flex-direction: column;
-  width: 100%;
-  max-width: 492px;
   color: var(--text-base);
 }
 
@@ -14,33 +13,34 @@
 
 .socialButton {
   display: flex;
+  width: 100%;
+  min-height: 52px;
   align-items: center;
   justify-content: center;
   gap: 12px;
-  width: 100%;
-  min-height: 52px;
+  box-sizing: border-box;
   padding: 0 20px;
-  color: var(--text-base);
-  background-color: var(--background-card-input);
   border: 1px solid var(--caption);
   border-radius: 12px;
-  cursor: pointer;
+  background-color: var(--background-card-input);
+  color: var(--text-base);
   font-family: var(--RobotoRegular);
   font-size: 16px;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 24px;
   letter-spacing: 0.02em;
+  cursor: pointer;
   transition: border-color 0.2s ease;
 }
 
 .socialButton:hover {
-  background-color: var(--background-card-input);
   border-color: var(--button-hover);
+  background-color: var(--background-card-input);
 }
 
 .socialButton:active {
-  background-color: var(--background-card-input);
   border-color: var(--text-link);
+  background-color: var(--background-card-input);
 }
 
 .socialButton:focus-visible {
@@ -49,9 +49,10 @@
 }
 
 .socialIcon {
-  flex: 0 0 auto;
+  display: block;
   width: 24px;
   height: 24px;
+  flex: 0 0 24px;
 }
 
 .appleIcon {
@@ -68,14 +69,14 @@
   color: var(--text-base);
   font-family: var(--RobotoRegular);
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 24px;
 }
 
 .divider::before,
 .divider::after {
-  content: '';
   height: 1px;
   background-color: var(--disabled);
+  content: '';
 }
 
 .fields {
@@ -108,7 +109,7 @@
 .authInput p {
   color: var(--text-base);
   font-size: 12px;
-  line-height: 1.33;
+  line-height: 16px;
 }
 
 .authInput p[class*='messageError'] {

@@ -46,56 +46,29 @@
 
 .cards {
   display: grid;
-  grid-template-columns: repeat(2, 568px);
+  grid-template-columns: repeat(2, 556px);
   gap: 24px;
   margin-top: 32px;
 }
 
 .formCard {
   display: flex;
-  width: 568px;
-  min-height: 707px;
+  width: 556px;
+  height: 692px;
+  box-sizing: border-box;
   align-items: center;
   justify-content: center;
-  padding: 97px 60px;
+  padding: 0;
   background-color: var(--background-card-input);
   border-radius: 12px;
 }
 
-.cards > div:last-child {
-  width: 568px;
-  height: 707px;
-  justify-content: center;
-  padding: 123px 60px 132px;
-  border-radius: 12px;
-}
-
-.cards > div:last-child img {
-  width: 300px;
-  height: 300px;
-  margin-bottom: 34px;
-}
-
-.cards > div:last-child h2 {
-  color: var(--text-base);
-  font-family: var(--JostMedium);
-  font-size: 24px;
-  font-weight: 500;
-  line-height: 28px;
-  letter-spacing: -0.011em;
-}
-
-.cards > div:last-child p {
-  max-width: 436px;
-}
-
-@media (width <= 1240px) {
+@media (width <= 1180px) {
   .cards {
-    grid-template-columns: minmax(320px, 568px);
+    grid-template-columns: minmax(320px, 556px);
   }
 
-  .formCard,
-  .cards > div:last-child {
+  .formCard {
     width: 100%;
   }
 }
@@ -103,12 +76,12 @@
 @media (width <= 720px) {
   .cards {
     width: 100%;
+    box-sizing: border-box;
+    padding: 0 16px;
   }
 
-  .formCard,
-  .cards > div:last-child {
-    min-height: auto;
+  .formCard {
     height: auto;
-    padding: 48px 24px;
+    min-height: 560px;
   }
 }
