@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import { Logo } from '../../shared/ui/logo';
 import { Button } from '../../shared/ui/button';
@@ -21,6 +22,7 @@ export const Header: React.FC<HeaderProps> = ({
   onRegisterClick,
   onCloseClick,
 }) => {
+  const navigate = useNavigate();
   const [isChevronActive, setChevronActive] = useState(false);
   const [isMoonActive, setMoonActive] = useState(false);
 
@@ -32,6 +34,10 @@ export const Header: React.FC<HeaderProps> = ({
 
   const handleMoonClick = () => {
     setMoonActive(!isMoonActive);
+  };
+
+  const handleFavoritesClick = () => {
+    navigate('/favorites');
   };
 
   return (
@@ -53,6 +59,10 @@ export const Header: React.FC<HeaderProps> = ({
                 src="../public/icons/chevron-down.svg"
                 className={isChevronActive ? styles.rotated : ''}
               />
+
+              <button type="button" className="dropdown-trigger" onClick={handleFavoritesClick}>
+                Избранное
+              </button>
             </nav>
           )}
         </div>
