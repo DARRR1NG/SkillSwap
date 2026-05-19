@@ -4,35 +4,11 @@ import type { Swiper as SwiperInstance } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import styles from './user-skill-card.module.css';
-
-export type SkillTag = {
-  id: string;
-  title: string;
-};
-
-export type SkillImage = {
-  id: string;
-  src: string;
-  alt: string;
-};
+import type { SkillTag, UserSkillCardSkill, UserSkillCardUser } from './user-skill-card.types';
 
 export type UserSkillCardProps = {
-  user: {
-    name: string;
-    city: string;
-    age: number;
-    avatar: string;
-    description: string;
-    canTeach: SkillTag[];
-    wantsToLearn: SkillTag[];
-  };
-  skill: {
-    title: string;
-    category: string;
-    subcategory?: string;
-    description: string;
-    images: SkillImage[];
-  };
+  user: UserSkillCardUser;
+  skill: UserSkillCardSkill;
   currentImageIndex?: number;
   defaultCurrentImageIndex?: number;
   onImageIndexChange?: (index: number) => void;
@@ -99,7 +75,8 @@ export const UserSkillCard = ({
   const [selectedSlideIndex, setSelectedSlideIndex] = useState(safeDefaultImageIndex);
   const [mainSwiper, setMainSwiper] = useState<SwiperInstance | null>(null);
   const thumbnails = skill.images.slice(0, thumbnailsLimit);
-  const activeThumbnailIndex = Math.min(selectedSlideIndex, thumbnails.length - 1); // Для 4+ изображений подсвечиваем последнюю миниатюру (+N)
+  const activeThumbnailIndex =
+    thumbnails.length > 0 ? Math.min(selectedSlideIndex, thumbnails.length - 1) : 0;
   const hiddenImagesCount = Math.max(skill.images.length - thumbnailsLimit, 0);
   const hasImages = skill.images.length > 0;
 
@@ -134,7 +111,8 @@ export const UserSkillCard = ({
           <div className={styles.userInfo}>
             <p className={styles.userName}>{user.name}</p>
             <p className={styles.userMeta}>
-              {user.city}, {user.age} {pluralizeAge(user.age)}
+              {user.city}
+              {user.age !== null ? `, ${user.age} ${pluralizeAge(user.age)}` : ''}
             </p>
           </div>
         </div>
