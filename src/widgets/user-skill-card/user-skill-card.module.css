@@ -176,6 +176,24 @@
   background-color: var(--button-hover);
 }
 
+.stateButton {
+  min-height: 48px;
+  margin-top: 4px;
+  padding: 12px 24px;
+  border: 0;
+  border-radius: 8px;
+  background-color: var(--accent-color);
+  color: var(--text-base);
+  font-family: var(--RobotoRegular);
+  font-size: 16px;
+  line-height: 24px;
+  cursor: pointer;
+}
+
+.stateButton:hover {
+  background-color: var(--button-hover);
+}
+
 .gallery {
   display: grid;
   grid-template-columns: 324px 92px;
@@ -325,9 +343,45 @@
 }
 
 .offerButton:focus-visible,
+.stateButton:focus-visible,
 .galleryButton:focus-visible,
 .thumbnailButton:focus-visible,
 .actionButton:focus-visible {
   outline: 2px solid var(--text-link);
   outline-offset: 2px;
+}
+
+.stateCard {
+  display: flex;
+  min-height: 444px;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background-card-input);
+  border-radius: 8px;
+}
+
+.stateContent {
+  display: flex;
+  width: min(100%, 420px);
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.stateTitle,
+.stateText {
+  margin: 0;
+}
+
+.stateTitle {
+  font-family: var(--JostMedium);
+  font-size: 24px;
+  line-height: 30px;
+}
+
+.stateText {
+  color: var(--caption);
+  font-size: 16px;
+  line-height: 24px;
 }
