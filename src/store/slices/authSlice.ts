@@ -24,16 +24,38 @@ export interface User {
   }[];
 }
 
+// Временные данные для регистрации
+interface RegistrationTempData {
+  email: string;
+  password: string;
+  name?: string;
+  avatar?: string;
+  cityId?: number;
+  gender?: 'male' | 'female';
+  birthday?: string;
+  skillsWantId?: string[];
+  skillsCanTeach?: {
+    id: number;
+    categoryId: number;
+    subcategoryId: number;
+    customTitle: string;
+    description: string;
+    images: string[];
+  }[];
+}
+
 interface AuthState {
   user: User | null;
   token: string | null;
   error: string | null;
+  registrationStep: 1 | 2 | 3;
 }
 
 // Ключи для localStorage
 const USERS_STORAGE_KEY = 'users';
 const CURRENT_USER_KEY = 'current_user';
 const TOKEN_KEY = 'token';
+const REGISTRATION_TEMP_KEY = 'registration_temp';
 
 // Вспомогательные функции
 const getUsers = (): User[] => {
@@ -61,6 +83,19 @@ const saveToken = (token: string | null) => {
   }
 };
 
+const getRegistrationTemp = (): RegistrationTempData | null => {
+  const data = localStorage.getItem(REGISTRATION_TEMP_KEY);
+  return data ? JSON.parse(data) : null;
+};
+
+const saveRegistrationTemp = (data: RegistrationTempData | null) => {
+  if (data) {
+    localStorage.setItem(REGISTRATION_TEMP_KEY, JSON.stringify(data));
+  } else {
+    localStorage.removeItem(REGISTRATION_TEMP_KEY);
+  }
+};
+
 const generateToken = () => {
   return `token_${Date.now()}_${crypto.randomUUID()}`;
 };
@@ -77,80 +112,146 @@ const initialState: AuthState = {
   })(),
   token: localStorage.getItem(TOKEN_KEY),
   error: null,
+  registrationStep: 1,
 };
 
-// Слайс с синхронными редьюсерами
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    // Очистка ошибки
     clearError: (state) => {
       state.error = null;
     },
-    
-    // Регистрация
-    register: (state, action: PayloadAction<{ name: string; email: string; password: string }>) => {
-      const { name, email, password } = action.payload;
+
+    // Проверка email и сохранение (1)
+    checkEmail: (state, action: PayloadAction<{ email: string; password: string }>) => {
+      const { email, password } = action.payload;
       const users = getUsers();
-      
-      // Проверка, существует ли пользователь
-      const existingUser = users.find(u => u.email === email);
+      const existingUser = users.find((u) => u.email === email);
       if (existingUser) {
         state.error = 'Пользователь с таким email уже существует';
         return;
       }
-      
-      // Создание нового пользователя
+      saveRegistrationTemp({ email, password });
+      state.registrationStep = 2;
+      state.error = null;
+    },
+
+    // Сохранение личных данных (2)
+    savePersonalData: (
+      state,
+      action: PayloadAction<{
+        name: string;
+        avatar?: string;
+        cityId?: number;
+        gender?: 'male' | 'female';
+        birthday?: string;
+        skillsWantId?: string[];
+      }>
+    ) => {
+      const tempData = getRegistrationTemp();
+      if (!tempData) {
+        state.error = 'Сначала заполните email и пароль';
+        return;
+      }
+      saveRegistrationTemp({
+        ...tempData,
+        ...action.payload,
+      });
+      state.registrationStep = 3;
+      state.error = null;
+    },
+
+    // Сохранение навыков (3)
+    completeRegistration: (
+      state,
+      action: PayloadAction<{
+        skillsCanTeach?: {
+          id: number;
+          categoryId: number;
+          subcategoryId: number;
+          customTitle: string;
+          description: string;
+          images: string[];
+        }[];
+      }>
+    ) => {
+      const tempData = getRegistrationTemp();
+      if (!tempData) {
+        state.error = 'Сначала заполните все предыдущие шаги';
+        return;
+      }
+
+      if (!tempData.name) {
+        state.error = 'Не заполнены личные данные';
+        return;
+      }
+
+      const users = getUsers();
+
+      // Создаём полного пользователя
       const newUser: User = {
         id: generateId(),
-        name,
-        email,
-        password,
+        name: tempData.name,
+        email: tempData.email,
+        password: tempData.password,
+        avatar: tempData.avatar,
+        cityId: tempData.cityId,
+        gender: tempData.gender,
+        birthday: tempData.birthday,
         createdAt: new Date().toISOString(),
         likes: 0,
-        skillsWantId: [],
-        skillsCanTeach: [],
+        skillsWantId: tempData.skillsWantId || [],
+        skillsCanTeach: action.payload.skillsCanTeach || [],
       };
-      
+
       users.push(newUser);
       saveUsers(users);
-      
+
       const token = generateToken();
       saveToken(token);
       saveCurrentUser(newUser);
-      
+
+      saveRegistrationTemp(null);
+
       state.user = newUser;
       state.token = token;
+      state.registrationStep = 1;
       state.error = null;
     },
-    
+
+    // Отмена регистрации
+    cancelRegistration: (state) => {
+      saveRegistrationTemp(null);
+      state.registrationStep = 1;
+      state.error = null;
+    },
+
     // Логин
     login: (state, action: PayloadAction<{ email: string; password: string }>) => {
       const { email, password } = action.payload;
       const users = getUsers();
-      
-      // Поиск пользователя
-      const user = users.find(u => u.email === email);
+
+      const user = users.find((u) => u.email === email);
       if (!user) {
         state.error = 'Пользователь с таким email не найден';
         return;
       }
-      
+
       if (user.password !== password) {
         state.error = 'Неверный пароль';
         return;
       }
-      
+
       const token = generateToken();
       saveToken(token);
       saveCurrentUser(user);
-      
+
       state.user = user;
       state.token = token;
       state.error = null;
     },
-    
+
     // Обновление данных пользователя
     updateUser: (state, action: PayloadAction<Partial<User>>) => {
       const currentUser = state.user;
@@ -158,45 +259,60 @@ const authSlice = createSlice({
         state.error = 'Пользователь не авторизован';
         return;
       }
-      
+
       const users = getUsers();
-      const userIndex = users.findIndex(u => u.id === currentUser.id);
-      
+      const userIndex = users.findIndex((u) => u.id === currentUser.id);
+
       if (userIndex === -1) {
         state.error = 'Пользователь не найден';
         return;
       }
-      
+
       const updatedUser = { ...users[userIndex], ...action.payload };
       users[userIndex] = updatedUser;
       saveUsers(users);
       saveCurrentUser(updatedUser);
-      
+
       state.user = updatedUser;
       state.error = null;
     },
-    
+
     // Выход
     logout: (state) => {
       saveToken(null);
       saveCurrentUser(null);
-      
+      saveRegistrationTemp(null);
+
       state.user = null;
       state.token = null;
       state.error = null;
+      state.registrationStep = 1;
     },
   },
 });
 
 // Экшены
-export const { clearError, register, login, updateUser, logout } = authSlice.actions;
+export const {
+  clearError,
+  checkEmail,
+  savePersonalData,
+  completeRegistration,
+  cancelRegistration,
+  login,
+  updateUser,
+  logout,
+} = authSlice.actions;
 
 // Селекторы
 export const selectUser = (state: RootState) => state.auth.user;
 export const selectToken = (state: RootState) => state.auth.token;
 export const selectAuthError = (state: RootState) => state.auth.error;
 export const selectIsAuthenticated = (state: RootState) => !!state.auth.user;
+export const selectRegistrationStep = (state: RootState) => state.auth.registrationStep;
+export const selectRegistrationTemp = () => {
+  const temp = localStorage.getItem(REGISTRATION_TEMP_KEY);
+  return temp ? JSON.parse(temp) : null;
+};
 
-// Редьюсер
-export const authReducer = authSlice.reducer;
 export default authSlice.reducer;
+export const authReducer = authSlice.reducer;
