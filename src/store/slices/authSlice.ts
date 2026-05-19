@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../store';
 
 export interface User {
@@ -27,7 +27,6 @@ export interface User {
 interface AuthState {
   user: User | null;
   token: string | null;
-  isLoading: boolean;
   error: string | null;
 }
 
@@ -77,178 +76,127 @@ const initialState: AuthState = {
     return savedUser ? JSON.parse(savedUser) : null;
   })(),
   token: localStorage.getItem(TOKEN_KEY),
-  isLoading: false,
   error: null,
 };
 
-// Регистрация
-export const register = createAsyncThunk(
-  'auth/register',
-  async ({ name, email, password }: { name: string; email: string; password: string }) => {
-    const users = getUsers();
-    
-    // Проверка, существует ли пользователь
-    const existingUser = users.find(u => u.email === email);
-    if (existingUser) {
-      throw new Error('Пользователь с таким email уже существует');
-    }
-    
-    // Создание нового пользователя
-    const newUser: User = {
-      id: generateId(),
-      name,
-      email,
-      password,
-      createdAt: new Date().toISOString(),
-      likes: 0,
-      skillsWantId: [],
-      skillsCanTeach: [],
-    };
-    
-    users.push(newUser);
-    saveUsers(users);
-    
-    const token = generateToken();
-    saveToken(token);
-    saveCurrentUser(newUser);
-    
-    return { user: newUser, token };
-  }
-);
-
-// Логин
-export const login = createAsyncThunk(
-  'auth/login',
-  async ({ email, password }: { email: string; password: string }) => {
-    const users = getUsers();
-    
-    // Поиск пользователя
-    const user = users.find(u => u.email === email);
-    if (!user) {
-      throw new Error('Пользователь с таким email не найден');
-    }
-    
-    if (user.password !== password) {
-      throw new Error('Неверный пароль');
-    }
-    
-    const token = generateToken();
-    saveToken(token);
-    saveCurrentUser(user);
-    
-    return { user, token };
-  }
-);
-
-// Обновление данных пользователя
-export const updateUser = createAsyncThunk(
-  'auth/updateUser',
-  async (userData: Partial<User>) => {
-    const currentUser = (() => {
-      const saved = localStorage.getItem(CURRENT_USER_KEY);
-      return saved ? JSON.parse(saved) : null;
-    })();
-    
-    if (!currentUser) {
-      throw new Error('Пользователь не авторизован');
-    }
-    
-    const users = getUsers();
-    const userIndex = users.findIndex(u => u.id === currentUser.id);
-    
-    if (userIndex === -1) {
-      throw new Error('Пользователь не найден');
-    }
-    
-    const updatedUser = { ...users[userIndex], ...userData };
-    users[userIndex] = updatedUser;
-    saveUsers(users);
-    saveCurrentUser(updatedUser);
-    
-    return updatedUser;
-  }
-);
-
-// Выход
-export const logout = createAsyncThunk('auth/logout', async () => {
-  saveToken(null);
-  saveCurrentUser(null);
-  return null;
-});
-
-// Слайс
+// Слайс с синхронными редьюсерами
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    // Очистка ошибки
     clearError: (state) => {
       state.error = null;
     },
-  },
-  extraReducers: (builder) => {
-    builder
-      // Регистрация
-      .addCase(register.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(register.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.user = action.payload.user;
-        state.token = action.payload.token;
-      })
-      .addCase(register.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.error.message || 'Ошибка регистрации';
-      })
+    
+    // Регистрация
+    register: (state, action: PayloadAction<{ name: string; email: string; password: string }>) => {
+      const { name, email, password } = action.payload;
+      const users = getUsers();
       
-      // Логин
-      .addCase(login.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(login.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.user = action.payload.user;
-        state.token = action.payload.token;
-      })
-      .addCase(login.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.error.message || 'Ошибка входа';
-      })
+      // Проверка, существует ли пользователь
+      const existingUser = users.find(u => u.email === email);
+      if (existingUser) {
+        state.error = 'Пользователь с таким email уже существует';
+        return;
+      }
       
-      // Обновление
-      .addCase(updateUser.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(updateUser.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.user = action.payload;
-      })
-      .addCase(updateUser.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.error.message || 'Ошибка обновления';
-      })
+      // Создание нового пользователя
+      const newUser: User = {
+        id: generateId(),
+        name,
+        email,
+        password,
+        createdAt: new Date().toISOString(),
+        likes: 0,
+        skillsWantId: [],
+        skillsCanTeach: [],
+      };
       
-      // Выход
-      .addCase(logout.fulfilled, (state) => {
-        state.user = null;
-        state.token = null;
-      });
+      users.push(newUser);
+      saveUsers(users);
+      
+      const token = generateToken();
+      saveToken(token);
+      saveCurrentUser(newUser);
+      
+      state.user = newUser;
+      state.token = token;
+      state.error = null;
+    },
+    
+    // Логин
+    login: (state, action: PayloadAction<{ email: string; password: string }>) => {
+      const { email, password } = action.payload;
+      const users = getUsers();
+      
+      // Поиск пользователя
+      const user = users.find(u => u.email === email);
+      if (!user) {
+        state.error = 'Пользователь с таким email не найден';
+        return;
+      }
+      
+      if (user.password !== password) {
+        state.error = 'Неверный пароль';
+        return;
+      }
+      
+      const token = generateToken();
+      saveToken(token);
+      saveCurrentUser(user);
+      
+      state.user = user;
+      state.token = token;
+      state.error = null;
+    },
+    
+    // Обновление данных пользователя
+    updateUser: (state, action: PayloadAction<Partial<User>>) => {
+      const currentUser = state.user;
+      if (!currentUser) {
+        state.error = 'Пользователь не авторизован';
+        return;
+      }
+      
+      const users = getUsers();
+      const userIndex = users.findIndex(u => u.id === currentUser.id);
+      
+      if (userIndex === -1) {
+        state.error = 'Пользователь не найден';
+        return;
+      }
+      
+      const updatedUser = { ...users[userIndex], ...action.payload };
+      users[userIndex] = updatedUser;
+      saveUsers(users);
+      saveCurrentUser(updatedUser);
+      
+      state.user = updatedUser;
+      state.error = null;
+    },
+    
+    // Выход
+    logout: (state) => {
+      saveToken(null);
+      saveCurrentUser(null);
+      
+      state.user = null;
+      state.token = null;
+      state.error = null;
+    },
   },
 });
 
 // Экшены
-export const { clearError } = authSlice.actions;
+export const { clearError, register, login, updateUser, logout } = authSlice.actions;
 
 // Селекторы
 export const selectUser = (state: RootState) => state.auth.user;
 export const selectToken = (state: RootState) => state.auth.token;
-export const selectIsLoading = (state: RootState) => state.auth.isLoading;
 export const selectAuthError = (state: RootState) => state.auth.error;
 export const selectIsAuthenticated = (state: RootState) => !!state.auth.user;
 
 // Редьюсер
 export const authReducer = authSlice.reducer;
-export default authReducer;
+export default authSlice.reducer;
