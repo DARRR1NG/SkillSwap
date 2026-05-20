@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { UserSkillCard, type UserSkillCardProps } from './user-skill-card';
+import { UserSkillCardContainer } from './user-skill-card.container';
 
 const defaultArgs: UserSkillCardProps = {
   user: {
@@ -104,4 +105,12 @@ export const WithoutImages: Story = {
       images: [],
     },
   },
+};
+
+export const LoadedFromJson: Story = {
+  render: () => <UserSkillCardContainer userId={1} skillId={101} />,
+};
+
+export const EmptyFromJson: Story = {
+  render: () => <UserSkillCardContainer userId={9999} />,
 };
