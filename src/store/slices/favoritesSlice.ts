@@ -1,45 +1,55 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
 
-interface Card {
-  id: string | number;
-  title: string;
-}
+const FAVORITES_KEY = 'skillswap_favorites';
 
 interface FavoritesState {
-  items: Card[];
+  favorites: number[];
 }
 
-const loadFromLocalStorage = (): Card[] => {
-  try {
-    const savedFavorites = localStorage.getItem('favorites_cards');
-    return savedFavorites ? JSON.parse(savedFavorites) : [];
-  } catch (e) {
-    console.error('Не удалось загрузить избранное', e);
-    return [];
-  }
+const loadFavorites = (): number[] => {
+  const saved = localStorage.getItem(FAVORITES_KEY);
+  return saved ? JSON.parse(saved) : [];
+};
+
+const saveFavorites = (favorites: number[]) => {
+  localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
 };
 
 const initialState: FavoritesState = {
-  items: loadFromLocalStorage(),
+  favorites: loadFavorites(),
 };
 
 const favoritesSlice = createSlice({
   name: 'favorites',
   initialState,
   reducers: {
-    toggleFavorite: (state, action: PayloadAction<Card>) => {
-      const index = state.items.findIndex((item) => item.id === action.payload.id);
-
-      if (index >= 0) {
-        state.items.splice(index, 1);
-      } else {
-        state.items.push(action.payload);
+    addFavorite: (state, action: PayloadAction<number>) => {
+      if (!state.favorites.includes(action.payload)) {
+        state.favorites.push(action.payload);
+        saveFavorites(state.favorites);
       }
-
-      localStorage.setItem('favorites_cards', JSON.stringify(state.items));
+    },
+    removeFavorite: (state, action: PayloadAction<number>) => {
+      state.favorites = state.favorites.filter((id) => id !== action.payload);
+      saveFavorites(state.favorites);
+    },
+    toggleFavorite: (state, action: PayloadAction<number>) => {
+      const isExist = state.favorites.includes(action.payload);
+      if (isExist) {
+        state.favorites = state.favorites.filter((id) => id !== action.payload);
+      } else {
+        state.favorites.push(action.payload);
+      }
+      saveFavorites(state.favorites);
+    },
+    clearFavorites: (state) => {
+      state.favorites = [];
+      saveFavorites([]);
     },
   },
 });
 
-export const { toggleFavorite } = favoritesSlice.actions;
+export const { addFavorite, removeFavorite, toggleFavorite, clearFavorites } =
+  favoritesSlice.actions;
 export default favoritesSlice.reducer;

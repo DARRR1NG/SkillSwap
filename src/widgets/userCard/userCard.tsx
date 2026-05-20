@@ -1,11 +1,14 @@
 import s from './userCard.module.css';
-import { useState, type FC } from 'react';
+import { type FC } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '../../shared/ui/button';
+import { IconButton } from '../../shared/ui/IconButton';
 import type { TUser, City, TSkillCanTeach, TSkillWant } from '../../utils/types';
 import citiesData from '../../../public/db/cities.json';
 import skillsData from '../../../public/db/skills.json';
 import clsx from 'clsx';
-import { IconButton } from '../../shared/ui/IconButton';
+import { toggleFavorite } from '../../store/slices/favoritesSlice';
+import type { RootState } from '../../store/store';
 
 const getAgeFromBirthday = (date: string): number => {
   const birthDate = new Date(date);
@@ -52,8 +55,10 @@ const Skills: FC<{ skills: Array<TSkillWant | TSkillCanTeach>; title: string }> 
     <div>
       <p className={s.skills_title}>{title}</p>
       <div className={s.skills_container}>
-        {skillsToShow.map((e) => (
-          <div className={clsx(s.skill, categoryBgMap[e.categoryId])}>{getSkillTitle(e)}</div>
+        {skillsToShow.map((e, index) => (
+          <div key={index} className={clsx(s.skill, categoryBgMap[e.categoryId])}>
+            {getSkillTitle(e)}
+          </div>
         ))}
         {skillsToHide > 0 && <div className={s.skill}>{`+${skillsToHide}`}</div>}
       </div>
@@ -62,12 +67,14 @@ const Skills: FC<{ skills: Array<TSkillWant | TSkillCanTeach>; title: string }> 
 };
 
 export const UserCard: FC<{ user: TUser }> = ({ user }) => {
+  const dispatch = useDispatch();
+  const isLiked = useSelector((state: RootState) => state.favorites.favorites.includes(user.id));
   const skillsWant = user.skillsWantId.map((e) => getSkillById(+e)).filter((e) => e !== undefined);
-  const [isActive, setActive] = useState(false);
+
   const handleLike = () => {
-    setActive(!isActive);
-    // to do: добавить dispatch для добавления в избранное
+    dispatch(toggleFavorite(user.id));
   };
+
   return (
     <div className={s.card_container}>
       <div className={s.person_info}>
@@ -82,7 +89,7 @@ export const UserCard: FC<{ user: TUser }> = ({ user }) => {
         </div>
         <IconButton
           onClick={handleLike}
-          src={isActive ? '../public/icons/like-fill.svg' : '../public/icons/like-icon.svg'}
+          src={isLiked ? '/icons/like-fill.svg' : '/icons/like-icon.svg'}
           className={s.iconLike}
         />
       </div>

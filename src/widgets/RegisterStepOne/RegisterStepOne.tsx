@@ -1,7 +1,9 @@
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
-import { type FormEvent, useState } from 'react';
 import { Button } from '../../shared/ui/button';
 import { Input } from '../../shared/ui/input';
+import { checkEmail } from '../../store/slices/authSlice';
 import s from './RegisterStepOne.module.css';
 
 export type RegisterStepOneValues = {
@@ -18,7 +20,7 @@ export type RegisterStepOneProps = {
   passwordPlaceholder?: string;
   submitText?: string;
   isSubmitDisabled?: boolean;
-  onSubmit?: (values: RegisterStepOneValues) => void;
+  onSubmit?: () => void;
   onGoogleClick?: () => void;
   onAppleClick?: () => void;
 };
@@ -29,11 +31,9 @@ const validateEmail = (email: string) => {
   if (!email.trim()) {
     return 'Введите email';
   }
-
   if (!email.includes('@')) {
     return 'Введите корректный email';
   }
-
   return '';
 };
 
@@ -41,11 +41,9 @@ const validatePassword = (password: string) => {
   if (!password) {
     return 'Введите пароль';
   }
-
   if (password.length < MIN_PASSWORD_LENGTH) {
     return 'Пароль должен содержать не менее 8 знаков';
   }
-
   return '';
 };
 
@@ -97,7 +95,7 @@ export const RegisterStepOne = ({
   className,
   defaultEmail = '',
   defaultPassword = '',
-  emailError,
+  emailError: externalEmailError,
   passwordHint = 'Пароль должен содержать не менее 8 знаков',
   passwordPlaceholder = 'Придумайте надёжный пароль',
   submitText = 'Далее',
@@ -106,16 +104,16 @@ export const RegisterStepOne = ({
   onGoogleClick,
   onAppleClick,
 }: RegisterStepOneProps) => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState(defaultEmail);
   const [password, setPassword] = useState(defaultPassword);
-  const [emailValidationError, setEmailValidationError] = useState(emailError ?? '');
+  const [emailValidationError, setEmailValidationError] = useState('');
   const [passwordValidationError, setPasswordValidationError] = useState('');
 
-  const resolvedEmailError = emailError ?? emailValidationError;
+  const resolvedEmailError = externalEmailError ?? emailValidationError;
 
   const handleEmailChange = (value: string) => {
     setEmail(value);
-
     if (emailValidationError) {
       setEmailValidationError(validateEmail(value));
     }
@@ -123,13 +121,12 @@ export const RegisterStepOne = ({
 
   const handlePasswordChange = (value: string) => {
     setPassword(value);
-
     if (passwordValidationError) {
       setPasswordValidationError(validatePassword(value));
     }
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const nextEmailError = validateEmail(email);
@@ -142,7 +139,8 @@ export const RegisterStepOne = ({
       return;
     }
 
-    onSubmit?.({ email, password });
+    dispatch(checkEmail({ email, password }));
+    onSubmit?.();
   };
 
   return (

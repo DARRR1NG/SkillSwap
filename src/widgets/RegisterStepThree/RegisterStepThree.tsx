@@ -1,18 +1,13 @@
 import { useMemo, useState, type FormEvent } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { completeRegistration } from '../../store/slices/authSlice';
 import chevronDownIcon from '../../images/icon/chevron-down.svg';
 import styles from './RegisterStepThree.module.css';
 
-type RegisterStepThreeData = {
-  title: string;
-  category: string;
-  subcategory: string;
-  description: string;
-  images: File[];
-};
-
 export type RegisterStepThreeProps = {
   onBack?: () => void;
-  onContinue?: (data: RegisterStepThreeData) => void;
+  onContinue?: () => void;
 };
 
 type OpenDropdown = 'category' | 'subcategory' | null;
@@ -57,11 +52,12 @@ const getFileText = (files: File[]) => {
   if (files.length === 0) {
     return 'Перетащите или выберите изображения навыка';
   }
-
   return files.length === 1 ? files[0].name : `Выбрано файлов: ${files.length}`;
 };
 
 export const RegisterStepThree = ({ onBack, onContinue }: RegisterStepThreeProps) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
   const [subcategory, setSubcategory] = useState('');
@@ -92,13 +88,25 @@ export const RegisterStepThree = ({ onBack, onContinue }: RegisterStepThreeProps
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    onContinue?.({
-      title,
-      category,
-      subcategory,
-      description,
-      images,
-    });
+    // Завершаем регистрацию
+    const skillsCanTeach = title
+      ? [
+          {
+            id: Date.now(),
+            categoryId: skills.findIndex((s) => s.category === category) + 1,
+            subcategoryId: 0,
+            customTitle: title,
+            description: description,
+            images: [],
+          },
+        ]
+      : [];
+
+    dispatch(completeRegistration({ skillsCanTeach }));
+
+    // После регистрации переходим на главную
+    onContinue?.();
+    navigate('/');
   };
 
   return (
@@ -224,7 +232,7 @@ export const RegisterStepThree = ({ onBack, onContinue }: RegisterStepThreeProps
           Назад
         </button>
         <button className={styles.continueButton} type="submit">
-          Продолжить
+          Завершить
         </button>
       </div>
     </form>
