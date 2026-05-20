@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { useId, type SVGProps } from 'react';
+import { useNavigate } from 'react-router-dom';
 import s from './logo.module.css';
 
 export type LogoProps = {
@@ -9,6 +10,11 @@ export type LogoProps = {
 export const Logo = ({ className, title = 'SkillSwap', ...rest }: LogoProps) => {
   const generatedTitleId = useId();
   const titleId = title ? generatedTitleId : undefined;
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate('/');
+  };
 
   return (
     <svg
@@ -21,6 +27,8 @@ export const Logo = ({ className, title = 'SkillSwap', ...rest }: LogoProps) => 
       role={title ? 'img' : undefined}
       aria-labelledby={titleId}
       aria-hidden={title ? undefined : true}
+      onClick={handleClick}
+      style={{ cursor: 'pointer' }}
       {...rest}
     >
       {title && <title id={titleId}>{title}</title>}
