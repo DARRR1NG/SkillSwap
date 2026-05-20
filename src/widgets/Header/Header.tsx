@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
 import { Logo } from '../../shared/ui/logo';
 import { Button } from '../../shared/ui/button';
@@ -7,6 +8,7 @@ import { Input } from '../../shared/ui/input';
 import { MainDroplist } from '../MainDroplist/MainDroplist';
 import { SearchIcon } from '../../shared/ui/input/input';
 import { IconButton } from '../../shared/ui/IconButton';
+import { selectIsAuthenticated, logout } from '../../store/slices/authSlice';
 import styles from './Header.module.css';
 
 export type HeaderProps = {
@@ -23,6 +25,8 @@ export const Header: React.FC<HeaderProps> = ({
   onCloseClick,
 }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const isAuthenticated = useSelector(selectIsAuthenticated);
   const [isChevronActive, setChevronActive] = useState(false);
   const [isMoonActive, setMoonActive] = useState(false);
 
@@ -38,6 +42,11 @@ export const Header: React.FC<HeaderProps> = ({
 
   const handleFavoritesClick = () => {
     navigate('/favorites');
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/');
   };
 
   return (
@@ -60,9 +69,11 @@ export const Header: React.FC<HeaderProps> = ({
                 className={isChevronActive ? styles.rotated : ''}
               />
 
-              <button type="button" className="dropdown-trigger" onClick={handleFavoritesClick}>
-                Избранное
-              </button>
+              {isAuthenticated && (
+                <button type="button" className="dropdown-trigger" onClick={handleFavoritesClick}>
+                  Избранное
+                </button>
+              )}
             </nav>
           )}
         </div>
@@ -83,13 +94,22 @@ export const Header: React.FC<HeaderProps> = ({
               />
             </div>
 
-            <Button color="white" className={styles.loginBtn} onClick={onLoginClick}>
-              Войти
-            </Button>
-
-            <Button color="green" className={styles.registerBtn} onClick={onRegisterClick}>
-              Зарегистрироваться
-            </Button>
+            {!isAuthenticated ? (
+              <>
+                <Button color="white" className={styles.loginBtn} onClick={onLoginClick}>
+                  Войти
+                </Button>
+                <Button color="green" className={styles.registerBtn} onClick={onRegisterClick}>
+                  Зарегистрироваться
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button color="white" className={styles.logoutBtn} onClick={handleLogout}>
+                  Выйти
+                </Button>
+              </>
+            )}
           </div>
         )}
 

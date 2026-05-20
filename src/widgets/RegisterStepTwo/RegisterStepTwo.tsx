@@ -1,7 +1,9 @@
 import { forwardRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import DatePicker from 'react-datepicker';
 import { ru } from 'date-fns/locale';
 import 'react-datepicker/dist/react-datepicker.css';
+import { savePersonalData } from '../../store/slices/authSlice';
 import avatarIcon from '../../images/icon/avatar.svg';
 import calendarIcon from '../../images/icon/calendar.svg';
 import chevronDownIcon from '../../images/icon/chevron-down.svg';
@@ -19,7 +21,7 @@ type RegisterStepTwoData = {
 
 type RegisterStepTwoProps = {
   onBack?: () => void;
-  onContinue?: (data: RegisterStepTwoData) => void;
+  onContinue?: (data?: RegisterStepTwoData) => void;
 };
 
 type OpenDropdown = 'gender' | 'city' | 'category' | 'subcategory' | null;
@@ -41,15 +43,19 @@ DateButton.displayName = 'DateButton';
 const genders = ['Не указан', 'Мужской', 'Женский'];
 
 const cities = [
-  'Москва',
-  'Санкт-Петербург',
-  'Самара',
-  'Саратов',
-  'Казань',
-  'Краснодар',
-  'Екатеринбург',
-  'Новосибирск',
-  'Нижний Новгород',
+  { id: 1, name: 'Москва' },
+  { id: 2, name: 'Санкт-Петербург' },
+  { id: 3, name: 'Новосибирск' },
+  { id: 4, name: 'Екатеринбург' },
+  { id: 5, name: 'Казань' },
+  { id: 6, name: 'Сочи' },
+  { id: 7, name: 'Нижний Новгород' },
+  { id: 8, name: 'Самара' },
+  { id: 9, name: 'Омск' },
+  { id: 10, name: 'Челябинск' },
+  { id: 11, name: 'Ростов-на-Дону' },
+  { id: 12, name: 'Уфа' },
+  { id: 13, name: 'Красноярск' },
 ];
 
 const skills = [
@@ -93,6 +99,7 @@ const getButtonText = (items: string[], placeholder: string) =>
   items.length > 1 ? `${items[0]} +${items.length - 1}` : items[0] || placeholder;
 
 export const RegisterStepTwo = ({ onBack, onContinue }: RegisterStepTwoProps) => {
+  const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [birthDate, setBirthDate] = useState<Date | null>(null);
   const [gender, setGender] = useState('Не указан');
@@ -101,7 +108,9 @@ export const RegisterStepTwo = ({ onBack, onContinue }: RegisterStepTwoProps) =>
   const [subcategories, setSubcategories] = useState<string[]>([]);
   const [openDropdown, setOpenDropdown] = useState<OpenDropdown>(null);
 
-  const filteredCities = cities.filter((item) => item.toLowerCase().includes(city.toLowerCase()));
+  const filteredCities = cities.filter((item) =>
+    item.name.toLowerCase().includes(city.toLowerCase())
+  );
 
   const selectedSubcategories =
     categories.length === 0
@@ -137,15 +146,22 @@ export const RegisterStepTwo = ({ onBack, onContinue }: RegisterStepTwoProps) =>
     );
   };
 
+  const getCityId = () => {
+    const found = cities.find((c) => c.name === city);
+    return found?.id;
+  };
+
   const handleContinue = () => {
-    onContinue?.({
-      name,
-      birthDate: formatDate(birthDate),
-      gender,
-      city,
-      categories,
-      subcategories,
-    });
+    dispatch(
+      savePersonalData({
+        name,
+        birthday: formatDate(birthDate),
+        gender: gender === 'Не указан' ? undefined : gender === 'Мужской' ? 'male' : 'female',
+        cityId: getCityId(),
+        skillsWantId: subcategories,
+      })
+    );
+    onContinue?.();
   };
 
   return (
@@ -251,14 +267,14 @@ export const RegisterStepTwo = ({ onBack, onContinue }: RegisterStepTwoProps) =>
               {filteredCities.map((item) => (
                 <button
                   className={styles.dropdownItem}
-                  key={item}
+                  key={item.id}
                   type="button"
                   onClick={() => {
-                    setCity(item);
+                    setCity(item.name);
                     setOpenDropdown(null);
                   }}
                 >
-                  {item}
+                  {item.name}
                 </button>
               ))}
             </div>

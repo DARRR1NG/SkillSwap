@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { Header } from '../../widgets/Header';
 import { InfoAuth } from '../../widgets/InfoAuth/InfoAuth';
 import { RegisterStepOne } from '../../widgets/RegisterStepOne';
 import { RegisterStepTwo } from '../../widgets/RegisterStepTwo';
 import { RegisterStepThree } from '../../widgets/RegisterStepThree';
+import { selectIsAuthenticated } from '../../store/slices/authSlice';
 import styles from './RegisterPage.module.css';
 
 const STEPS = [1, 2, 3] as const;
@@ -32,7 +34,14 @@ const STEP_INFO = {
 
 export function RegisterPage() {
   const navigate = useNavigate();
+  const isAuthenticated = useSelector(selectIsAuthenticated);
   const [currentStep, setCurrentStep] = useState<(typeof STEPS)[number]>(1);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleCloseClick = () => {
     navigate('/');

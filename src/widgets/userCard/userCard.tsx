@@ -1,11 +1,14 @@
 import s from './userCard.module.css';
 import { type FC } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '../../shared/ui/button';
+import { IconButton } from '../../shared/ui/IconButton';
 import type { TUser, City, TSkillCanTeach, TSkillWant } from '../../utils/types';
 import citiesData from '../../../public/db/cities.json';
 import skillsData from '../../../public/db/skills.json';
 import clsx from 'clsx';
-import { Like } from '../../shared/ui/like';
+import { toggleFavorite } from '../../store/slices/favoritesSlice';
+import type { RootState } from '../../store/store';
 
 const getAgeFromBirthday = (date: string): number => {
   const birthDate = new Date(date);
@@ -64,7 +67,13 @@ const Skills: FC<{ skills: Array<TSkillWant | TSkillCanTeach>; title: string }> 
 };
 
 export const UserCard: FC<{ user: TUser }> = ({ user }) => {
+  const dispatch = useDispatch();
+  const isLiked = useSelector((state: RootState) => state.favorites.favorites.includes(user.id));
   const skillsWant = user.skillsWantId.map((e) => getSkillById(+e)).filter((e) => e !== undefined);
+
+  const handleLike = () => {
+    dispatch(toggleFavorite(user.id));
+  };
 
   return (
     <div className={s.card_container}>
@@ -78,7 +87,11 @@ export const UserCard: FC<{ user: TUser }> = ({ user }) => {
             </p>
           </div>
         </div>
-        <Like userId={user.id} />
+        <IconButton
+          onClick={handleLike}
+          src={isLiked ? '/icons/like-fill.svg' : '/icons/like-icon.svg'}
+          className={s.iconLike}
+        />
       </div>
       <Skills skills={user.skillsCanTeach} title={'Может научить:'} />
       <Skills skills={skillsWant} title={'Хочет научиться:'} />

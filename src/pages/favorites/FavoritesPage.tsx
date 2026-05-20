@@ -1,21 +1,35 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Footer } from '../../widgets/Footer';
 import { Header } from '../../widgets/Header';
 import { UserCard } from '../../widgets/userCard/userCard';
 import type { TUser } from '../../utils/types';
+import { selectIsAuthenticated } from '../../store/slices/authSlice';
+import type { RootState } from '../../store/store';
 import styles from './FavoritesPage.module.css';
 
-const FAVORITES_KEY = 'skillswap_favorites';
-
 export const FavoritesPage = () => {
-  const [favoriteUsers, setFavoriteUsers] = useState<TUser[]>([]);
+  const navigate = useNavigate();
+  const isAuthenticated = useSelector(selectIsAuthenticated);
   const [allUsers, setAllUsers] = useState<TUser[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const favoritesIds = useSelector((state: RootState) => state.favorites.favorites);
 
-  const handleLoginClick = () => {};
-  const handleRegisterClick = () => {};
+  const handleLoginClick = () => {
+    navigate('/auth');
+  };
+  const handleRegisterClick = () => {
+    navigate('/reg');
+  };
 
-  // Загрузка всех пользователей
+  // Редирект на логин, если не авторизован
+  useEffect(() => {
+    if (!isAuthenticated && !isLoading) {
+      navigate('/auth');
+    }
+  }, [isAuthenticated, isLoading, navigate]);
+
   useEffect(() => {
     const loadUsers = async () => {
       try {
@@ -31,36 +45,20 @@ export const FavoritesPage = () => {
     loadUsers();
   }, []);
 
-  // Загрузка избранных и фильтрация
-  useEffect(() => {
-    if (allUsers.length === 0) return;
+  // Пока проверяем авторизацию - показываем загрузку
+  if (!isAuthenticated && isLoading) {
+    return (
+      <div className={styles.page}>
+        <Header onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />
+        <main className={styles.main}>
+          <div className={styles.loading}>Загрузка...</div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
-    const saved = localStorage.getItem(FAVORITES_KEY);
-    if (saved) {
-      const favoritesIds = JSON.parse(saved) as number[];
-      const favorites = allUsers.filter((user) => favoritesIds.includes(user.id));
-      setFavoriteUsers(favorites);
-    } else {
-      setFavoriteUsers([]);
-    }
-  }, [allUsers]);
-
-  // Подписка на обновления лайков
-  useEffect(() => {
-    const handleFavoritesUpdate = () => {
-      const saved = localStorage.getItem(FAVORITES_KEY);
-      if (saved) {
-        const favoritesIds = JSON.parse(saved) as number[];
-        const favorites = allUsers.filter((user) => favoritesIds.includes(user.id));
-        setFavoriteUsers(favorites);
-      } else {
-        setFavoriteUsers([]);
-      }
-    };
-
-    window.addEventListener('favoritesUpdated', handleFavoritesUpdate);
-    return () => window.removeEventListener('favoritesUpdated', handleFavoritesUpdate);
-  }, [allUsers]);
+  const favoriteUsers = allUsers.filter((user) => favoritesIds.includes(user.id));
 
   return (
     <div className={styles.page}>
