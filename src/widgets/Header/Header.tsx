@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import { Logo } from '../../shared/ui/logo';
 import { Button } from '../../shared/ui/button';
@@ -8,7 +8,7 @@ import { Input } from '../../shared/ui/input';
 import { MainDroplist } from '../MainDroplist/MainDroplist';
 import { SearchIcon } from '../../shared/ui/input/input';
 import { IconButton } from '../../shared/ui/IconButton';
-import { selectIsAuthenticated, logout } from '../../store/slices/authSlice';
+import { logout, selectIsAuthenticated, selectUser } from '../../store/slices/authSlice';
 import styles from './Header.module.css';
 
 export type HeaderProps = {
@@ -27,6 +27,7 @@ export const Header: React.FC<HeaderProps> = ({
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isAuthenticated = useSelector(selectIsAuthenticated);
+  const user = useSelector(selectUser);
   const [isChevronActive, setChevronActive] = useState(false);
   const [isMoonActive, setMoonActive] = useState(false);
 
@@ -65,15 +66,9 @@ export const Header: React.FC<HeaderProps> = ({
 
               <IconButton
                 onClick={handleChevronClick}
-                src="../public/icons/chevron-down.svg"
+                src="/icons/chevron-down.svg"
                 className={isChevronActive ? styles.rotated : ''}
               />
-
-              {isAuthenticated && (
-                <button type="button" className="dropdown-trigger" onClick={handleFavoritesClick}>
-                  Избранное
-                </button>
-              )}
             </nav>
           )}
         </div>
@@ -86,29 +81,59 @@ export const Header: React.FC<HeaderProps> = ({
 
         {!isAuthVariant && (
           <div className={styles.rightSection}>
-            <div className={styles.iconMoon}>
-              <IconButton
-                onClick={handleMoonClick}
-                src="../public/icons/moon.svg"
-                className={isMoonActive ? styles.active : ''}
-              />
-            </div>
-
             {!isAuthenticated ? (
               <>
+                <div className={styles.iconMoon}>
+                  <IconButton
+                    onClick={handleMoonClick}
+                    src="/icons/moon.svg"
+                    className={isMoonActive ? styles.active : ''}
+                  />
+                </div>
+
                 <Button color="white" className={styles.loginBtn} onClick={onLoginClick}>
                   Войти
                 </Button>
+
                 <Button color="green" className={styles.registerBtn} onClick={onRegisterClick}>
                   Зарегистрироваться
                 </Button>
               </>
             ) : (
-              <>
-                <Button color="white" className={styles.logoutBtn} onClick={handleLogout}>
-                  Выйти
-                </Button>
-              </>
+              <div className={styles.userMenu}>
+                <IconButton
+                  onClick={handleMoonClick}
+                  src="/icons/moon.svg"
+                  className={clsx(styles.authThemeIcon, isMoonActive && styles.active)}
+                />
+
+                <button className={styles.headerIconButton} type="button" aria-label="Уведомления">
+                  <img src="/icons/notification.svg" alt="" />
+                </button>
+
+                <button
+                  className={styles.headerIconButton}
+                  type="button"
+                  aria-label="Избранное"
+                  onClick={handleFavoritesClick}
+                >
+                  <img src="/icons/like-icon.svg" alt="" />
+                </button>
+
+                <button
+                  className={styles.profileButton}
+                  type="button"
+                  title="Выйти"
+                  onClick={handleLogout}
+                >
+                  <span className={styles.userName}>{user?.name}</span>
+                  <img
+                    className={styles.userAvatar}
+                    src={user?.avatar || '/icons/user-circle.svg'}
+                    alt=""
+                  />
+                </button>
+              </div>
             )}
           </div>
         )}

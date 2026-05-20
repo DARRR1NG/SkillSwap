@@ -11,7 +11,6 @@
 .container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 32px;
   width: 100%;
   box-sizing: border-box;
@@ -51,9 +50,18 @@
 }
 
 .centerSection {
-  flex: 1 1 527px;
-  max-width: 527px;
-  min-width: 280px;
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+}
+
+.centerSection > div {
+  width: 100%;
+}
+
+.centerSection > div > div {
+  width: 100%;
+  border: none;
 }
 
 .favoritesIcon {
@@ -78,7 +86,7 @@
 }
 
 .iconMoon {
-  padding: 0 32px;
+  padding: 0;
 }
 
 .loginBtn {
@@ -147,4 +155,67 @@
 .closeIcon {
   font-size: 22px;
   line-height: 1;
+}
+
+.userMenu {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 20px;
+  min-width: max-content;
+}
+
+.headerIconButton {
+  display: flex;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.headerIconButton img {
+  width: 24px;
+  height: 24px;
+}
+
+.profileButton {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 40px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text-base);
+  font-family: var(--RobotoRegular);
+  font-size: 16px;
+  line-height: 24px;
+  cursor: pointer;
+}
+
+.userName {
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.userAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.authThemeIcon {
+  padding: 5px 0 0;
+  width: min-content;
+}
+
+.authThemeIcon img {
+  width: 24px;
 }

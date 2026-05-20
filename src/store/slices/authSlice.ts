@@ -123,6 +123,11 @@ const authSlice = createSlice({
       state.error = null;
     },
 
+    setRegistrationStep: (state, action: PayloadAction<1 | 2 | 3>) => {
+      state.registrationStep = action.payload;
+      state.error = null;
+    },
+
     // Проверка email и сохранение (1)
     checkEmail: (state, action: PayloadAction<{ email: string; password: string }>) => {
       const { email, password } = action.payload;
@@ -294,6 +299,7 @@ const authSlice = createSlice({
 // Экшены
 export const {
   clearError,
+  setRegistrationStep,
   checkEmail,
   savePersonalData,
   completeRegistration,

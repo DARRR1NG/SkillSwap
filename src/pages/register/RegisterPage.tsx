@@ -1,12 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { Header } from '../../widgets/Header';
 import { InfoAuth } from '../../widgets/InfoAuth/InfoAuth';
 import { RegisterStepOne } from '../../widgets/RegisterStepOne';
 import { RegisterStepTwo } from '../../widgets/RegisterStepTwo';
 import { RegisterStepThree } from '../../widgets/RegisterStepThree';
-import { selectIsAuthenticated } from '../../store/slices/authSlice';
+import {
+  selectAuthError,
+  selectIsAuthenticated,
+  selectRegistrationStep,
+  setRegistrationStep,
+} from '../../store/slices/authSlice';
 import styles from './RegisterPage.module.css';
 
 const STEPS = [1, 2, 3] as const;
@@ -33,9 +38,11 @@ const STEP_INFO = {
 };
 
 export function RegisterPage() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const isAuthenticated = useSelector(selectIsAuthenticated);
-  const [currentStep, setCurrentStep] = useState<(typeof STEPS)[number]>(1);
+  const currentStep = useSelector(selectRegistrationStep);
+  const authError = useSelector(selectAuthError);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -48,11 +55,9 @@ export function RegisterPage() {
   };
 
   const handleStepBack = () => {
-    setCurrentStep((step) => (step === 1 ? step : ((step - 1) as typeof step)));
-  };
-
-  const handleStepForward = () => {
-    setCurrentStep((step) => (step === 3 ? step : ((step + 1) as typeof step)));
+    dispatch(
+      setRegistrationStep(currentStep === 1 ? 1 : ((currentStep - 1) as typeof currentStep))
+    );
   };
 
   const stepInfo = STEP_INFO[currentStep];
@@ -79,21 +84,11 @@ export function RegisterPage() {
 
         <div className={styles.cards}>
           <div className={styles.formCard}>
-            {currentStep === 1 && (
-              <RegisterStepOne
-                onSubmit={handleStepForward}
-                onGoogleClick={handleStepForward}
-                onAppleClick={handleStepForward}
-              />
-            )}
+            {currentStep === 1 && <RegisterStepOne emailError={authError || undefined} />}
 
-            {currentStep === 2 && (
-              <RegisterStepTwo onBack={handleStepBack} onContinue={handleStepForward} />
-            )}
+            {currentStep === 2 && <RegisterStepTwo onBack={handleStepBack} />}
 
-            {currentStep === 3 && (
-              <RegisterStepThree onBack={handleStepBack} onContinue={handleCloseClick} />
-            )}
+            {currentStep === 3 && <RegisterStepThree onBack={handleStepBack} />}
           </div>
 
           <InfoAuth
