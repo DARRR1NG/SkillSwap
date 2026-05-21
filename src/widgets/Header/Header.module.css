@@ -197,6 +197,29 @@
   cursor: pointer;
 }
 
+.profileButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 20px;
+  transition: background 0.2s;
+}
+
+.profileButton:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.profileAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 .userName {
   max-width: 120px;
   overflow: hidden;

@@ -33,6 +33,7 @@ interface RegistrationTempData {
   cityId?: number;
   gender?: 'male' | 'female';
   birthday?: string;
+  about?: string;
   skillsWantId?: string[];
   skillsCanTeach?: {
     id: number;
@@ -151,6 +152,7 @@ const authSlice = createSlice({
         cityId?: number;
         gender?: 'male' | 'female';
         birthday?: string;
+        about?: string;
         skillsWantId?: string[];
       }>
     ) => {
@@ -205,6 +207,7 @@ const authSlice = createSlice({
         gender: tempData.gender,
         birthday: tempData.birthday,
         createdAt: new Date().toISOString(),
+        about: tempData.about,
         likes: 0,
         skillsWantId: tempData.skillsWantId || [],
         skillsCanTeach: action.payload.skillsCanTeach || [],
