@@ -13,7 +13,7 @@ export const ProfilePage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const user = useSelector(selectUser);
-  
+
   const [name, setName] = useState('');
   const [about, setAbout] = useState('');
   const [isSaving, setIsSaving] = useState(false);
@@ -28,10 +28,10 @@ export const ProfilePage = () => {
 
   const handleSave = () => {
     if (!user) return;
-    
+
     setIsSaving(true);
     setMessage('');
-    
+
     try {
       dispatch(updateUser({ name, about }));
       setMessage('Данные успешно обновлены');
@@ -56,7 +56,9 @@ export const ProfilePage = () => {
             <h1 className={styles.title}>Профиль</h1>
             <div className={styles.notAuth}>
               <p>Вы не авторизованы</p>
-              <Button color="green" onClick={() => navigate('/login')}>Войти</Button>
+              <Button color="green" onClick={() => navigate('/login')}>
+                Войти
+              </Button>
             </div>
           </div>
         </main>
@@ -71,12 +73,12 @@ export const ProfilePage = () => {
       <main className={styles.main}>
         <div className={styles.container}>
           <h1 className={styles.title}>Профиль</h1>
-          
+
           <div className={styles.profileCard}>
             <div className={styles.avatarSection}>
-              <img 
-                src={user.avatar || '/images/avatars/default.jpg'} 
-                alt="avatar" 
+              <img
+                src={user.avatar || '/images/avatars/default.jpg'}
+                alt="avatar"
                 className={styles.avatar}
               />
             </div>
@@ -84,21 +86,12 @@ export const ProfilePage = () => {
             <div className={styles.form}>
               <div className={styles.field}>
                 <label className={styles.label}>Email</label>
-                <input 
-                  type="email" 
-                  value={user.email} 
-                  disabled 
-                  className={styles.disabledInput}
-                />
+                <input type="email" value={user.email} disabled className={styles.disabledInput} />
               </div>
 
               <div className={styles.field}>
                 <label className={styles.label}>Имя</label>
-                <Input
-                  value={name}
-                  onValueChange={setName}
-                  placeholder="Ваше имя"
-                />
+                <Input value={name} onValueChange={setName} placeholder="Ваше имя" />
               </div>
 
               <div className={styles.field}>
@@ -119,17 +112,10 @@ export const ProfilePage = () => {
               )}
 
               <div className={styles.buttons}>
-                <Button 
-                  color="green" 
-                  onClick={handleSave} 
-                  disabled={isSaving}
-                >
+                <Button color="green" onClick={handleSave} disabled={isSaving}>
                   {isSaving ? 'Сохранение...' : 'Сохранить'}
                 </Button>
-                <Button 
-                  color="white" 
-                  onClick={handleLogout}
-                >
+                <Button color="white" onClick={handleLogout}>
                   Выйти
                 </Button>
               </div>
