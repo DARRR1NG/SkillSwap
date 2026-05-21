@@ -71,16 +71,6 @@ export const Header: React.FC<HeaderProps> = ({
                 src="../public/icons/chevron-down.svg"
                 className={isChevronActive ? styles.rotated : ''}
               />
-
-              {isAuthenticated && (
-                <button
-                  type="button"
-                  className="dropdown-trigger"
-                  onClick={handleFavoritesClick}
-                >
-                  Избранное
-                </button>
-              )}
             </nav>
           )}
         </div>
@@ -111,18 +101,29 @@ export const Header: React.FC<HeaderProps> = ({
                 </Button>
               </>
             ) : (
-              <button
-                type="button"
-                className={styles.profileButton}
-                onClick={handleProfileClick}
-              >
-                <img 
-                  src={user?.avatar || '/icons/profile-icon.svg'} 
-                  alt="avatar" 
-                  className={styles.profileAvatar}
-                />
-                <span>{user?.name || 'Профиль'}</span>
-              </button>
+              <>
+                <div className={styles.favoritesWrapper}>
+                  <IconButton
+                    onClick={handleFavoritesClick}
+                    src="/icons/like-icon.svg"
+                    className={styles.favoritesIcon}
+                  />
+                </div>
+                <div className={styles.profileWrapper}>
+                  <button
+                    type="button"
+                    className={styles.profileButton}
+                    onClick={handleProfileClick}
+                  >
+                    <img 
+                      src={user?.avatar || '/icons/profile-icon.svg'} 
+                      alt="avatar" 
+                      className={styles.profileAvatar}
+                    />
+                    <span>{user?.name || 'Профиль'}</span>
+                  </button>
+                </div>
+              </>
             )}
           </div>
         )}
