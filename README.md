@@ -3,6 +3,8 @@
 ## :grey_question: Описание проекта
 Интернет-платформа "SkillSwap" позволяет людям обмениваться навыками друг с другом.
 
+<img width="1431" height="955" alt="image" src="https://github.com/user-attachments/assets/1d7fe20f-f9f7-4b22-ba08-8726f20de746" />
+
 ## :mag_right: Стек
 - HTML
 - CSS
