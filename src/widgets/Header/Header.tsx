@@ -14,12 +14,11 @@ import styles from './Header.module.css';
 export type HeaderProps = {
   variant?: 'default' | 'auth';
   onCloseClick?: () => void;
+  onLoginClick?: () => void;
+  onRegisterClick?: () => void;
 };
 
-export const Header: React.FC<HeaderProps> = ({
-  variant = 'default',
-  onCloseClick,
-}) => {
+export const Header: React.FC<HeaderProps> = ({ variant = 'default', onCloseClick }) => {
   const navigate = useNavigate();
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const user = useSelector(selectUser);
@@ -115,9 +114,9 @@ export const Header: React.FC<HeaderProps> = ({
                     className={styles.profileButton}
                     onClick={handleProfileClick}
                   >
-                    <img 
-                      src={user?.avatar || '/icons/profile-icon.svg'} 
-                      alt="avatar" 
+                    <img
+                      src={user?.avatar || '/icons/profile-icon.svg'}
+                      alt="avatar"
                       className={styles.profileAvatar}
                     />
                     <span>{user?.name || 'Профиль'}</span>
