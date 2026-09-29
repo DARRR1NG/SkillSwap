@@ -27,7 +27,7 @@ export default defineConfig({
             configDir: path.join(dirname, '.storybook'),
           }),
         ],
-        base: 'skill-swap',
+        base: '/skill-swap/',
         test: {
           name: 'storybook',
           browser: {
