@@ -55,10 +55,10 @@ export const getUserSkillCardData = async ({
   signal,
 }: UserSkillCardApiOptions = {}): Promise<UserSkillCardData | null> => {
   const [usersData, citiesData, skillsData, categoriesData] = await Promise.all([
-    getJson<UserSkillCardApiUsersResponse>('/db/users.json', signal),
-    getJson<UserSkillCardApiCitiesResponse>('/db/cities.json', signal),
-    getJson<UserSkillCardApiSkill[]>('/db/skills.json', signal),
-    getJson<UserSkillCardApiCategory[]>('/db/skillsCategories.json', signal),
+    getJson<UserSkillCardApiUsersResponse>('../public/db/users.json', signal),
+    getJson<UserSkillCardApiCitiesResponse>('../public/db/cities.json', signal),
+    getJson<UserSkillCardApiSkill[]>('../public/db/skills.json', signal),
+    getJson<UserSkillCardApiCategory[]>('../public/db/skillsCategories.json', signal),
   ]);
 
   const users = usersData.users ?? [];

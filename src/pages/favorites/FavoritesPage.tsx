@@ -33,7 +33,7 @@ export const FavoritesPage = () => {
   useEffect(() => {
     const loadUsers = async () => {
       try {
-        const response = await fetch('/db/users.json');
+        const response = await fetch('../../public/db/users.json');
         const data = await response.json();
         setAllUsers(data.users ?? []);
       } catch (error) {

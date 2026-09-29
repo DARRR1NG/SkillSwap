@@ -64,7 +64,7 @@ li {
 
 .autocomplete_container::after {
   content: '';
-  background-image: url('public/icons/chevron-down.svg');
+  background-image: url('../../../../public/icons/chevron-down.svg');
   width: 24px;
   height: 24px;
   position: absolute;
