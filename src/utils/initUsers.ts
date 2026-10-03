@@ -1,6 +1,6 @@
 const USERS_STORAGE_KEY = 'users';
 
-const ud = await fetch('/db/users.json');
+const ud = await fetch(`${import.meta.env.BASE_URL}db/users.json`);
 const usersData = await ud.json();
 
 export const initUsers = () => {

@@ -5,7 +5,7 @@ import type { TUser } from '../../utils/types';
 import { useState, type FC } from 'react';
 import { Button } from '../../shared/ui/button';
 
-const ct = await fetch('/db/cities.json');
+const ct = await fetch(`${import.meta.env.BASE_URL}db/cities.json`);
 const citiesData = await ct.json();
 
 export const Profile: FC<{ user: TUser }> = ({ user }) => {

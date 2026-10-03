@@ -44,8 +44,8 @@ export function HomePage() {
   // Загрузка данных
   useEffect(() => {
     const loadData = async () => {
-      const usersResponse = await fetch('/db/users.json');
-      const skillsResponse = await fetch('/db/skills.json');
+      const usersResponse = await fetch(`${import.meta.env.BASE_URL}db/users.json`);
+      const skillsResponse = await fetch(`${import.meta.env.BASE_URL}db/skills.json`);
 
       const usersData = (await usersResponse.json()) as UsersResponse;
       const skillsData = (await skillsResponse.json()) as Skill[];

@@ -76,7 +76,7 @@ export const Header: React.FC<HeaderProps> = ({ variant = 'default', onCloseClic
 
         {!isAuthVariant && (
           <div className={styles.centerSection}>
-            <Input variant="search" leftIcon={<SearchIcon />} placeholder="Искать навыкf" />
+            <Input variant="search" leftIcon={<SearchIcon />} placeholder="Искать навык" />
           </div>
         )}
 

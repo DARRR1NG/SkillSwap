@@ -28,7 +28,7 @@ const categoryBgMap: Record<number, string> = {
   6: s.green,
 };
 
-const ct = await fetch('/db/cities.json');
+const ct = await fetch(`${import.meta.env.BASE_URL}db/cities.json`);
 const citiesData = await ct.json();
 
 const getCityNameById = (id: number): string | undefined => {
@@ -36,7 +36,7 @@ const getCityNameById = (id: number): string | undefined => {
   return data.cities.find((city) => city.id === id)?.name;
 };
 
-const sk = await fetch('/db/skills.json');
+const sk = await fetch(`${import.meta.env.BASE_URL}db/skills.json`);
 const skillsData = await sk.json();
 
 const getSkillById = (id: number): TSkillWant | undefined => {

@@ -12,8 +12,10 @@ const useSkillCategories = () => {
 
   useEffect(() => {
     Promise.all([
-      fetch('/db/skills.json').then((response) => response.json() as Promise<SkillsJson>),
-      fetch('/db/skillsCategories.json').then(
+      fetch(`${import.meta.env.BASE_URL}db/skills.json`).then(
+        (response) => response.json() as Promise<SkillsJson>
+      ),
+      fetch(`${import.meta.env.BASE_URL}db/skillsCategories.json`).then(
         (response) => response.json() as Promise<SkillCategoriesJson>
       ),
     ]).then(([skills, skillCategories]) =>

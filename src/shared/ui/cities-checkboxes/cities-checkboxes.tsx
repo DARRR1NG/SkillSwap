@@ -7,7 +7,7 @@ interface CitiesCheckboxesProps {
   onSelectedChange?: (ids: number[]) => void;
 }
 
-const dt = await fetch('/db/cities.json');
+const dt = await fetch(`${import.meta.env.BASE_URL}db/cities.json`);
 const data = await dt.json();
 
 export const CitiesCheckboxes = ({ selectedIds = [], onSelectedChange }: CitiesCheckboxesProps) => {
