@@ -34,7 +34,7 @@ export type ModalProps = {
 const CheckIcon = () => (
   <img
     className={clsx(s.presetIcon, s.presetIconCheck)}
-    src="/icons/modal-check.svg"
+    src={`${import.meta.env.BASE_URL}icons/modal-check.svg`}
     alt=""
     width={77}
     height={77}
@@ -45,7 +45,7 @@ const CheckIcon = () => (
 const UserIcon = () => (
   <img
     className={clsx(s.presetIcon, s.presetIconCheck)}
-    src="/icons/modal-user.svg"
+    src={`${import.meta.env.BASE_URL}icons/modal-user.svg`}
     alt=""
     width={77}
     height={77}

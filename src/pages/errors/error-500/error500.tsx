@@ -15,7 +15,7 @@ export const Error500 = () => {
     <>
       <Header onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />
       <div className={s.error}>
-        <img src="public\images\decor\error-500.svg" alt="ошибка 500" className={s.img} />
+        <img src="images\decor\error-500.svg" alt="ошибка 500" className={s.img} />
         <div className={s.errorInfoContiner}>
           <div className={s.errorText}>
             <span className={s.mainErrorText}>На сервере произошла ошибка</span>

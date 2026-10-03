@@ -20,7 +20,7 @@ export const Profile: FC<{ user: TUser }> = ({ user }) => {
           label="Почта"
           variant="default"
           fullWidth={true}
-          rightIcon={<img src="/icons/edit.svg" />}
+          rightIcon={<img src={`${import.meta.env.BASE_URL}icons/edit.svg`} />}
           value={emailInput}
           onValueChange={setEmailInput}
         />
@@ -29,7 +29,7 @@ export const Profile: FC<{ user: TUser }> = ({ user }) => {
           label="Имя"
           variant="default"
           fullWidth={true}
-          rightIcon={<img src="/icons/edit.svg" />}
+          rightIcon={<img src={`${import.meta.env.BASE_URL}icons/edit.svg`} />}
           value={nameInput}
           onValueChange={setNameInput}
         />
@@ -49,7 +49,7 @@ export const Profile: FC<{ user: TUser }> = ({ user }) => {
         </div>
         <Input
           label="О себе"
-          rightIcon={<img src="/icons/edit.svg" />}
+          rightIcon={<img src={`${import.meta.env.BASE_URL}icons/edit.svg`} />}
           value={aboutInput}
           onValueChange={setAboutInput}
         />
@@ -60,7 +60,7 @@ export const Profile: FC<{ user: TUser }> = ({ user }) => {
       <div className={s.image_container}>
         <img className={s.image} src={user.userAvatar} alt="фото профиля" />
         <button className={s.edit_photo}>
-          <img src="/icons/gallery-edit.svg" />
+          <img src={`${import.meta.env.BASE_URL}icons/gallery-edit.svg`} />
         </button>
       </div>
     </div>

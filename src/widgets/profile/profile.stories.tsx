@@ -19,7 +19,7 @@ const data: TUser = {
   name: 'Александр',
   email: 'alexander@example.com',
   password: 'pass123',
-  userAvatar: '/images/avatars/alexander.jpg',
+  userAvatar: 'images/avatars/alexander.jpg',
   cityId: 1,
   gender: 'male',
   birthday: '1990-05-15',
@@ -37,9 +37,9 @@ const data: TUser = {
       description:
         'Привет! Я руководил командами разработки от 3 до 15 человек в нескольких стартапах. Научу вас эффективным методологиям Agile, настройке процессов и коммуникации внутри команды. Поделюсь реальными кейсами и лайфхаками, как избежать выгорания команды и успевать дедлайны без хаоса. Практические советы, которые можно применить сразу после урока.',
       images: [
-        '/images/skills/team-management.jpg',
-        '/images/skills/qa.jpg',
-        '/images/skills/python.jpg',
+        'images/skills/team-management.jpg',
+        'images/skills/qa.jpg',
+        'images/skills/python.jpg',
       ],
     },
   ],

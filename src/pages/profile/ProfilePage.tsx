@@ -35,7 +35,7 @@ export const ProfilePage = () => {
     try {
       dispatch(updateUser({ name, about }));
       setMessage('Данные успешно обновлены');
-    } catch (error) {
+    } catch {
       setMessage('Ошибка при обновлении');
     } finally {
       setIsSaving(false);
@@ -77,7 +77,7 @@ export const ProfilePage = () => {
           <div className={styles.profileCard}>
             <div className={styles.avatarSection}>
               <img
-                src={user.avatar || '/images/avatars/default.jpg'}
+                src={user.avatar || `${import.meta.env.BASE_URL}images/avatars/default.jpg`}
                 alt="avatar"
                 className={styles.avatar}
               />

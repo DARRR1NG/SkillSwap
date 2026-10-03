@@ -7,7 +7,7 @@ const defaultArgs: UserSkillCardProps = {
     name: 'Иван',
     city: 'Санкт-Петербург',
     age: 34,
-    avatar: '/images/avatars/ivan.jpg',
+    avatar: 'images/avatars/ivan.jpg',
     description: 'Привет! Люблю ритм, кофе по утрам и людей, которые не боятся пробовать новое',
     canTeach: [{ id: 'english', title: 'Английский язык' }],
     wantsToLearn: [
@@ -24,17 +24,17 @@ const defaultArgs: UserSkillCardProps = {
     images: [
       {
         id: 'drums-main',
-        src: '/images/skills/drums.jpg',
+        src: 'images/skills/drums.jpg',
         alt: 'Игра на барабанах',
       },
       {
         id: 'drums-lesson',
-        src: '/images/skills/drums1.jpg',
+        src: 'images/skills/drums1.jpg',
         alt: 'Занятие по барабанам',
       },
       {
         id: 'drums-kit',
-        src: '/images/skills/drums2.jpg',
+        src: 'images/skills/drums2.jpg',
         alt: 'Барабанная установка',
       },
     ],
@@ -79,17 +79,17 @@ export const WithManyImages: Story = {
         ...defaultArgs.skill.images,
         {
           id: 'music',
-          src: '/images/skills/guitar.jpg',
+          src: 'images/skills/guitar.jpg',
           alt: 'Музыкальное занятие',
         },
         {
           id: 'stage',
-          src: '/images/skills/hiphop.jpg',
+          src: 'images/skills/hiphop.jpg',
           alt: 'Ритм и выступление',
         },
         {
           id: 'sound',
-          src: '/images/skills/guitar2.jpg',
+          src: 'images/skills/guitar2.jpg',
           alt: 'Музыка и звук',
         },
       ],

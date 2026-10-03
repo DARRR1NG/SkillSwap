@@ -147,7 +147,7 @@ export const AvatarUpload = ({
           >
             <img
               className={s.editIcon}
-              src="/icons/gallery-edit.svg"
+              src={`${import.meta.env.BASE_URL}icons/gallery-edit.svg`}
               alt=""
               draggable={false}
               width={profileEditGlyphPx}

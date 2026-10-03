@@ -246,7 +246,7 @@ export const UserSkillCard = ({
 
         <div className={styles.actions}>
           <button className={styles.actionButton} type="button" aria-label="Лайк" onClick={onLike}>
-            <img src="/icons/like-icon.svg" alt="" aria-hidden="true" />
+            <img src={`${import.meta.env.BASE_URL}icons/like-icon.svg`} alt="" aria-hidden="true" />
           </button>
           <button
             className={styles.actionButton}
@@ -254,7 +254,7 @@ export const UserSkillCard = ({
             aria-label="Поделиться"
             onClick={onShare}
           >
-            <img src="/icons/share.svg" alt="" aria-hidden="true" />
+            <img src={`${import.meta.env.BASE_URL}icons/share.svg`} alt="" aria-hidden="true" />
           </button>
           <button
             className={styles.actionButton}
@@ -262,7 +262,11 @@ export const UserSkillCard = ({
             aria-label="Открыть меню"
             onClick={onMore}
           >
-            <img src="/icons/more-square.svg" alt="" aria-hidden="true" />
+            <img
+              src={`${import.meta.env.BASE_URL}icons/more-square.svg`}
+              alt=""
+              aria-hidden="true"
+            />
           </button>
         </div>
       </article>

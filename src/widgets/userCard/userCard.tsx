@@ -93,7 +93,11 @@ export const UserCard: FC<{ user: TUser }> = ({ user }) => {
         </div>
         <IconButton
           onClick={handleLike}
-          src={isLiked ? '/icons/like-fill.svg' : '/icons/like-icon.svg'}
+          src={
+            isLiked
+              ? `${import.meta.env.BASE_URL}icons/like-fill.svg`
+              : `${import.meta.env.BASE_URL}icons/like-icon.svg`
+          }
           className={s.iconLike}
         />
       </div>

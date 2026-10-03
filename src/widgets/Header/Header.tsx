@@ -67,7 +67,7 @@ export const Header: React.FC<HeaderProps> = ({ variant = 'default', onCloseClic
 
               <IconButton
                 onClick={handleChevronClick}
-                src="/icons/chevron-down.svg"
+                src={`${import.meta.env.BASE_URL}icons/chevron-down.svg`}
                 className={isChevronActive ? styles.rotated : ''}
               />
             </nav>
@@ -85,7 +85,7 @@ export const Header: React.FC<HeaderProps> = ({ variant = 'default', onCloseClic
             <div className={styles.iconMoon}>
               <IconButton
                 onClick={handleMoonClick}
-                src="/icons/moon.svg"
+                src={`${import.meta.env.BASE_URL}icons/moon.svg`}
                 className={isMoonActive ? styles.active : ''}
               />
             </div>
@@ -104,7 +104,7 @@ export const Header: React.FC<HeaderProps> = ({ variant = 'default', onCloseClic
                 <div className={styles.favoritesWrapper}>
                   <IconButton
                     onClick={handleFavoritesClick}
-                    src="/icons/like-icon.svg"
+                    src={`${import.meta.env.BASE_URL}icons/like-icon.svg`}
                     className={styles.favoritesIcon}
                   />
                 </div>
@@ -115,7 +115,7 @@ export const Header: React.FC<HeaderProps> = ({ variant = 'default', onCloseClic
                     onClick={handleProfileClick}
                   >
                     <img
-                      src={user?.avatar || '/icons/profile-icon.svg'}
+                      src={user?.avatar || `${import.meta.env.BASE_URL}icons/profile-icon.svg`}
                       alt="avatar"
                       className={styles.profileAvatar}
                     />

@@ -29,7 +29,7 @@ export const Register: Story = {
 export const Profile: Story = {
   args: {
     variant: 'profile',
-    defaultSrc: '/images/avatars/alexander.jpg',
+    defaultSrc: 'images/avatars/alexander.jpg',
   },
 };
 

@@ -65,9 +65,15 @@ export const CitiesCheckboxes = ({ selectedIds = [], onSelectedChange }: CitiesC
           <button className={s.toggleButton} onClick={() => setIsExpanded(!isExpanded)}>
             {isExpanded ? 'Свернуть' : `Все города `}
             {isExpanded ? (
-              <img src="/icons/chevron-up.svg" className={s.iconChevron} />
+              <img
+                src={`${import.meta.env.BASE_URL}icons/chevron-up.svg`}
+                className={s.iconChevron}
+              />
             ) : (
-              <img src="/icons/chevron-down.svg" className={s.iconChevron} />
+              <img
+                src={`${import.meta.env.BASE_URL}icons/chevron-down.svg`}
+                className={s.iconChevron}
+              />
             )}
           </button>
         </>

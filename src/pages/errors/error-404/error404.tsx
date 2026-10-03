@@ -15,7 +15,7 @@ export const Error404 = () => {
     <>
       <Header onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />
       <div className={s.error}>
-        <img src="public\images\decor\error-404.svg" alt="ошибка 404" className={s.img404} />
+        <img src="images\decor\error-404.svg" alt="ошибка 404" className={s.img404} />
         <div className={s.errorInfoContiner}>
           <div className={s.errorText}>
             <span className={s.mainErrorText}>Страница не найдена</span>

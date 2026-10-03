@@ -19,7 +19,7 @@
 
 .button_profile:first-child::before {
   content: '';
-  background-image: url('public/icons/request.svg');
+  background-image: url('icons/request.svg');
   position: absolute;
   top: 12px;
   left: 20px;
@@ -29,7 +29,7 @@
 
 .button_profile:nth-child(2)::before {
   content: '';
-  background-image: url('public/icons/message-text.svg');
+  background-image: url('icons/message-text.svg');
   position: absolute;
   top: 12px;
   left: 20px;
@@ -39,7 +39,7 @@
 
 .button_profile:nth-child(3)::before {
   content: '';
-  background-image: url('public/icons/like-icon.svg');
+  background-image: url('icons/like-icon.svg');
   position: absolute;
   top: 12px;
   left: 20px;
@@ -49,7 +49,7 @@
 
 .button_profile:nth-child(4)::before {
   content: '';
-  background-image: url('public/icons/idea.svg');
+  background-image: url('icons/idea.svg');
   position: absolute;
   top: 12px;
   left: 20px;
@@ -59,7 +59,7 @@
 
 .button_profile:nth-child(5)::before {
   content: '';
-  background-image: url('public/icons/user.svg');
+  background-image: url('icons/user.svg');
   position: absolute;
   top: 12px;
   left: 20px;

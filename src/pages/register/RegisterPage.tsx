@@ -18,19 +18,19 @@ const STEPS = [1, 2, 3] as const;
 
 const STEP_INFO = {
   1: {
-    img: '/images/decor/light-bulb.svg',
+    img: 'images/decor/light-bulb.svg',
     alt: 'Лампочка',
     title: 'Добро пожаловать в SkillSwap!',
     text: 'Присоединяйтесь к SkillSwap и обменивайтесь знаниями и навыками с другими людьми',
   },
   2: {
-    img: '/images/decor/user info.svg',
+    img: 'images/decor/user info.svg',
     alt: 'Пользователь с сообщением',
     title: 'Расскажите немного о себе',
     text: 'Это поможет другим людям лучше вас узнать, чтобы выбрать для обмена',
   },
   3: {
-    img: '/images/decor/school-board.svg',
+    img: 'images/decor/school-board.svg',
     alt: 'Доска с презентацией',
     title: 'Укажите, чем вы готовы поделиться',
     text: 'Так другие люди смогут увидеть ваши предложения и предложить вам обмен!',

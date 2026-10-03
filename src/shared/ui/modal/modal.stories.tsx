@@ -15,16 +15,16 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const offerCoverImage = '/images/skills/offer-preview/main.jpg';
+const offerCoverImage = 'images/skills/offer-preview/main.jpg';
 
 /** Порядок миниатюр: цветная рубашка → окно/горы → ч/б с «+3». */
 const offerThumbImages = [
-  '/images/skills/offer-preview/thumb-1.jpg',
-  '/images/skills/offer-preview/thumb-2.jpg',
-  '/images/skills/offer-preview/thumb-3.jpg',
-  '/images/skills/offer-preview/extra-1.jpg',
-  '/images/skills/offer-preview/extra-2.jpg',
-  '/images/skills/drums2.jpg',
+  'images/skills/offer-preview/thumb-1.jpg',
+  'images/skills/offer-preview/thumb-2.jpg',
+  'images/skills/offer-preview/thumb-3.jpg',
+  'images/skills/offer-preview/extra-1.jpg',
+  'images/skills/offer-preview/extra-2.jpg',
+  'images/skills/drums2.jpg',
 ];
 
 const offerDescription =
@@ -61,7 +61,7 @@ const OfferPreviewDemo = () => {
       label: 'Редактировать',
       variant: 'secondary' as const,
       onClick: close,
-      icon: <img src="/icons/edit.svg" alt="" />,
+      icon: <img src={`${import.meta.env.BASE_URL}icons/edit.svg`} alt="" />,
     },
     { label: 'Готово', onClick: close },
   ];

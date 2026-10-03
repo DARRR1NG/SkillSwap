@@ -135,7 +135,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             >
               <img
                 className={s.iconSvg}
-                src={isPasswordVisible ? '/icons/eye.svg' : '/icons/eye-slash.svg'}
+                src={
+                  isPasswordVisible
+                    ? `${import.meta.env.BASE_URL}icons/eye.svg`
+                    : `${import.meta.env.BASE_URL}icons/eye-slash.svg`
+                }
                 alt=""
                 aria-hidden="true"
               />

@@ -50,7 +50,7 @@ export function LoginPage() {
           </div>
 
           <InfoAuth
-            img="/images/decor/light-bulb.svg"
+            img={`${import.meta.env.BASE_URL}images/decor/light-bulb.svg`}
             alt="Лампочка"
             title="С возвращением в SkillSwap!"
             text="Обменивайтесь знаниями и навыками с другими людьми"
