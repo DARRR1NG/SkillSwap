@@ -63,10 +63,8 @@ export const FilterColumn = ({
 
     useEffect(() => {
       Promise.all([
-        fetch('../public/db/skills.json').then(
-          (response) => response.json() as Promise<SkillsJson>
-        ),
-        fetch('../public/db/skillsCategories.json').then(
+        fetch('/db/skills.json').then((response) => response.json() as Promise<SkillsJson>),
+        fetch('/db/skillsCategories.json').then(
           (response) => response.json() as Promise<SkillCategoriesJson>
         ),
       ]).then(([skills, skillCategories]) =>

@@ -67,7 +67,7 @@ export const Header: React.FC<HeaderProps> = ({ variant = 'default', onCloseClic
 
               <IconButton
                 onClick={handleChevronClick}
-                src="../public/icons/chevron-down.svg"
+                src="/icons/chevron-down.svg"
                 className={isChevronActive ? styles.rotated : ''}
               />
             </nav>
@@ -76,7 +76,7 @@ export const Header: React.FC<HeaderProps> = ({ variant = 'default', onCloseClic
 
         {!isAuthVariant && (
           <div className={styles.centerSection}>
-            <Input variant="search" leftIcon={<SearchIcon />} placeholder="Искать навык" />
+            <Input variant="search" leftIcon={<SearchIcon />} placeholder="Искать навыкf" />
           </div>
         )}
 
@@ -85,7 +85,7 @@ export const Header: React.FC<HeaderProps> = ({ variant = 'default', onCloseClic
             <div className={styles.iconMoon}>
               <IconButton
                 onClick={handleMoonClick}
-                src="../public/icons/moon.svg"
+                src="/icons/moon.svg"
                 className={isMoonActive ? styles.active : ''}
               />
             </div>

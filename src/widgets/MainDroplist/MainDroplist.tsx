@@ -80,7 +80,7 @@ export const MainDroplist = () => {
   const rootRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    fetch('../public/db/skills.json')
+    fetch('/db/skills.json')
       .then((response) => {
         if (!response.ok) throw new Error(`Ошибка: ${response.status}`);
         return response.json() as Promise<SkillsResponse>;

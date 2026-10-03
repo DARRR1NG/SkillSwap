@@ -1,13 +1,14 @@
-import usersData from '../../public/db/users.json';
-
 const USERS_STORAGE_KEY = 'users';
+
+const ud = await fetch('/db/users.json');
+const usersData = await ud.json();
 
 export const initUsers = () => {
   const existingUsers = localStorage.getItem(USERS_STORAGE_KEY);
 
   if (!existingUsers) {
     // Берём пользователей из users.json
-    const users = usersData.users.map((user) => ({
+    const users = usersData.users.map((user: any) => ({
       id: String(user.id),
       name: user.name,
       email: user.email,

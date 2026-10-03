@@ -1,13 +1,15 @@
 import { Autocomplete } from '../../shared/ui/autocomplete/Autocomplete';
 import { Input } from '../../shared/ui/input';
 import s from './profile.module.css';
-import citiesData from '../../../public/db/cities.json';
 import type { TUser } from '../../utils/types';
 import { useState, type FC } from 'react';
 import { Button } from '../../shared/ui/button';
 
+const ct = await fetch('/db/cities.json');
+const citiesData = await ct.json();
+
 export const Profile: FC<{ user: TUser }> = ({ user }) => {
-  const citiesOptions = citiesData.cities.map((e) => e.name);
+  const citiesOptions = citiesData.cities.map((e: any) => e.name);
   const [emailInput, setEmailInput] = useState<string>(user.email);
   const [nameInput, setNameInput] = useState<string>(user.name);
   const [aboutInput, setAboutInput] = useState<string>(user.about);
@@ -18,7 +20,7 @@ export const Profile: FC<{ user: TUser }> = ({ user }) => {
           label="Почта"
           variant="default"
           fullWidth={true}
-          rightIcon={<img src="../../../public/icons/edit.svg" />}
+          rightIcon={<img src="/icons/edit.svg" />}
           value={emailInput}
           onValueChange={setEmailInput}
         />
@@ -27,7 +29,7 @@ export const Profile: FC<{ user: TUser }> = ({ user }) => {
           label="Имя"
           variant="default"
           fullWidth={true}
-          rightIcon={<img src="../../../public/icons/edit.svg" />}
+          rightIcon={<img src="/icons/edit.svg" />}
           value={nameInput}
           onValueChange={setNameInput}
         />
@@ -47,7 +49,7 @@ export const Profile: FC<{ user: TUser }> = ({ user }) => {
         </div>
         <Input
           label="О себе"
-          rightIcon={<img src="../../../public/icons/edit.svg" />}
+          rightIcon={<img src="/icons/edit.svg" />}
           value={aboutInput}
           onValueChange={setAboutInput}
         />
@@ -58,7 +60,7 @@ export const Profile: FC<{ user: TUser }> = ({ user }) => {
       <div className={s.image_container}>
         <img className={s.image} src={user.userAvatar} alt="фото профиля" />
         <button className={s.edit_photo}>
-          <img src="../../../public/icons/gallery-edit.svg" />
+          <img src="/icons/gallery-edit.svg" />
         </button>
       </div>
     </div>

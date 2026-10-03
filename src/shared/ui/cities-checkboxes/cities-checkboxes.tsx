@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { CheckboxOption } from '../skill-checkboxes/skill-checkboxes';
-import data from '../../../../public/db/cities.json';
 import s from './cities-checkboxes.module.css';
 
 interface CitiesCheckboxesProps {
   selectedIds?: number[];
   onSelectedChange?: (ids: number[]) => void;
 }
+
+const dt = await fetch('/db/cities.json');
+const data = await dt.json();
 
 export const CitiesCheckboxes = ({ selectedIds = [], onSelectedChange }: CitiesCheckboxesProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -32,7 +34,7 @@ export const CitiesCheckboxes = ({ selectedIds = [], onSelectedChange }: CitiesC
   return (
     <div className={s.container}>
       <div className={s.citiesCheckboxContainer}>
-        {firstFiveCities.map((item) => (
+        {firstFiveCities.map((item: any) => (
           <CheckboxOption
             key={item.id}
             label={item.name}
@@ -48,7 +50,7 @@ export const CitiesCheckboxes = ({ selectedIds = [], onSelectedChange }: CitiesC
           {isExpanded && (
             <div className={s.otherCities}>
               <div className={s.citiesCheckboxContainer}>
-                {remainingCities.map((item) => (
+                {remainingCities.map((item: any) => (
                   <CheckboxOption
                     key={item.id}
                     label={item.name}
@@ -63,9 +65,9 @@ export const CitiesCheckboxes = ({ selectedIds = [], onSelectedChange }: CitiesC
           <button className={s.toggleButton} onClick={() => setIsExpanded(!isExpanded)}>
             {isExpanded ? 'Свернуть' : `Все города `}
             {isExpanded ? (
-              <img src="../../../../public/icons/chevron-up.svg" className={s.iconChevron} />
+              <img src="/icons/chevron-up.svg" className={s.iconChevron} />
             ) : (
-              <img src="../../../../public/icons/chevron-down.svg" className={s.iconChevron} />
+              <img src="/icons/chevron-down.svg" className={s.iconChevron} />
             )}
           </button>
         </>

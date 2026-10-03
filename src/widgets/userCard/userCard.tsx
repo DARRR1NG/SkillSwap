@@ -4,8 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '../../shared/ui/button';
 import { IconButton } from '../../shared/ui/IconButton';
 import type { TUser, City, TSkillCanTeach, TSkillWant } from '../../utils/types';
-import citiesData from '../../../public/db/cities.json';
-import skillsData from '../../../public/db/skills.json';
 import clsx from 'clsx';
 import { toggleFavorite } from '../../store/slices/favoritesSlice';
 import type { RootState } from '../../store/store';
@@ -30,13 +28,19 @@ const categoryBgMap: Record<number, string> = {
   6: s.green,
 };
 
+const ct = await fetch('/db/cities.json');
+const citiesData = await ct.json();
+
 const getCityNameById = (id: number): string | undefined => {
   const data = citiesData as { cities: City[] };
   return data.cities.find((city) => city.id === id)?.name;
 };
 
+const sk = await fetch('/db/skills.json');
+const skillsData = await sk.json();
+
 const getSkillById = (id: number): TSkillWant | undefined => {
-  return skillsData.find((e) => e.id === id);
+  return skillsData.find((e: any) => e.id === id);
 };
 
 const Skills: FC<{ skills: Array<TSkillWant | TSkillCanTeach>; title: string }> = ({

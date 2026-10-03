@@ -2,32 +2,32 @@
   {
     "id": 1,
     "title": "Бизнес и карьера",
-    "icon": "/icons/briefcase.svg",
+    "icon": "./icons/briefcase.svg",
     "bgColor": "var(--tag_business)"
   },
   {
     "id": 2,
     "title": "Иностранные языки",
-    "icon": "/icons/global.svg",
+    "icon": "./icons/global.svg",
     "bgColor": "var(--tag_languages)"
   },
   { "id": 3, "title": "Дом и уют", "icon": "/icons/home.svg", "bgColor": "var(--tag_home)" },
   {
     "id": 4,
     "title": "Творчество и искусство",
-    "icon": "/icons/palette.svg",
+    "icon": "./icons/palette.svg",
     "bgColor": "var(--tag_art)"
   },
   {
     "id": 5,
     "title": "Образование и развитие",
-    "icon": "/icons/book.svg",
+    "icon": "./icons/book.svg",
     "bgColor": "var(--tag_education)"
   },
   {
     "id": 6,
     "title": "Здоровье и лайфстайл",
-    "icon": "/icons/lifestyle.svg",
+    "icon": "./icons/lifestyle.svg",
     "bgColor": "var(--tag_health)"
   }
 ]
