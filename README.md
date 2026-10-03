@@ -41,5 +41,5 @@
 23. `vitest.shims.d.ts` - файл с декларациями типов для Vitest, расширяющий глобальные типы TypeScript для корректной работы тестов.
 
 ## :heavy_check_mark: Инструкция по запуску
-Перейти по ссылке: :point_right:<a href=""> тык </a> :point_left:
+Перейти по ссылке: :point_right:<a href="https://darrr1ng.github.io/skill-swap/"> тык </a> :point_left:
 
